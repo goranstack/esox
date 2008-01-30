@@ -240,7 +240,7 @@ public class Main extends JFrame
     private void exit()
     {
         while
-            ( true )
+            ( ! m_accounting.getYears().isEmpty() )
         {
             Year y = (Year) m_accounting.getYears().get( m_accounting.getYears().size() - 1 );
             if
@@ -358,7 +358,18 @@ public class Main extends JFrame
                     
             try
             {
-                new nu.esox.xml.XmlReader( new FileInputStream( m_databasePath ), a, new HashMap() );
+                try
+                {
+                    new nu.esox.xml.XmlReader( new FileInputStream( m_databasePath ), a, new HashMap() );
+                }
+                catch ( FileNotFoundException ignore ) {}
+                
+                if
+                    ( a.getYears().isEmpty() )
+                {
+                    a.getYears().add( new Year( Calendar.getInstance().get( Calendar.YEAR ) ) );
+                }
+
                 newWindow( a, (Year) a.getYears().get( a.getYears().size() - 1 ) );
             }
             catch ( Exception ex )

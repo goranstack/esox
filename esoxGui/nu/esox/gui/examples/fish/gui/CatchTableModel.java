@@ -3,7 +3,7 @@ package nu.esox.gui.examples.fish.gui;
 import java.util.*;
 import nu.esox.gui.*;
 import nu.esox.gui.model.*;
-import nu.esox.lang.*;
+//import nu.esox.lang.*;
 import nu.esox.util.*;
 import nu.esox.gui.examples.fish.domain.*;
 
@@ -21,7 +21,7 @@ public class CatchTableModel extends ObservableListTableModel
     private Catch getCatch( Object o ) { return (Catch) o; }
 
 
-    private final MutableFloat m_float = new MutableFloat( 0 );
+//    private final MutableFloat m_float = new MutableFloat( 0 );
     
     private final Column [] m_columns =
         new Column []
@@ -32,15 +32,15 @@ public class CatchTableModel extends ObservableListTableModel
             },
             new Column( "Weight", Number.class, false )
             {
-                public Object getValue( Object target ) { return m_float.set( (float) getCatch( target ).getFish().getWeight() ); }
+                public Object getValue( Object target ) { return getCatch( target ).getFish().getWeight(); }
             },
             new Column( "Length", Number.class, false )
             {
-                public Object getValue( Object target ) { return m_float.set( (float) getCatch( target ).getFish().getLength() ); }
+                public Object getValue( Object target ) { return getCatch( target ).getFish().getLength(); }
             },
             new Column( "Girth", Number.class, false )
             {
-                public Object getValue( Object target ) { return m_float.set( (float) getCatch( target ).getFish().getGirth() ); }
+                public Object getValue( Object target ) { return getCatch( target ).getFish().getGirth(); }
             },
             new Column( "Venue", String.class, false )
             {

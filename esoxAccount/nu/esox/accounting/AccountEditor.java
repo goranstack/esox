@@ -43,7 +43,7 @@ public class AccountEditor extends ModelPanel
             new ComboBoxAdapter( typeComboBox, this, Account.class, "getType", "setType", Account.Type.class, null, Account.TYPE_UNDEFINED.toString(), Account.TYPE_UNDEFINED.toString() );
             
             p.add( new LabelPanel( lockedCheckBox, "Låst" ) );
-            new CheckBoxAdapter( lockedCheckBox, this, Account.class, null, "isLocked", "setLocked" );
+            new CheckBoxAdapter( lockedCheckBox, this, Account.class, "isLocked", "setLocked", null );
         }
 
         {

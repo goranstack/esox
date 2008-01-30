@@ -83,7 +83,7 @@ public abstract class ReportPanel extends ModelPanel
               //buttons.add( new JButton( m_exportAction ) );
             JCheckBox cb = new JCheckBox( "Visa tomma konton" );
             buttons.add( cb );
-            new CheckBoxAdapter( cb, new SimpleModelOwner( m_emptyAccountFilter ), EmptyAccountFilter.class, null, "getShowEmptyAccounts", "setShowEmptyAccounts" );
+            new CheckBoxAdapter( cb, new SimpleModelOwner( m_emptyAccountFilter ), EmptyAccountFilter.class, "getShowEmptyAccounts", "setShowEmptyAccounts", null );
         }
 
         List<Accounts> accounts = new ArrayList<Accounts>();
