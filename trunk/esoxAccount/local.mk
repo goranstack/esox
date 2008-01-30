@@ -1,4 +1,4 @@
-MAIN_CLASS = 
+MAIN_CLASS = nu.esox.accounting.Main $(MAKEHOME)/db.xml
 
 info : localinfo
 localinfo : 

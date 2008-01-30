@@ -4,9 +4,9 @@ first : default
 
 -include $(MAKEHOME)/libs.mk
 
-JAVAC = javac
-JAVADOC = javadoc
-JAVA = java
+JAVAC = /usr/java/latest/bin/javac
+JAVADOC = /usr/java/latest/bin/javadoc
+JAVA = /usr/java/latest/bin/java
 #RMIC = rmic
 
 CLASSPATH = "$(MAKEHOME)$(CP_SEP)$(LIBS_CP)"
