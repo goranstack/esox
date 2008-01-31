@@ -49,6 +49,6 @@ public class TextFieldAdapter extends AbstractAdapter implements ActionListener
 
     protected void update( Object projectedValue )
     {
-        m_textField.setText( projectedValue.toString() );
+        m_textField.setText( "" + projectedValue );
     }
 }

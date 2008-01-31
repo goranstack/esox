@@ -61,7 +61,7 @@ public class TextAreaAdapter extends AbstractAdapter implements FocusListener, A
 
     protected void update( Object projectedValue )
     {
-        m_textArea.setText( projectedValue.toString() );
+        m_textArea.setText( "" + projectedValue );
     }
 
 
