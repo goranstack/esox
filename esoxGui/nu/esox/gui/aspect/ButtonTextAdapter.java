@@ -23,6 +23,6 @@ public class ButtonTextAdapter extends AbstractAdapter
 
     protected String getTextFor( Object value )
     {
-        return value.toString();
+        return "" + value;
     }
 }
