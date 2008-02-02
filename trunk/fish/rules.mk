@@ -11,8 +11,7 @@ JAVA = /usr/java/latest/bin/java
 
 CLASSPATH = "$(MAKEHOME)$(CP_SEP)$(LIBS_CP)"
 
-JAVAC_FLAGS = -g -classpath $(CLASSPATH) -d $(MAKEHOME) $(PROJECT_JAVAC_FLAGS) -Xlint
-# -encoding iso-8859-1
+JAVAC_FLAGS = -g -classpath $(CLASSPATH) -d $(MAKEHOME) $(PROJECT_JAVAC_FLAGS) -Xlint -encoding iso-8859-1
 # -Xlint
 #JAVADOC_FLAGS = -classpath $(CLASSPATH) -d $(TARGET)/DOC $(PROJECT_JAVADOC_FLAGS)
 JAVA_FLAGS = -ea -classpath $(CLASSPATH)$(CP_SEP) $(PROJECT_JAVA_FLAGS)
