@@ -6,6 +6,7 @@ import javax.swing.*;
 import nu.esox.util.*;
 
 
+@SuppressWarnings( "serial" )
 public class AmountTextField extends JFormattedTextField
 {
     public static final DecimalFormat FORMAT = new DecimalFormat( "####0.00" );

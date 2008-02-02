@@ -5,6 +5,7 @@ import javax.swing.*;
 import nu.esox.gui.layout.*;
 
 
+@SuppressWarnings( "serial" )
 public class LabelPanel extends JPanel
 {
     public LabelPanel( Component c, String label )

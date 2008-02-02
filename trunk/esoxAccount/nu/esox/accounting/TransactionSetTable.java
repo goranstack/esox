@@ -13,6 +13,7 @@ import nu.esox.gui.aspect.*;
 import nu.esox.gui.list.*;
 
 
+@SuppressWarnings( "serial" )
 public class TransactionSetTable extends JTable
 {
     private final Action m_upAction;
@@ -123,7 +124,7 @@ public class TransactionSetTable extends JTable
     public boolean isEditable() { return true; }
     
     
-    private class TableModel extends ObservableListTableModel
+    private class TableModel extends ObservableListTableModel<Transaction>
     {
         TableModel( boolean showAccount )
         {
@@ -133,83 +134,87 @@ public class TransactionSetTable extends JTable
                 ( showAccount )
             {
                 m_columns =
-                    new Column []
+                    new TransactionColumn []
                     {
-                        new Column( "Konto", Account.class, true )
+                        new TransactionColumn( "Konto", Account.class, true )
                         {
-                            public Object getValue( Object target ) { return getTransaction( target ).getAccount(); }
-                            public void setValue( Object target, Object value ) { getTransaction( target ).setAccount( (Account) value ); }
+                            public Object getValue( Transaction t ) { return t.getAccount(); }
+                            public void setValue( Transaction t, Object value ) { t.setAccount( (Account) value ); }
                             public boolean isEditable() { return TransactionSetTable.this.isEditable(); }
                         },
                         
-                        new Column( "Text", String.class, true )
+                        new TransactionColumn( "Text", String.class, true )
                         {
-                            public Object getValue( Object target ) { return getTransaction( target ).getDescription(); }
-                            public void setValue( Object target, Object value ) { getTransaction( target ).setDescription( (String) value ); }
+                            public Object getValue( Transaction t ) { return t.getDescription(); }
+                            public void setValue( Transaction t, Object value ) { t.setDescription( (String) value ); }
                             public boolean isEditable() { return TransactionSetTable.this.isEditable(); }
                         },
                         
-                        new Column( "Summa", Double.class, true )
+                        new TransactionColumn( "Summa", Double.class, true )
                         {
-                            public Object getValue( Object target ) { return (Double) getTransaction( target ).getAmount(); }
-                            public void setValue( Object target, Object value )
+                            public Object getValue( Transaction t ) { return (Double) t.getAmount(); }
+                            public void setValue( Transaction t, Object value )
                             {
-                                getTransaction( target ).setAmount( ( value == null ) ? 0f : ( (Number) value ).doubleValue() );
+                                t.setAmount( ( value == null ) ? 0f : ( (Number) value ).doubleValue() );
                             }
                             public boolean isEditable() { return TransactionSetTable.this.isEditable(); }
                         },
                     };
             } else {
                 m_columns =
-                    new Column []
+                    new TransactionColumn []
                     {
-                        new Column( "Verifikation", Number.class, false )
+                        new TransactionColumn( "Verifikation", Number.class, false )
                         {
-                            public Object getValue( Object target )
+                            public Object getValue( Transaction t )
                             {
-                                Verification v = getTransaction( target ).getVerification();
-                                if ( v == null ) getTransaction( target ).setDescription( "KNAS" );
+                                Verification v = t.getVerification();
+                                if ( v == null ) t.setDescription( "KNAS" );
                                 if ( v == null ) return "KNAS";
                                 return v.getNumber();
                             }
                         },
                         
-                        new Column( "Datum", String.class, false )
+                        new TransactionColumn( "Datum", String.class, false )
                         {
-                            public Object getValue( Object target )
+                            public Object getValue( Transaction t )
                             {
-                                Verification v = getTransaction( target ).getVerification();
+                                Verification v = t.getVerification();
                                 if ( v == null ) return "KNAS";
                                 return Constants.DATE_FORMAT.format( v.getDate() );
                             }
                         },
                         
-                        new Column( "Text", String.class, false )
+                        new TransactionColumn( "Text", String.class, false )
                         {
-                            public Object getValue( Object target )
+                            public Object getValue( Transaction t )
                             {
-                                return getTransaction( target ).getDescription();
+                                return t.getDescription();
                             }
                         },
                         
-                        new Column( "Summa", Double.class, false )
+                        new TransactionColumn( "Summa", Double.class, false )
                         {
-                            public Object getValue( Object target )
+                            public Object getValue( Transaction t )
                             {
-                                return (Double) getTransaction( target ).getAmount();
+                                return (Double) t.getAmount();
                             }
                         },
                     };
             }
         }
         
-        protected Column [] getColumns() { return m_columns; }
-
-        private Transaction getTransaction( Object o ) { return (Transaction) o; }
+        protected Column<Transaction> [] getColumns() { return m_columns; }
         
-        private Column [] m_columns;
+        private TransactionColumn [] m_columns;
     }
 
+
+
+    static abstract class TransactionColumn extends ObservableListTableModel.Column<Transaction>
+    {
+        TransactionColumn( String name, Class type, boolean isEditable ) { super( name, type, isEditable ); }
+    }
 
 }
 

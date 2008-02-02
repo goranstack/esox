@@ -6,6 +6,7 @@ import nu.esox.gui.*;
 import nu.esox.util.*;
 
 
+@SuppressWarnings( "serial" )
 public class NumberTextField extends JFormattedTextField
 {
     public static final DecimalFormat FORMAT = new DecimalFormat( "0000" );

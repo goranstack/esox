@@ -11,6 +11,7 @@ import nu.esox.util.*;
 //fixit: keyboard navigation
 //fixit: action
 
+@SuppressWarnings( "serial" )
 public class AccountMenu extends JPopupMenu implements ObservableListener
 {
     private AccountPopulation m_accounts;
@@ -36,14 +37,11 @@ public class AccountMenu extends JPopupMenu implements ObservableListener
                 if ( m_typed.length() == 0 ) return;
                 
                 for
-                    ( JMenuItem mi : m_menuItems )//( Account a : new TypedCollection<Account>( m_accounts ) )
+                    ( JMenuItem mi : m_menuItems )
                 {
                     if 
                         ( mi.getText().startsWith( m_typed ) )
-//                        ( Integer.toString( a.getNumber() ).startsWith( m_typed ) )
                     {
-//                        System.err.println( a );
-
                         try
                         {
                             Robot r = new Robot();
@@ -106,7 +104,7 @@ public class AccountMenu extends JPopupMenu implements ObservableListener
 //             Map<Account.Type,JMenu> types = new HashMap<Account.Type,JMenu>();
             
             for
-                ( Account a : new TypedCollection<Account>( m_accounts ) )
+                ( Account a : m_accounts )
             {
 //                 JMenu m = types.get( a.getType() );
 //                 if

@@ -11,6 +11,7 @@ import nu.esox.gui.*;
 import nu.esox.util.*;
 
 
+@SuppressWarnings( "serial" )
 public class Main extends JFrame
 {
     private static String m_databasePath;
@@ -128,7 +129,7 @@ public class Main extends JFrame
     {
         m_yearMenu.removeAll();
 
-        for ( Year y : new TypedCollection<Year>( m_accounting.getYears() ) ) m_yearMenu.add( new SelectYearAction( y ) );
+        for ( Year y : m_accounting.getYears() ) m_yearMenu.add( new SelectYearAction( y ) );
     }
     
     private class SelectYearAction extends AbstractAction
@@ -226,7 +227,7 @@ public class Main extends JFrame
         m_instances.add( f );
         
         f.setYear( y );
-        f.show();
+        f.setVisible( true );
         f.addWindowListener( new WindowAdapter() { public void windowClosing( WindowEvent ev ) { f.closeWindow(); } } );
     }
     
@@ -242,7 +243,7 @@ public class Main extends JFrame
         while
             ( ! m_accounting.getYears().isEmpty() )
         {
-            Year y = (Year) m_accounting.getYears().get( m_accounting.getYears().size() - 1 );
+            Year y = m_accounting.getYears().get( m_accounting.getYears().size() - 1 );
             if
                 ( y.getVerifications().isEmpty() )
             {
@@ -268,7 +269,7 @@ public class Main extends JFrame
     
     private void newYear()
     {
-        Year y = (Year) m_accounting.getYears().get( m_accounting.getYears().size() - 1 );
+        Year y = m_accounting.getYears().get( m_accounting.getYears().size() - 1 );
         if
             ( y.getVerifications().isEmpty() )
         {
@@ -280,7 +281,7 @@ public class Main extends JFrame
     
     private void closeYear()
     {
-        ( (Year) m_accounting.getYears().get( m_accounting.getYears().size() - 1 ) ).closeYear();
+        m_accounting.getYears().get( m_accounting.getYears().size() - 1 ).closeYear();
     }
     
  
@@ -370,7 +371,7 @@ public class Main extends JFrame
                     a.getYears().add( new Year( Calendar.getInstance().get( Calendar.YEAR ) ) );
                 }
 
-                newWindow( a, (Year) a.getYears().get( a.getYears().size() - 1 ) );
+                newWindow( a, a.getYears().get( a.getYears().size() - 1 ) );
             }
             catch ( Exception ex )
             {

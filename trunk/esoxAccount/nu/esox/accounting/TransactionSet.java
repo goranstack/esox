@@ -6,7 +6,8 @@ import nu.esox.util.*;
 import nu.esox.xml.*;
 
 
-public class TransactionSet extends ObservableList implements XmlWriter.UnsharedWriteable
+@SuppressWarnings( "serial" )
+public class TransactionSet extends ObservableList<Transaction> implements XmlWriter.UnsharedWriteable
 {
     public static final String PROPERTY_AMOUNT = "PROPERTY_AMOUNT";
     public static final String PROPERTY_SUM = "PROPERTY_SUM";
@@ -51,7 +52,7 @@ public class TransactionSet extends ObservableList implements XmlWriter.Unshared
             int size = 0;
             
             for
-                ( Transaction t : new TypedCollection<Transaction>( this ) )
+                ( Transaction t : this )
             {
                 if
                     ( ( t.getAccount() != null ) && t.hasAmount() )
@@ -89,7 +90,7 @@ public class TransactionSet extends ObservableList implements XmlWriter.Unshared
         List<Transaction> tmp = new ArrayList<Transaction>();
 
         for
-            ( Transaction t : new TypedCollection<Transaction>( this ) )
+            ( Transaction t : this )
         {
             if
                 ( ( t.getAccount() == null ) &&
@@ -114,16 +115,17 @@ public class TransactionSet extends ObservableList implements XmlWriter.Unshared
         super.add( i2, super.remove( i1 ) );
     }
 
-    public void add( Transaction transaction )
+    public boolean add( Transaction transaction )
     {
         assert ! contains( transaction );
 
-        super.add( transaction );
+        boolean x = super.add( transaction );
         transaction.addObservableListener( m_transactionListener );
         
         invalidate();
         fireValueChanged( PROPERTY_AMOUNT, null );
         fireValueChanged( PROPERTY_SIZE, null );
+        return x;
     }
 
     public void remove( Transaction transaction )
@@ -142,7 +144,7 @@ public class TransactionSet extends ObservableList implements XmlWriter.Unshared
     {
         if ( isEmpty() ) return;
 
-        for ( Transaction t : new TypedCollection<Transaction>( this ) ) t.removeObservableListener( m_transactionListener );
+        for ( Transaction t : this ) t.removeObservableListener( m_transactionListener );
         super.clear();
         
         invalidate();
