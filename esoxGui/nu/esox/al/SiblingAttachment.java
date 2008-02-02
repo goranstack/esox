@@ -39,7 +39,7 @@ public class SiblingAttachment extends Attachment
     {
         protected Position() {}
         protected abstract double calculatePosition( SiblingAttachment attachment, Constraint constraint );
-        protected abstract double followAttachment( SiblingAttachment attachment, Edge start, Constraint constraint, double weight, double delta, boolean dontCrossAttachable, Collection terminatedEquations, boolean trace );
+        protected abstract double followAttachment( SiblingAttachment attachment, Edge start, Constraint constraint, double weight, double delta, boolean dontCrossAttachable, Collection<Equation> terminatedEquations, boolean trace );
     };
 
     public static final Position MAX = new MaxPosition();
@@ -125,7 +125,7 @@ public class SiblingAttachment extends Attachment
     }
 
     
-    double followAttachment( Edge start, Constraint constraint, double weight, double delta, boolean dontCrossAttachable, Collection terminatedEquations, boolean trace )
+    double followAttachment( Edge start, Constraint constraint, double weight, double delta, boolean dontCrossAttachable, Collection<Equation> terminatedEquations, boolean trace )
     {
         delta += m_offset;
 
@@ -158,7 +158,7 @@ public class SiblingAttachment extends Attachment
     {
         Attachment oppAtt = m_edge.getOppositeEdge().getAttachmentFor( constraint );
 
-        List equations = null;
+        List<Equation> equations = null;
 	
         if
             ( oppAtt instanceof SiblingAttachment )
@@ -166,7 +166,7 @@ public class SiblingAttachment extends Attachment
             if ( m_edge == Edge.RIGHT ) return 0; // only do it once
             if ( m_edge == Edge.BOTTOM ) return 0; // only do it once
 		
-            equations = new ArrayList();
+            equations = new ArrayList<Equation>();
         }
 
         double r = followAttachment( start, constraint, weight, delta, false, equations, trace );
@@ -185,13 +185,13 @@ public class SiblingAttachment extends Attachment
         return 0;
     }
     
-    private double handleOpposingAttachableAttachments( Constraint constraint, double weight, double delta, Collection equations, boolean trace )
+    private double handleOpposingAttachableAttachments( Constraint constraint, double weight, double delta, Collection<Equation> equations, boolean trace )
     {
         log( "OPP COMPAT ", weight, delta, this, false, trace );
 
         Attachment oppAtt = m_edge.getOppositeEdge().getAttachmentFor( constraint );
 
-        List oppositeEquations = new ArrayList();
+        List<Equation> oppositeEquations = new ArrayList<Equation>();
         oppAtt.followAttachment( oppAtt.getEdge(), constraint, weight, delta, false, oppositeEquations, trace );
 
 	
@@ -294,7 +294,7 @@ public class SiblingAttachment extends Attachment
             return pos;
         }
 
-        public double followAttachment( SiblingAttachment attachment, Edge start, Constraint constraint, double weight, double delta, boolean dontCrossAttachable, Collection terminatedEquations, boolean trace )
+        public double followAttachment( SiblingAttachment attachment, Edge start, Constraint constraint, double weight, double delta, boolean dontCrossAttachable, Collection<Equation> terminatedEquations, boolean trace )
         {
             double r = Double.MIN_VALUE;
             for
@@ -320,7 +320,7 @@ public class SiblingAttachment extends Attachment
             return pos;
         }
 
-        public double followAttachment( SiblingAttachment attachment, Edge start, Constraint constraint, double weight, double delta, boolean dontCrossAttachable, Collection terminatedEquations, boolean trace )
+        public double followAttachment( SiblingAttachment attachment, Edge start, Constraint constraint, double weight, double delta, boolean dontCrossAttachable, Collection<Equation> terminatedEquations, boolean trace )
         {
             double r = Double.MAX_VALUE;
             for

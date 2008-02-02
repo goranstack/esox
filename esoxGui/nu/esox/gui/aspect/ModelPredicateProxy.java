@@ -10,7 +10,7 @@ public class ModelPredicateProxy extends PredicateProxy implements ModelOwnerIF.
     private final Method m_getPredicateMethod;
     
     
-    public ModelPredicateProxy( ModelOwnerIF modelOwner, Class modelClass, String getPredicateMethodName )
+    public ModelPredicateProxy( ModelOwnerIF modelOwner, Class<?> modelClass, String getPredicateMethodName )
     {
         super( null );
         
@@ -52,5 +52,7 @@ public class ModelPredicateProxy extends PredicateProxy implements ModelOwnerIF.
             m_getPredicateMethod.setAccessible( tmp );
         }
     }
+
+    static final long serialVersionUID = 42;
 }
 

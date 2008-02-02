@@ -45,7 +45,7 @@ public abstract class Attachment
         m_edge.attach( constraint, a );
     }
 
-    double followAttachment( Edge start, Constraint constraint, double weight, double delta, boolean dontCrossComponent, Collection terminatedEquations, boolean trace )
+    double followAttachment( Edge start, Constraint constraint, double weight, double delta, boolean dontCrossComponent, Collection<Equation> terminatedEquations, boolean trace )
     {
         return terminate( start, constraint, weight, delta, terminatedEquations, trace );
     }
@@ -74,7 +74,7 @@ public abstract class Attachment
         return getRequestedSpan( start, constraint, weight, delta, false, null, trace );
     }
 
-    double getRequestedSpan( Edge start, Constraint constraint, double weight, double delta, boolean dontCrossComponent, Collection terminatedEquations, boolean trace )
+    double getRequestedSpan( Edge start, Constraint constraint, double weight, double delta, boolean dontCrossComponent, Collection<Equation> terminatedEquations, boolean trace )
     {
         double r = followAttachment( start, constraint, weight, delta, dontCrossComponent, terminatedEquations, trace );
 
@@ -103,7 +103,7 @@ public abstract class Attachment
         return delta / weight;
     }
 
-    final double terminate( Edge start, Constraint constraint, double weight, double delta, Collection terminatedEquations, boolean trace )
+    final double terminate( Edge start, Constraint constraint, double weight, double delta, Collection<Equation> terminatedEquations, boolean trace )
     {
         weight += - getWeight();
         delta += - getDelta();

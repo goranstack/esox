@@ -118,6 +118,6 @@ public class ScrollingMouseListener implements MouseListener, MouseMotionListene
         new SelectingMouseListener( s, Cursor.getPredefinedCursor( Cursor.CROSSHAIR_CURSOR ), InputEvent.BUTTON3_MASK, InputEvent.BUTTON2_MASK );
         
         f.pack();
-        f.show();
+        f.setVisible( true );
     }
 }

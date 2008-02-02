@@ -79,7 +79,7 @@ public class AttachmentLayout extends AttachableContainer implements LayoutManag
         {
             return null;
         } else {
-            return (Constraint) getConstraint( n );
+            return getConstraint( n );
         }
     }
 
@@ -91,7 +91,7 @@ public class AttachmentLayout extends AttachableContainer implements LayoutManag
         {
             
             if
-                ( c == ( (ComponentAttachable) ( (Constraint) getConstraint( i ) ).getAttachable() ).getComponent() )
+                ( c == ( (ComponentAttachable) getConstraint( i ).getAttachable() ).getComponent() )
             {
                 return i;
             }
