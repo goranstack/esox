@@ -8,7 +8,7 @@ import java.util.*;
 public class XmlWriter
 {
     private final PrintStream m_stream;
-    private Map m_ids = new IdentityHashMap();
+    private Map<Writeable,Integer> m_ids = new IdentityHashMap<Writeable,Integer>();
     private String m_indent = "";
     private String m_pending = null;
     
@@ -148,7 +148,7 @@ public class XmlWriter
         
         String tag = w.xmlGetTag();
 
-        Integer id = (Integer) m_ids.get( w );
+        Integer id = m_ids.get( w );
 
         if
             ( id != null )
@@ -162,8 +162,7 @@ public class XmlWriter
             if
                 ( ! ( w instanceof UnsharedWriteable ) )
             {
-                id = new Integer( m_ids.size() );
-                m_ids.put( w, id );
+                m_ids.put( w, m_ids.size() );
                 write( "id", id.intValue() );
             }
 
