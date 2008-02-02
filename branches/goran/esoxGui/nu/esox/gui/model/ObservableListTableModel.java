@@ -5,30 +5,30 @@ import javax.swing.table.*;
 import nu.esox.util.*;
 
 
-public abstract class ObservableListTableModel extends AbstractTableModel implements ObservableListener
+public abstract class ObservableListTableModel<T> extends AbstractTableModel implements ObservableListener
 {
-    private ObservableListIF m_data;
+    private ObservableListIF<T> m_data;
     private boolean m_isEditable;
 
     
-    public ObservableListTableModel( ObservableListIF data, boolean isEditable )
+    public ObservableListTableModel( ObservableListIF<T> data, boolean isEditable )
     {
         setData( data );
         m_isEditable = isEditable;
     }
     
-    public ObservableListTableModel( ObservableListIF data )
+    public ObservableListTableModel( ObservableListIF<T> data )
     {
         this( data, true );
     }
 
     
-    public java.util.List getData()
+    public ObservableListIF<T> getData()
     {
         return m_data;
     }
 
-    public void setData( ObservableListIF data )
+    public void setData( ObservableListIF<T> data )
     {
         if ( m_data != null ) m_data.removeObservableListener( this );
         m_data = data;
@@ -102,7 +102,7 @@ public abstract class ObservableListTableModel extends AbstractTableModel implem
 
 
     
-    public static abstract class Column
+    public static abstract class Column<T>
     {
         private String m_name;
         private final Class m_class;
@@ -119,8 +119,8 @@ public abstract class ObservableListTableModel extends AbstractTableModel implem
         public final Class getColumnClass() { return m_class; }
         public boolean isEditable() { return m_isEditable; }
         
-        public abstract Object getValue( Object target );
-        public void setValue( Object target, Object value )
+        public abstract Object getValue( T target );
+        public void setValue( T target, Object value )
         {
             assert false;
         }
@@ -129,7 +129,7 @@ public abstract class ObservableListTableModel extends AbstractTableModel implem
 
 
     
-    protected abstract Column [] getColumns();
+    protected abstract Column<T> [] getColumns();
 
     
 

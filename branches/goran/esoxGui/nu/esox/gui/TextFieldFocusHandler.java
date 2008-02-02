@@ -13,7 +13,7 @@ public class TextFieldFocusHandler implements FocusListener, DocumentListener
     public static final String FOCUS_LOST = "FOCUS_LOST";
 
     
-    private final List m_dirtyDocs = new ArrayList();
+    private final List<Document> m_dirtyDocs = new ArrayList<Document>();
 
     
     private TextFieldFocusHandler()

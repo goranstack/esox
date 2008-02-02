@@ -37,4 +37,6 @@ public class ModelFrame extends JFrame implements ModelOwnerIF
 
     protected void preSetModel( ObservableIF oldModel, ObservableIF newModel ) {}
     protected void postSetModel( ObservableIF oldModel, ObservableIF newModel ) {}
+
+    static final long serialVersionUID = 42;
 }

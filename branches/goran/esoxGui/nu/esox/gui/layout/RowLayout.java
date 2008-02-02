@@ -128,9 +128,9 @@ public class RowLayout implements LayoutManager2
                 Dimension typ = c.getPreferredSize();
                 Dimension max = c.getMaximumSize();
 			
-                m_w[ i ].minimum =   (int) min.width;
-                m_w[ i ].preferred = (int) typ.width;
-                m_w[ i ].maximum =   (int) max.width;
+                m_w[ i ].minimum =   min.width;
+                m_w[ i ].preferred = typ.width;
+                m_w[ i ].maximum =   max.width;
 
                 m_H.minimum =   (int) Math.max( (long) m_H.minimum,   min.height );
                 m_H.preferred = (int) Math.max( (long) m_H.preferred, typ.height );
@@ -183,7 +183,7 @@ public class RowLayout implements LayoutManager2
         X += in.left;
         
         int fillComponentIndex = -1;
-        int Y = (int) Math.min( (int) in.top, Short.MAX_VALUE );
+        int Y = Math.min( in.top, Short.MAX_VALUE );
 
         if
             ( DEBUG && target.getName() != null )

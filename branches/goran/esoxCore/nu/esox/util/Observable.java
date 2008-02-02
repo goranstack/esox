@@ -221,7 +221,7 @@ public class Observable implements ObservableIF, Serializable, ObservableListene
         try
         {
             stream.defaultWriteObject();
-            List<ObservableListener> tmp = new ArrayList<ObservableListener>();
+            List<PersistantObservableListener> tmp = new ArrayList<PersistantObservableListener>();
             Object[] listeners = m_listeners.getListenerList();
             for
                 ( int i = listeners.length - 2; i >= 0; i -= 2 )
@@ -246,6 +246,12 @@ public class Observable implements ObservableIF, Serializable, ObservableListene
 
     
 
+    @SuppressWarnings("unchecked")
+        private List<ObservableListener> readListeners( ObjectInputStream stream ) throws IOException, ClassNotFoundException
+    {
+        return (List<ObservableListener>) stream.readObject();
+    }
+    
     private void readObject( ObjectInputStream stream ) throws IOException
     {
         try
@@ -255,13 +261,9 @@ public class Observable implements ObservableIF, Serializable, ObservableListene
 
             try
             {
-                List tmp = (List) stream.readObject();
-                Iterator i = tmp.iterator();
-                while
-                    ( i.hasNext() )
-                {
-                    m_listeners.add( ObservableListener.class, (PersistantObservableListener) i.next() );
-                }
+                List<ObservableListener> tmp = readListeners( stream );
+
+                for ( ObservableListener l : tmp ) m_listeners.add( ObservableListener.class, (PersistantObservableListener) l );
             }
             catch ( IOException ex )
             {

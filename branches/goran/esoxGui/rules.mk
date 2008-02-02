@@ -11,8 +11,7 @@ JAVA = java
 
 CLASSPATH = "$(MAKEHOME)$(CP_SEP)$(LIBS_CP)"
 
-JAVAC_FLAGS = -g -classpath $(CLASSPATH) -d $(MAKEHOME) $(PROJECT_JAVAC_FLAGS) -encoding iso-8859-1
-# -Xlint
+JAVAC_FLAGS = -g -classpath $(CLASSPATH) -d $(MAKEHOME) $(PROJECT_JAVAC_FLAGS) -encoding iso-8859-1 -Xlint
 #JAVADOC_FLAGS = -classpath $(CLASSPATH) -d $(TARGET)/DOC $(PROJECT_JAVADOC_FLAGS)
 JAVA_FLAGS = -ea -classpath $(CLASSPATH)$(CP_SEP) $(PROJECT_JAVA_FLAGS)
 #RMIC_FLAGS = -classpath $(JAVA_SOURCE_HOME) -sourcepath $(JAVA_SOURCE_HOME) -d $(TARGET) $(PROJECT_RMIC_FLAGS)
@@ -57,10 +56,10 @@ fix : TARGET = fix
 fix : dirs
 
 make :
-	for d in $(ALLDIRS); do if [ ! -e $$d/makefile ]; then head -3 makefile > $$d/makefile; fi; make -C $$d make; done
+	for d in $(ALLDIRS); do if [ ! -e $$d/makefile ]; then cp makefile $$d/makefile; fi; make -C $$d make; done
 
 forcemake :
-	for d in $(ALLDIRS); do head -3 makefile > $$d/makefile; make -C $$d forcemake; done
+	for d in $(ALLDIRS); do cp makefile $$d/makefile; make -C $$d forcemake; done
 
 .PHONY: dirs $(DIRS)
 

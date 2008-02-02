@@ -31,7 +31,7 @@ public class ContainerAttachment extends Attachment
 {
     private double m_offset;
 	
-    private static SoftReference m_instances;
+    private static SoftReference<Map<HashKey,Attachment>>  m_instances;
     private static HashKey m_hashKey = new HashKey( null, 0 );
 
 
@@ -91,15 +91,15 @@ public class ContainerAttachment extends Attachment
         return - m_offset;
     }
 
-    private static Map getInstances()
+    private static Map<HashKey,Attachment> getInstances()
     {
         if
             ( ( m_instances == null ) || ( m_instances.get() == null ) )
         {
-            m_instances = new SoftReference( new HashMap() );
+            m_instances = new SoftReference<Map<HashKey,Attachment>>( new HashMap<HashKey,Attachment>() );
         }
 
-        return (Map) m_instances.get();
+        return m_instances.get();
     }
 
     public double getOffset()

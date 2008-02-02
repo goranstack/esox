@@ -31,7 +31,7 @@ import java.util.List;
 public class AttachableContainer
 {
     private boolean m_areConstraintsValid;
-    private final List m_constraints = new ArrayList(); // [ Constraints ]
+    private final List<Constraint> m_constraints = new ArrayList<Constraint>(); // [ Constraints ]
     private boolean m_isLayoutValid;
     private boolean m_isSizeValid;
     private final Dimension2D m_size = new Size();
@@ -71,7 +71,7 @@ public class AttachableContainer
         }
     }
     
-    public final List getConstraints()
+    public final List<Constraint> getConstraints()
     {
         return Collections.unmodifiableList( m_constraints );
     }
@@ -83,7 +83,7 @@ public class AttachableContainer
     
     protected final Constraint getConstraint( int i )
     {
-        return (Constraint) m_constraints.get( i );
+        return m_constraints.get( i );
     }
 
     
@@ -120,7 +120,7 @@ public class AttachableContainer
             ( int i = 0; i < I; i++ )
         {
             if
-                ( a.equals( ( (Constraint) m_constraints.get( i ) ).getAttachable() ) )
+                ( a.equals( m_constraints.get( i ).getAttachable() ) )
             {
                 return i;
             }
@@ -140,7 +140,7 @@ public class AttachableContainer
         {
             return null;
         } else {
-            return (Constraint) m_constraints.get( n );
+            return m_constraints.get( n );
         }
     }
 

@@ -26,6 +26,7 @@ public class ObservableList<T> extends ObservableCollection<T> implements Observ
     }
 
     
+    @SuppressWarnings("unchecked")
     protected ObservableEvent createItemChangedEvent( ObservableEvent ev )
     {
         return new ObservableListEvent<T>( this, "Item changed: " + ev.getInfo(), (T) ev.getObservable(), ObservableCollectionEvent.ITEM_CHANGED, indexOf( ev.getObservable() ) );
@@ -67,12 +68,7 @@ public class ObservableList<T> extends ObservableCollection<T> implements Observ
         if
             ( b )
         {
-            Iterator i = c.iterator();
-            while
-                ( i.hasNext() )
-            {
-                listenTo( i.next() );
-            }
+            for ( T o : c ) listenTo( o );
             fireValueChanged( new ObservableListEvent<T>( this,  "items added: " + c, null, ObservableCollectionEvent.ADDED, -1 ) ); // PENDING: send c
         }
         return b;
@@ -84,12 +80,7 @@ public class ObservableList<T> extends ObservableCollection<T> implements Observ
         if
             ( b )
         {
-            Iterator i = c.iterator();
-            while
-                ( i.hasNext() )
-            {
-                listenTo( i.next() );
-            }
+            for ( T o : c ) listenTo( o );
             fireValueChanged( new ObservableListEvent<T>( this, "items added at: " + index + ": " + c, null, ObservableListEvent.ADDED, -1 ) );
         }
         return b;
@@ -97,12 +88,7 @@ public class ObservableList<T> extends ObservableCollection<T> implements Observ
     
     public void clear()
     {
-        Iterator i = m_collection.iterator();
-        while
-            ( i.hasNext() )
-        {
-            unlistenTo( i.next() );
-        }
+        for ( T o : m_collection ) unlistenTo( o );
         boolean b = ! isEmpty();
         m_collection.clear();
         if
@@ -113,6 +99,7 @@ public class ObservableList<T> extends ObservableCollection<T> implements Observ
         
     }
     
+    @SuppressWarnings("unchecked")
     public boolean remove( Object o )
     {
         int i = indexOf( o );
@@ -140,12 +127,7 @@ public class ObservableList<T> extends ObservableCollection<T> implements Observ
         if
             ( b )
         {
-            Iterator i = c.iterator();
-            while
-                ( i.hasNext() )
-            {
-                unlistenTo( i.next() );
-            }
+            for ( Object o : c ) unlistenTo( o );
             fireValueChanged( new ObservableListEvent<T>( this,  "items removed: " + c, null, ObservableCollectionEvent.REMOVED, -1 ) ); // PENDING: send c
         }
         return b;

@@ -4,5 +4,6 @@ MAKEHOME ?= $(shell y=.; while [ ! -e rules.mk ]; do y=$$y/..; cd ..; done; echo
 
 tags : 
 	@echo "In Emacs press M-. to follow a tag, M-* to get back!"
-	-@rm -f TAGS
-	@( find . -name '*.java') | etags -
+	@echo $(MAKEHOME)
+	-@rm -f $(MAKEHOME)/TAGS
+	cd $(MAKEHOME); ( find . -name '*.java') | etags -
