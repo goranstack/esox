@@ -311,7 +311,7 @@ public class AttachmentPanelEditor implements ContainerListener, MouseMotionList
         if ( m_isDragging ) return;
 	
         m_hitEdge = null;
-        m_hitComponent = (Component) e.getComponent();
+        m_hitComponent = e.getComponent();
     }
 
     public void mouseExited( MouseEvent e )

@@ -90,7 +90,7 @@ class Test extends JFrame
         b4.setName( "b4" );
 
         f.pack();
-        f.show();
+        f.setVisible( true );
     }
 
     public static void case2()
@@ -118,7 +118,7 @@ class Test extends JFrame
 	
 	
         f.pack();
-        f.show();
+        f.setVisible( true );
     }
 
     public static void case3()
@@ -157,7 +157,7 @@ class Test extends JFrame
               );
 
         f.pack();
-        f.show();
+        f.setVisible( true );
     }
 
     
@@ -256,7 +256,7 @@ class Test extends JFrame
 
 	
         f.pack();
-        f.show();
+        f.setVisible( true );
     }
 
     
@@ -267,4 +267,6 @@ class Test extends JFrame
         case3();
         case4();
     }
+
+    static final long serialVersionUID = 42;
 }

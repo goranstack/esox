@@ -4,12 +4,12 @@ import javax.swing.*;
 import nu.esox.util.*;
 
 
-public class ObservableCollectionComboBoxModel extends ObservableCollectionListModel implements ComboBoxModel
+public class ObservableCollectionComboBoxModel<T> extends ObservableCollectionListModel<T> implements ComboBoxModel
 {
     private Object m_selection;
     
     
-    public ObservableCollectionComboBoxModel( ObservableCollectionIF data )
+    public ObservableCollectionComboBoxModel( ObservableCollectionIF<T> data )
     {
         super( data );
     }
@@ -25,7 +25,7 @@ public class ObservableCollectionComboBoxModel extends ObservableCollectionListM
     }
 
     
-    public void setData( ObservableCollectionIF data )
+    public void setData( ObservableCollectionIF<T> data )
     {
         Object old = m_selection;
 

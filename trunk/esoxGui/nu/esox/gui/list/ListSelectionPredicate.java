@@ -77,4 +77,6 @@ public class ListSelectionPredicate extends Predicate implements ListSelectionLi
             return count <= m_max && count >= m_min;
         }
     }
+
+    static final long serialVersionUID = 42;
 }

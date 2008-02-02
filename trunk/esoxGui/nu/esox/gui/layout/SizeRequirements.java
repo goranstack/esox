@@ -29,4 +29,6 @@ public class SizeRequirements implements Serializable
     {
         return "[" + minimum + "," + preferred + "," + maximum + "]";
     }
+
+    static final long serialVersionUID = 42;
 }

@@ -33,7 +33,7 @@ public abstract class Edge
     
     abstract double addPreferredSpan( Constraint constraint, double origin );
     abstract void attach( Constraint constraint, Attachment a );
-    abstract double crossComponent( Edge start, Constraint constraint, double weight, double delta, Collection terminatedEquations, boolean trace );
+    abstract double crossComponent( Edge start, Constraint constraint, double weight, double delta, Collection<Equation> terminatedEquations, boolean trace );
     public abstract Attachment getAttachmentFor( Constraint constraint );
     abstract double getEdgePosition( Constraint constraint );
     abstract Edge getOppositeEdge();

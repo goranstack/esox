@@ -582,4 +582,6 @@ public class LabeledBorder extends AbstractBorder implements SwingConstants
         f.show();
     }
 */
+
+    static final long serialVersionUID = 42;
 }
