@@ -49,18 +49,13 @@ public class SortedObservableList<T> extends ObservableList<T> implements Observ
     }
 
 
+    @SuppressWarnings("unchecked")
     public void valueChanged( ObservableEvent ev )
     {
         if
             ( ev instanceof ObservableTransactionEvent )
         {
             for ( ObservableEvent e : ( (ObservableTransactionEvent) ev ).getEvents() ) valueChanged( e );
-//             Iterator i = ( (ObservableTransactionEvent) ev ).getEvents().iterator();
-//             while
-//                 ( i.hasNext() )
-//             {
-//                 sourceChanged( (ObservableListEvent<T>) i.next() );
-//             }
         } else {
             if
                 ( ev.getObservable() == m_comparator )
@@ -210,6 +205,7 @@ public class SortedObservableList<T> extends ObservableList<T> implements Observ
     }
 
 
+    @SuppressWarnings("unchecked")
     private Comparator<T> createDefaultComparator()
     {
         return

@@ -5,26 +5,26 @@ import javax.swing.event.*;
 import nu.esox.util.*;
 
 
-public class ObservableCollectionListModel implements ListModel, ObservableListener
+public class ObservableCollectionListModel<T> implements ListModel, ObservableListener
 {
     protected EventListenerList m_listenerList = new EventListenerList();
 
-    protected ObservableCollectionIF m_data;
+    protected ObservableCollectionIF<T> m_data;
     protected Object [] m_items;
     
     
-    public ObservableCollectionListModel( ObservableCollectionIF data )
+    public ObservableCollectionListModel( ObservableCollectionIF<T> data )
     {
         setData( data );
     }
 
     
-    public java.util.Collection getData()
+    public ObservableCollectionIF<T> getData()
     {
         return m_data;
     }
 
-    public void setData( ObservableCollectionIF data )
+    public void setData( ObservableCollectionIF <T>data )
     {
         if
             ( m_data != null )

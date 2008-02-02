@@ -63,7 +63,7 @@ class NullAttachment extends Attachment
         return 0;
     }
 
-    final double getRequestedSpan( Edge start, Constraint constraint, double weight, double delta, boolean dontCrossComponent, Collection terminatedEquations, boolean trace )
+    final double getRequestedSpan( Edge start, Constraint constraint, double weight, double delta, boolean dontCrossComponent, Collection<Equation> terminatedEquations, boolean trace )
     {
         if
             ( dontCrossComponent )

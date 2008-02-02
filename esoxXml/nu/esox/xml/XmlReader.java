@@ -26,8 +26,8 @@ public class XmlReader extends DefaultHandler
     private final InputStream m_stream;
     private final Map m_tag2class;
 
-    private Map m_ids = new HashMap();
-    private List m_modelStack = new ArrayList();
+    private Map<String,Object> m_ids = new HashMap<String,Object>();
+    private List<Object> m_modelStack = new ArrayList<Object>();
     private Object m_root = null;
     private Object m_superModel = null;
     
@@ -180,30 +180,21 @@ public class XmlReader extends DefaultHandler
 
 
 
-    private Method getAddTextMethod( Class c )
+    private Method getAddTextMethod( Class<?> c )
     {
         Method m = null;
         
         if
             ( m_addTextMethods.containsKey( c ) )
         {
-            m = (Method) m_addTextMethods.get( c );
+            m = m_addTextMethods.get( c );
         } else {
-            while
-                ( m == null && c != null )
+            try
             {
-                try
-                {
-                    m = c.getDeclaredMethod( "xmlAddText", m_addTextArgTypes );
-                }
-                catch ( NoSuchMethodException ex )
-                {
-                }
-
-                c = c.getSuperclass();
+                m = c.getMethod( "xmlAddText", m_addTextArgTypes );
+                m_addTextMethods.put( m_superModel.getClass(), m );
             }
-            
-            m_addTextMethods.put( m_superModel.getClass(), m );
+            catch ( NoSuchMethodException ex ) {}
         }
 
         return m;
@@ -214,7 +205,7 @@ public class XmlReader extends DefaultHandler
     private static Class [] m_addTextArgTypes = new Class [] { String.class };
     private static Object [] m_addTextArgs = new Object [ 1 ];
 
-    private Map m_addTextMethods = new HashMap(); // [ Class -> Method ]
+    private Map<Class,Method> m_addTextMethods = new HashMap<Class,Method>(); // [ Class -> Method ]
 
     
     private void addText( String text ) throws SAXException
@@ -246,7 +237,7 @@ public class XmlReader extends DefaultHandler
                 }
                 
                 if
-                    ( ( accepted != null ) && ! ( (Boolean) accepted ).booleanValue() )
+                    ( ( accepted != null ) && ! accepted )
                 {
                     throw new SAXException( "Text [" + text + "] not accepted by [" + m_superModel + "]" );
                 }
@@ -279,30 +270,21 @@ public class XmlReader extends DefaultHandler
 
 
    
-    private Method getAddSubModelMethod( Class c )
+    private Method getAddSubModelMethod( Class<?> c )
     {
         Method m = null;
         
         if
             ( m_addSubmodelMethods.containsKey( c ) )
         {
-            m = (Method) m_addSubmodelMethods.get( c );
+            m = m_addSubmodelMethods.get( c );
         } else {
-            while
-                ( m == null && c != null )
+            try
             {
-                try
-                {
-                    m = c.getDeclaredMethod( "xmlAddSubmodel", m_addSubmodelArgTypes );
-                }
-                catch ( NoSuchMethodException ex )
-                {
-                }
-
-                c = c.getSuperclass();
+                m = c.getMethod( "xmlAddSubmodel", m_addSubmodelArgTypes );
+                m_addSubmodelMethods.put( m_superModel.getClass(), m );
             }
-            
-            m_addSubmodelMethods.put( m_superModel.getClass(), m );
+            catch ( NoSuchMethodException ex ) {}
         }
 
         return m;
@@ -312,7 +294,7 @@ public class XmlReader extends DefaultHandler
     private static Class [] m_addSubmodelArgTypes = new Class [] { Object.class };
     private static Object [] m_addSubmodelArgs = new Object [ 1 ];
 
-    private Map m_addSubmodelMethods = new HashMap(); // [ Class -> Method ]
+    private Map<Class,Method> m_addSubmodelMethods = new HashMap<Class,Method>(); // [ Class -> Method ]
 
     
     private void addSubmodel( Object model ) throws SAXException
@@ -344,7 +326,7 @@ public class XmlReader extends DefaultHandler
                 }
                 
                 if
-                    ( ( accepted != null ) && ! ( (Boolean) accepted ).booleanValue() )
+                    ( ( accepted != null ) && ! accepted )
                 {
                     throw new SAXException( "Submodel [" + model + "] not accepted by [" + m_superModel + "]" );
                 }
@@ -416,7 +398,7 @@ public class XmlReader extends DefaultHandler
 
 
     
-    private Method getCreateMethod( Class c, String tag )
+    private Method getCreateMethod( Class<?> c, String tag )
     {
         m_key.set( c, tag );
         
@@ -424,25 +406,14 @@ public class XmlReader extends DefaultHandler
         if
             ( m_createMethods.containsKey( m_key ) )
         {
-            m = (Method) m_createMethods.get( m_key );
+            m = m_createMethods.get( m_key );
         } else {
-
-            Class C = c;
-            while
-                ( m == null && C != null )
+            try
             {
-                try
-                {
-                    m = C.getDeclaredMethod( "xmlCreate_" + tag.replace( '-', '_' ), m_createArgTypes );
-                }
-                catch ( NoSuchMethodException ex )
-                {
-                }
-                
-                C = C.getSuperclass();
+                m = c.getMethod( "xmlCreate_" + tag.replace( '-', '_' ), m_createArgTypes );
+                m_createMethods.put( new Key( c, tag ), m );
             }
-
-            m_createMethods.put( new Key( c, tag ), m );
+            catch ( NoSuchMethodException ex ) {}
         }
 
         return m;
@@ -453,7 +424,7 @@ public class XmlReader extends DefaultHandler
     private static Object [] m_createArgs = new Object [ 2 ];
 
 
-    private Map m_createMethods = new HashMap(); // [ Key -> Method ] ]
+    private Map<Key,Method> m_createMethods = new HashMap<Key,Method>(); // [ Key -> Method ] ]
 
     
     private Object createBySupermodel( String tag, Attributes attrs ) throws SAXException
@@ -558,30 +529,21 @@ public class XmlReader extends DefaultHandler
 
 
 
-    private Method getDoneMethod( Class c )
+    private Method getDoneMethod( Class<?> c )
     {
         Method m = null;
         
         if
             ( m_doneMethods.containsKey( c ) )
         {
-            m = (Method) m_doneMethods.get( c );
+            m = m_doneMethods.get( c );
         } else {
-            while
-                ( m == null && c != null )
+            try
             {
-                try
-                {
-                    m = c.getDeclaredMethod( "xmlDone", m_doneArgTypes );
-                }
-                catch ( NoSuchMethodException ex )
-                {
-                }
-
-                c = c.getSuperclass();
+                m = c.getDeclaredMethod( "xmlDone", m_doneArgTypes );
+                m_doneMethods.put( m_superModel.getClass(), m );
             }
-            
-            m_doneMethods.put( m_superModel.getClass(), m );
+            catch ( NoSuchMethodException ex ) {}
         }
 
         return m;
@@ -591,7 +553,7 @@ public class XmlReader extends DefaultHandler
     private static Class [] m_doneArgTypes = new Class [] {};
     private static Object [] m_doneArgs = new Object [ 0 ];
 
-    private Map m_doneMethods = new HashMap(); // [ Class -> Method ]
+    private Map<Class,Method> m_doneMethods = new HashMap<Class,Method>(); // [ Class -> Method ]
 
 
     

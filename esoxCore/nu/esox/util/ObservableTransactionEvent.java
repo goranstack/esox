@@ -36,11 +36,5 @@ public class ObservableTransactionEvent extends ObservableEvent
         for ( ObservableEvent ev : m_events ) l.valueChanged( ev );
     }
 
-    
-//     public static ObservableTransactionEvent create( ObservableIF source )
-//     {
-//         return new ObservableTransactionEvent( source );
-//     }
-
     static final long serialVersionUID = -8694576865704630656L;
 }

@@ -229,13 +229,13 @@ public class RowColumnLayout implements LayoutManager2
             if
                 ( m_fillCellsX )
             {
-                w = (int) Math.max( w, m_widths[ c ].preferred );
+                w = Math.max( w, m_widths[ c ].preferred );
             }
 
             if
                 ( m_fillCellsY )
             {
-                h = (int) Math.max( h, m_heights[ r ].preferred );
+                h = Math.max( h, m_heights[ r ].preferred );
             }
 
 
@@ -271,7 +271,7 @@ public class RowColumnLayout implements LayoutManager2
                     {
                         horizonalPadding = W - x - w;
                     } else {
-                        horizonalPadding = (int) Math.round( extraSpace * (float) m_widths[ c ].preferred / m_width.preferred );
+                        horizonalPadding = Math.round( extraSpace * (float) m_widths[ c ].preferred / m_width.preferred );
                     }
                 }
                   // PENDING: consider maximum size

@@ -9,8 +9,7 @@ import javax.swing.*;
 public abstract class AbstractAdapter implements ObservableListener, ModelOwnerIF.Listener
 {
     private final ModelOwnerIF m_modelOwner;
-    private final Method m_getAspectMethod;
-    private final Method m_setAspectMethod;
+    private final AspectIF m_aspect;
     private final String m_aspectName;
     private final Object m_nullValue;
     private final Object m_undefinedValue;
@@ -26,59 +25,28 @@ public abstract class AbstractAdapter implements ObservableListener, ModelOwnerI
                             Object undefinedValue )
     {
         this( modelOwner,
-              resolveGetAspectMethod( modelClass, getAspectMethodName ),
-              resolveSetAspectMethod( modelClass, setAspectMethodName, aspectClass ),
+              new Aspect( modelClass, getAspectMethodName, setAspectMethodName, aspectClass ),
               aspectName,
               nullValue,
               undefinedValue );
     }
 
     public AbstractAdapter( ModelOwnerIF modelOwner,
-                            Method getAspectMethod,
-                            Method setAspectMethod,
+                            AspectIF aspect,
                             String aspectName,
                             Object nullValue,
                             Object undefinedValue )
     {
         m_modelOwner = modelOwner;
+        m_aspect = aspect;
         m_aspectName = aspectName;
         m_nullValue = ( nullValue == null ) ? EQUALS_NOTHING : nullValue;
         m_undefinedValue = undefinedValue;
 
-        m_getAspectMethod = getAspectMethod;
-        m_setAspectMethod = setAspectMethod;
 
         if ( m_modelOwner.getModel() != null ) m_modelOwner.getModel().addObservableListener( this );
 
         m_modelOwner.addListener( this );
-    }
-
-    protected static Method resolveGetAspectMethod( Class modelClass, String getAspectMethodName )
-    {
-        if ( getAspectMethodName == null ) return null;
-        
-        try
-        {
-            return modelClass.getMethod( getAspectMethodName );
-        }
-        catch ( NoSuchMethodException ex )
-        {
-            throw new Error( "No such method: " + modelClass + "." + getAspectMethodName + "()" );
-        }
-    }
-    
-    protected static Method resolveSetAspectMethod( Class modelClass, String setAspectMethodName, Class aspectClass )
-    {
-        if ( setAspectMethodName == null ) return null;
-
-        try
-        {
-            return modelClass.getMethod( setAspectMethodName, aspectClass );
-        }
-        catch ( NoSuchMethodException ex )
-        {
-            throw new Error( "No such method: " + modelClass + "." + setAspectMethodName + "( " + aspectClass + " )" );
-        }
     }
 
 
@@ -99,54 +67,25 @@ public abstract class AbstractAdapter implements ObservableListener, ModelOwnerI
         }
     }
 
-    protected Object invokeGetAspectMethod( Method getAspectMethod, Object model ) throws IllegalAccessException, InvocationTargetException
-    {
-        return getAspectMethod.invoke( model );
-    }
+//     protected Object invokeGetAspectMethod( Method getAspectMethod, Object model ) throws IllegalAccessException, InvocationTargetException
+//     {
+//         return getAspectMethod.invoke( model );
+//     }
     
-    protected Object invokeSetAspectMethod( Method setAspectMethod, Object model, Object aspectValue ) throws IllegalAccessException, InvocationTargetException
-    {
-        return setAspectMethod.invoke( model, aspectValue );
-    }
+//     protected Object invokeSetAspectMethod( Method setAspectMethod, Object model, Object aspectValue ) throws IllegalAccessException, InvocationTargetException
+//     {
+//         return setAspectMethod.invoke( model, aspectValue );
+//     }
     
     protected final void update()
     {
-        Object aspect = null;
-        
         if
-            ( m_getAspectMethod == null )
+            ( m_modelOwner.getModel() == null )
         {
-            aspect = m_modelOwner.getModel();
+            update( m_undefinedValue );
         } else {
-            if
-                ( m_modelOwner.getModel() == null )
-            {
-                update( m_undefinedValue );
-                return;
-            }
-        
-            boolean tmp = m_getAspectMethod.isAccessible();
-
-            try
-            {
-                m_getAspectMethod.setAccessible( true );
-                aspect = invokeGetAspectMethod( m_getAspectMethod, m_modelOwner.getModel() );
-            }
-            catch ( IllegalAccessException ex )
-            {
-                throw new Error( "Method not accessible: " + m_getAspectMethod );
-            }
-            catch ( InvocationTargetException ex )
-            {
-                throw new Error( "Invovation failure: " + m_getAspectMethod, ex );
-            }
-            finally
-            {
-                m_getAspectMethod.setAccessible( tmp );
-            }
+            update( deriveProjectedValue( m_aspect.getAspectValue( m_modelOwner.getModel() ) ) );
         }
-
-        update( deriveProjectedValue( aspect ) );
     }
     
     protected abstract void update( Object projectedValue );
@@ -155,32 +94,8 @@ public abstract class AbstractAdapter implements ObservableListener, ModelOwnerI
     protected final void setAspectValue( Object projectedValue )
     {
         if ( m_modelOwner.getModel() == null ) return;
-        if ( m_setAspectMethod == null ) return;
 
-        Object aspectValue = deriveAspectValue( projectedValue );
-        
-        boolean tmp = m_setAspectMethod.isAccessible();
-        try
-        {
-            m_setAspectMethod.setAccessible( true );
-            invokeSetAspectMethod( m_setAspectMethod, m_modelOwner.getModel(), aspectValue );
-        }
-        catch ( IllegalAccessException ex )
-        {
-            throw new Error( "Method not accessible: " + m_setAspectMethod );
-        }
-        catch ( InvocationTargetException ex )
-        {
-            throw new Error( "Invocation failure: " + m_setAspectMethod + ", " + aspectValue, ex );
-        }
-        catch ( Throwable ex )
-        {
-            throw new Error( "Failure: " + m_setAspectMethod + ", " + aspectValue, ex );
-        }
-        finally
-        {
-        	m_setAspectMethod.setAccessible( tmp );
-        }
+        m_aspect.setAspectValue( m_modelOwner.getModel(), deriveAspectValue( projectedValue ) );
     }
  
 
@@ -215,4 +130,7 @@ public abstract class AbstractAdapter implements ObservableListener, ModelOwnerI
         {
             public boolean equals( Object o ) { return false; }
         };
+
 }
+
+

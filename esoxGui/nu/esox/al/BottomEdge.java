@@ -36,7 +36,7 @@ class BottomEdge extends HorizontalEdge
         constraint.setBottom( a );
     }
 
-    double crossComponent( Edge start, Constraint constraint, double weight, double delta, Collection terminatedEquations, boolean trace )
+    double crossComponent( Edge start, Constraint constraint, double weight, double delta, Collection<Equation> terminatedEquations, boolean trace )
     {
         double span = getPreferredSpanFor( constraint );
 

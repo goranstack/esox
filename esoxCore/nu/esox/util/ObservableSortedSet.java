@@ -22,6 +22,7 @@ public class ObservableSortedSet<T> extends ObservableCollection<T> implements S
         setCollection( s );
     }
 
+    @SuppressWarnings("unchecked")
     protected void itemChanged( ObservableEvent ev )
     {
           // reinsert changed item to maintain sorted set integrity

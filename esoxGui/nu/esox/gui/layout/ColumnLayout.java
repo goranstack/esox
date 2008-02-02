@@ -128,9 +128,9 @@ public class ColumnLayout implements LayoutManager2
                 Dimension typ = c.getPreferredSize();
                 Dimension max = c.getMaximumSize();
 			
-                m_h[ i ].minimum =   (int) min.height;
-                m_h[ i ].preferred = (int) typ.height;
-                m_h[ i ].maximum =   (int) max.height;
+                m_h[ i ].minimum =   min.height;
+                m_h[ i ].preferred = typ.height;
+                m_h[ i ].maximum =   max.height;
 
                 m_W.minimum =   (int) Math.max( (long) m_W.minimum,   min.width );
                 m_W.preferred = (int) Math.max( (long) m_W.preferred, typ.width );
@@ -183,7 +183,7 @@ public class ColumnLayout implements LayoutManager2
         Y += in.top;
         
         int fillComponentIndex = -1;
-        int X = (int) Math.min( in.left, Short.MAX_VALUE );
+        int X = Math.min( in.left, Short.MAX_VALUE );
 
         if
             ( DEBUG && target.getName() != null )

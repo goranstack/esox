@@ -44,4 +44,6 @@ public class BeanPredicate extends Predicate implements PropertyChangeListener
     {
         return value != null;
     }
+
+    static final long serialVersionUID = 42;
 }

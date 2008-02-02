@@ -36,15 +36,14 @@ public abstract class AbstractBooleanAdapter extends AbstractAdapter
     }
 
     public AbstractBooleanAdapter( ModelOwnerIF modelOwner,
-                                   Method getAspectMethod,
-                                   Method setAspectMethod,
+                                   AspectIF aspect,
                                    String aspectName,
                                    Object trueValue,
                                    Object falseValue,
                                    Object nullValue,
                                    Object undefinedValue )
     {
-        super( modelOwner, getAspectMethod, setAspectMethod, aspectName, nullValue, undefinedValue );
+        super( modelOwner, aspect, aspectName, nullValue, undefinedValue );
 
         m_trueValue = trueValue;
         m_falseValue = falseValue;

@@ -556,4 +556,6 @@ public class AttachmentPanel extends JPanel
             repaint();
         }
     }
+
+    static final long serialVersionUID = 42;
 }

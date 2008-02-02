@@ -13,7 +13,7 @@ import nu.esox.gui.model.*;
  */
 public class EsoxTable extends JTable
 {
-    private List m_selected = new ArrayList();
+    private List<Object> m_selected = new ArrayList<Object>();
 
     private ListSelectionListener m_listener =
         new ListSelectionListener()
@@ -68,6 +68,8 @@ public class EsoxTable extends JTable
         
         
         public void fire( int lastIndex ) { fireValueChanged( 0, lastIndex, false ); }
+
+        static final long serialVersionUID = 42;
     }
 
     protected ListSelectionModel createDefaultSelectionModel()
@@ -77,7 +79,7 @@ public class EsoxTable extends JTable
 
     public void tableChanged(TableModelEvent e)
     {
-        List tmp = m_selected;
+        List<Object> tmp = m_selected;
         m_selected = null;
 
         super.tableChanged( e );
@@ -126,4 +128,6 @@ public class EsoxTable extends JTable
             if ( getSelectionModel() != null ) getSelectionModel().addListSelectionListener( m_listener );
         }
     }
+
+    static final long serialVersionUID = 42;
 }
