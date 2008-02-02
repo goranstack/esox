@@ -5,6 +5,7 @@ import javax.swing.*;
 import javax.swing.table.*;
 
 
+@SuppressWarnings( "serial" )
 public class AccountTableRenderer extends DefaultTableCellRenderer
 {
     public Component getTableCellRendererComponent( JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column )

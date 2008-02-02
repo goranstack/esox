@@ -5,6 +5,7 @@ import nu.esox.util.*;
 import nu.esox.xml.*;
 
 
+@SuppressWarnings( "serial" )
 public class Account extends NamedAndNumbered implements XmlWriter.Writeable
 {
     public static final String PROPERTY_AMOUNT = "PROPERTY_AMOUNT";

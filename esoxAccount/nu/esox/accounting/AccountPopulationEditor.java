@@ -12,6 +12,7 @@ import nu.esox.gui.layout.*;
 import nu.esox.gui.aspect.*;
 
 
+@SuppressWarnings( "serial" )
 public class AccountPopulationEditor extends ModelPanel
 {
     private final AccountPopulationTable m_table =
@@ -76,7 +77,7 @@ public class AccountPopulationEditor extends ModelPanel
             {
                 public void valueChanged( ListSelectionEvent ev )
                 {
-                    Account a = ( m_table.getSelectedRowCount() != 1 ) ? null : (Account) getAccountPopulation().get( m_table.getSelectedRow() );
+                    Account a = ( m_table.getSelectedRowCount() != 1 ) ? null : getAccountPopulation().get( m_table.getSelectedRow() );
                     m_editor.setAccount( a );
                     tst.setTransactionSet( ( a == null ) ? null : a.getTransactions() );
                 }

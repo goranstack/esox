@@ -6,7 +6,8 @@ import nu.esox.util.*;
 import nu.esox.xml.*;
 
 
-public class VerificationSet extends ObservableList implements XmlWriter.UnsharedWriteable
+@SuppressWarnings( "serial" )
+public class VerificationSet extends ObservableList<Verification> implements XmlWriter.UnsharedWriteable
 {
     public VerificationSet()
     {

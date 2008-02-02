@@ -6,6 +6,7 @@ import nu.esox.util.*;
 import nu.esox.xml.*;
 
 
+@SuppressWarnings( "serial" )
 public class Verification extends NamedAndNumbered implements XmlWriter.UnsharedWriteable
 {
     public static final String PROPERTY_DATE = "PROPERTY_DATE";
@@ -86,7 +87,7 @@ public class Verification extends NamedAndNumbered implements XmlWriter.Unshared
 
     public void dispose()
     {
-        for ( Transaction t : new TypedCollection<Transaction>( getTransactions() ) ) t.setAccount( null );
+        for ( Transaction t : getTransactions() ) t.setAccount( null );
     }
     
     

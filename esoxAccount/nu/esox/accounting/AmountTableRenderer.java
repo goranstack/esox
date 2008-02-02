@@ -6,6 +6,7 @@ import javax.swing.table.*;
 
 
 
+@SuppressWarnings( "serial" )
 public class AmountTableRenderer extends DefaultTableCellRenderer
 {
     {

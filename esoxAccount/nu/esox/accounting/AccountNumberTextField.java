@@ -6,6 +6,7 @@ import nu.esox.gui.*;
 import nu.esox.util.*;
 
 
+@SuppressWarnings( "serial" )
 public class AccountNumberTextField extends JTextField implements ObservableListener
 {
     public static final DecimalFormat FORMAT = new DecimalFormat( "0000" );
@@ -43,7 +44,7 @@ public class AccountNumberTextField extends JTextField implements ObservableList
                 ( m_accounts != null )
             {
                 m_popupMenu = new JPopupMenu(); // todo: type = submenu
-                for ( Account a : new TypedCollection<Account>( m_accounts ) )  m_popupMenu.add( new Xxx( a ) );
+                for ( Account a : m_accounts )  m_popupMenu.add( new Xxx( a ) );
             }
         }
         

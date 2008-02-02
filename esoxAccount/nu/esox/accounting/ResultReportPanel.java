@@ -4,6 +4,7 @@ import javax.swing.*;
 import nu.esox.util.*;
 
 
+@SuppressWarnings( "serial" )
 public class ResultReportPanel extends ReportPanel
 {
     public ResultReportPanel()
@@ -46,7 +47,7 @@ public class ResultReportPanel extends ReportPanel
         return new ResultReportTable( account );
     }
     
-    protected JTable createTable( ObservableList accounts )
+    protected JTable createTable( ObservableList<Account> accounts )
     {
         return new ResultReportTable( accounts );
     }
