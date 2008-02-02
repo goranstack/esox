@@ -43,6 +43,7 @@ public class ObservableValue<T> extends Observable implements ObservableValueIF<
         return "" + m_value;
     }
     
+    @SuppressWarnings("unchecked")
     public boolean equals( Object o )
     {
         if ( o instanceof ObservableValue ) return equals( ( (ObservableValue) o ).get() );

@@ -28,6 +28,7 @@ public class ObservableCollection<T> extends Observable implements ObservableCol
     {
     }
 
+    @SuppressWarnings("unchecked")
     protected ObservableEvent createItemChangedEvent( ObservableEvent ev )
     {
         return new ObservableCollectionEvent<T>( this, "Item changed: " + ev.getInfo(), (T) ev.getObservable(), ObservableCollectionEvent.ITEM_CHANGED );
@@ -48,12 +49,7 @@ public class ObservableCollection<T> extends Observable implements ObservableCol
         if
             ( m_collection != null )
         {
-            Iterator i = m_collection.iterator();
-            while
-                ( i.hasNext() )
-            {
-                listenTo( i.next() );
-            }
+            for ( T o : m_collection ) listenTo( o );
         }
     }
     
@@ -88,10 +84,6 @@ public class ObservableCollection<T> extends Observable implements ObservableCol
     public Object[] toArray() { return m_collection.toArray(); } 
     public <T> T[] toArray( T[] a ) { return m_collection.toArray( a ); }
 
-    
-
-
-
  
     public boolean add( T o )
     {
@@ -112,12 +104,7 @@ public class ObservableCollection<T> extends Observable implements ObservableCol
         if
             ( b )
         {
-            Iterator i = c.iterator();
-            while
-                ( i.hasNext() )
-            {
-                listenTo( i.next() );
-            }
+            for ( T o : c ) listenTo( o );
             fireValueChanged( new ObservableCollectionEvent<T>( this,  "items added: " + c, null, ObservableCollectionEvent.ADDED ) ); // PENDING: send c
         }
         return b;
@@ -125,12 +112,8 @@ public class ObservableCollection<T> extends Observable implements ObservableCol
     
     public void clear()
     {
-        Iterator i = m_collection.iterator();
-        while
-            ( i.hasNext() )
-        {
-            unlistenTo( i.next() );
-        }
+        for ( T o : m_collection ) unlistenTo( o );
+
         boolean b = ! isEmpty();
         m_collection.clear();
         if
@@ -141,6 +124,7 @@ public class ObservableCollection<T> extends Observable implements ObservableCol
         
     }
     
+    @SuppressWarnings("unchecked")
     public boolean remove( Object o )
     {
         boolean b = m_collection.remove( o );
@@ -159,12 +143,7 @@ public class ObservableCollection<T> extends Observable implements ObservableCol
         if
             ( b )
         {
-            Iterator i = c.iterator();
-            while
-                ( i.hasNext() )
-            {
-                unlistenTo( i.next() );
-            }
+            for ( Object o : c ) unlistenTo( o );
             fireValueChanged( new ObservableCollectionEvent<T>( this,  "items removed: " + c, null, ObservableCollectionEvent.REMOVED ) ); // PENDING: send c
         }
         return b;

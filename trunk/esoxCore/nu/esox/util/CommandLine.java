@@ -35,7 +35,7 @@ public class CommandLine extends HashMap<String,Object>
             {
                 put( name, args[ n ] );
             } else {
-                List l = new ArrayList();
+                List<String> l = new ArrayList<String>();
                 for ( int j = n; j < i; j++ ) l.add( args[ j ] );
                 put( name, l );
             }
@@ -43,6 +43,8 @@ public class CommandLine extends HashMap<String,Object>
     }
 
 
+
+    static final long serialVersionUID = -3808370187775586340L;
 
     public static void main( String [] args )
     {

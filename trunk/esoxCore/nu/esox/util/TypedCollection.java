@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.*;
 
 
+@SuppressWarnings("unchecked")
 public class TypedCollection<T> implements Collection<T>
 {
     protected Collection m_source;

@@ -22,6 +22,7 @@ public class ObservableSet<T> extends ObservableCollection<T> implements Set<T>,
         setCollection( s );
     }
 
+    @SuppressWarnings("unchecked")
     protected void itemChanged( ObservableEvent ev )
     {
           // reinsert changed item to maintain set integrity

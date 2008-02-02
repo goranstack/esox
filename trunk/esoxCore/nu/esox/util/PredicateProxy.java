@@ -33,4 +33,6 @@ public class PredicateProxy extends Observable implements PredicateIF, Observabl
     {
         setDelegate( null );
     }
+
+    static final long serialVersionUID = -3808370187775586340L;
 }

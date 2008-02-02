@@ -66,7 +66,7 @@ public class ConfigurationResourceBundle extends ResourceBundle
             }
             catch ( Exception ex2 )
             {
-                Logger.global.severe( "Can't find configuration file for " + m_class + ": " + fn );
+                Logger.getLogger( Logger.GLOBAL_LOGGER_NAME ).severe( "Can't find configuration file for " + m_class + ": " + fn );
                 throw new RuntimeException( "Can't find configuration file for " + m_class + ": " + fn );
             }
         }
@@ -140,7 +140,7 @@ public class ConfigurationResourceBundle extends ResourceBundle
             }
             catch ( NumberFormatException ex )
             {
-                Logger.global.severe( "Configuration error, can't parse value for " + propertyName + ":" + tmp );
+                Logger.getLogger( Logger.GLOBAL_LOGGER_NAME ).severe( "Configuration error, can't parse value for " + propertyName + ":" + tmp );
                 throw new RuntimeException( "Configuration error, can't parse value for " + propertyName + ":" + tmp );
             }
         }
@@ -154,7 +154,7 @@ public class ConfigurationResourceBundle extends ResourceBundle
             }
             catch ( NumberFormatException ex )
             {
-                Logger.global.severe( "Configuration error, can't parse value for " + propertyName + ":" + tmp );
+                Logger.getLogger( Logger.GLOBAL_LOGGER_NAME ).severe( "Configuration error, can't parse value for " + propertyName + ":" + tmp );
                 throw new RuntimeException( "Configuration error, can't parse value for " + propertyName + ":" + tmp );
             }
         }
@@ -168,7 +168,7 @@ public class ConfigurationResourceBundle extends ResourceBundle
             }
             catch ( NumberFormatException ex )
             {
-                Logger.global.severe( "Configuration error, can't parse value for " + propertyName + ":" + tmp );
+                Logger.getLogger( Logger.GLOBAL_LOGGER_NAME ).severe( "Configuration error, can't parse value for " + propertyName + ":" + tmp );
                 throw new RuntimeException( "Configuration error, can't parse value for " + propertyName + ":" + tmp );
             }
         }
@@ -197,7 +197,7 @@ public class ConfigurationResourceBundle extends ResourceBundle
              }
              catch ( NumberFormatException ex )
              {
-                 Logger.global.severe( "Configuration error, can't parse value for " + propertyName + ":" + tmp );
+                 Logger.getLogger( Logger.GLOBAL_LOGGER_NAME ).severe( "Configuration error, can't parse value for " + propertyName + ":" + tmp );
                  throw new RuntimeException( "Configuration error, can't parse value for " + propertyName + ":" + tmp );
              }
         }
@@ -223,7 +223,7 @@ public class ConfigurationResourceBundle extends ResourceBundle
         }
         catch ( NumberFormatException ex )
         {
-            Logger.global.severe( "Configuration error, can't parse value for " + propertyName + ":" + tmp );
+            Logger.getLogger( Logger.GLOBAL_LOGGER_NAME ).severe( "Configuration error, can't parse value for " + propertyName + ":" + tmp );
             throw new RuntimeException( "Configuration error, can't parse value for " + propertyName + ":" + tmp );
         }
     }
@@ -244,7 +244,7 @@ public class ConfigurationResourceBundle extends ResourceBundle
         }
         catch ( NumberFormatException ex )
         {
-            Logger.global.severe( "Configuration error, can't parse value for " + propertyName + ":" + tmp );
+            Logger.getLogger( Logger.GLOBAL_LOGGER_NAME ).severe( "Configuration error, can't parse value for " + propertyName + ":" + tmp );
             throw new RuntimeException( "Configuration error, can't parse value for " + propertyName + ":" + tmp );
         }
     }
@@ -265,7 +265,7 @@ public class ConfigurationResourceBundle extends ResourceBundle
         }
         catch ( NumberFormatException ex )
         {
-            Logger.global.severe( "Configuration error, can't parse value for " + propertyName + ":" + tmp );
+            Logger.getLogger( Logger.GLOBAL_LOGGER_NAME ).severe( "Configuration error, can't parse value for " + propertyName + ":" + tmp );
             throw new RuntimeException( "Configuration error, can't parse value for " + propertyName + ":" + tmp );
         }
     }
@@ -303,7 +303,7 @@ public class ConfigurationResourceBundle extends ResourceBundle
         }
         catch ( NumberFormatException ex )
         {
-            Logger.global.severe( "Configuration error, can't parse value for " + propertyName + ":" + tmp );
+            Logger.getLogger( Logger.GLOBAL_LOGGER_NAME ).severe( "Configuration error, can't parse value for " + propertyName + ":" + tmp );
             throw new RuntimeException( "Configuration error, can't parse value for " + propertyName + ":" + tmp );
         }
     }
@@ -318,7 +318,7 @@ public class ConfigurationResourceBundle extends ResourceBundle
         }
         catch ( NumberFormatException ex )
         {
-            Logger.global.severe( "Configuration error, can't parse value for " + propertyName + ":" + tmp );
+            Logger.getLogger( Logger.GLOBAL_LOGGER_NAME ).severe( "Configuration error, can't parse value for " + propertyName + ":" + tmp );
             throw new RuntimeException( "Configuration error, can't parse value for " + propertyName + ":" + tmp );
         }
     }
@@ -341,7 +341,7 @@ public class ConfigurationResourceBundle extends ResourceBundle
         if
             ( tmp == null )
         {
-            Logger.global.severe( "Configuration error, " + propertyName + " not defined" );
+            Logger.getLogger( Logger.GLOBAL_LOGGER_NAME ).severe( "Configuration error, " + propertyName + " not defined" );
             throw new RuntimeException( "Configuration error, " + propertyName + " not defined" );
         } else {
             return tmp;
@@ -397,7 +397,7 @@ public class ConfigurationResourceBundle extends ResourceBundle
         }
         catch ( NumberFormatException ex )
         {
-            Logger.global.severe( "Configuration error, can't parse value for " + propertyName + ":" + tmp );
+            Logger.getLogger( Logger.GLOBAL_LOGGER_NAME ).severe( "Configuration error, can't parse value for " + propertyName + ":" + tmp );
             throw new RuntimeException( "Configuration error, can't parse value for " + propertyName + ":" + tmp );
         }
         
@@ -407,7 +407,7 @@ public class ConfigurationResourceBundle extends ResourceBundle
         else if ( unit.equals( "m" ) )  t = t * 1000 * 60;
         else if ( unit.equals( "h" ) )  t = t * 1000 * 60 * 60;
         else {
-            Logger.global.severe( "Configuration error, can't parse unit for " + propertyName + ":" + tmp );
+            Logger.getLogger( Logger.GLOBAL_LOGGER_NAME ).severe( "Configuration error, can't parse unit for " + propertyName + ":" + tmp );
             throw new RuntimeException( "Configuration error, can't parse unit for " + propertyName + ":" + tmp );
         }
         
