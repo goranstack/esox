@@ -7,7 +7,7 @@ import nu.esox.util.Observable;
 
 public class FilteredObservableList<T> extends ObservableList<T> implements ObservableListener// implements Serializable
 {
-    public interface Filter<T>// extends ObservableIF
+    public interface Filter<T>
     {
         boolean pass( T o );
     };
@@ -43,7 +43,7 @@ public class FilteredObservableList<T> extends ObservableList<T> implements Obse
         setSource( source );
     }
     
-    public FilteredObservableList( ObservableListIF<T> source, Filter f )
+    public FilteredObservableList( ObservableListIF<T> source, Filter<T> f )
     {
         super( new ArrayList<T>() );
 
@@ -69,12 +69,12 @@ public class FilteredObservableList<T> extends ObservableList<T> implements Obse
     }
     
 
-    public Filter getFilter()
+    public Filter<T> getFilter()
     {
         return m_filter;
     }
 
-    public void setFilter( Filter f )
+    public void setFilter( Filter<T> f )
     {
         if ( f == m_filter ) return;
 
@@ -92,6 +92,7 @@ public class FilteredObservableList<T> extends ObservableList<T> implements Obse
           // will be notified by source, do nothing
     }
 
+    @SuppressWarnings("unchecked")
     public void valueChanged( ObservableEvent ev )
     {
         if
@@ -101,12 +102,7 @@ public class FilteredObservableList<T> extends ObservableList<T> implements Obse
         } else if
             ( ev instanceof ObservableTransactionEvent )
         {
-            Iterator i = ( (ObservableTransactionEvent) ev ).getEvents().iterator();
-            while
-                ( i.hasNext() )
-            {
-                sourceChanged( (ObservableListEvent<T>) i.next() );
-            }
+            for ( ObservableEvent otev : ( (ObservableTransactionEvent) ev ).getEvents() ) sourceChanged( (ObservableListEvent<T>) otev );
         } else if
             ( ev instanceof ObservableListEvent )
         {
@@ -252,13 +248,7 @@ public class FilteredObservableList<T> extends ObservableList<T> implements Obse
         {
             addAll( m_source );
         } else {
-            Iterator<T> i = m_source.iterator();
-            while
-                ( i.hasNext() )
-            {
-                T o = i.next();
-                if ( m_filter.pass( o ) ) add( o );
-            }
+            for ( T o : m_source ) if ( m_filter.pass( o ) ) add( o );
         }
     }
 

@@ -15,4 +15,6 @@ public class NotPredicate extends Predicate implements ObservableListener
     {
         set( ! m_operand.isTrue() );
     }
+
+    static final long serialVersionUID = -3808370187775586340L;
 }
