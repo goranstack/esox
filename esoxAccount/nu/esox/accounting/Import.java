@@ -8,6 +8,7 @@ import nu.esox.util.*;
 
 public class Import
 {
+    @SuppressWarnings( "serial" )
     private static final class EndOfFile extends IOException {};
 
     

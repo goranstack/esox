@@ -3,7 +3,8 @@ package nu.esox.accounting;
 import nu.esox.util.*;
 
 
-public class NamedAndNumbered extends Observable implements Comparable
+@SuppressWarnings( "serial" )
+public class NamedAndNumbered extends Observable implements Comparable<NamedAndNumbered>
 {
     public static final String PROPERTY_NUMBER = "PROPERTY_NUMBER";
     public static final String PROPERTY_NAME = "PROPERTY_NAME";
@@ -40,8 +41,8 @@ public class NamedAndNumbered extends Observable implements Comparable
     }
 
 
-    public int compareTo( Object o )
+    public int compareTo( NamedAndNumbered o )
     {
-        return m_number - ( (NamedAndNumbered) o ).m_number;
+        return m_number - o.m_number;
     }
 }

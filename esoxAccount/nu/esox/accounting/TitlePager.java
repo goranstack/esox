@@ -20,7 +20,7 @@ public class TitlePager
             m_date = Constants.DATE_FORMAT.format( v.getDate() );
 
             for
-                ( Transaction t : new TypedCollection<Transaction>( v.getTransactions() ) )
+                ( Transaction t : v.getTransactions() )
             {
                 if ( t.getAccount() == null ) continue;
                 
@@ -143,7 +143,7 @@ public class TitlePager
         ps.print( PREFIX );
         
         for
-            ( Verification v : new TypedCollection<Verification>( vs ) )
+            ( Verification v : vs )
         {
             Record record = new Record( v );
             ps.print( record.getInfix() );

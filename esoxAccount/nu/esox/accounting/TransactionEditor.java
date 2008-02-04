@@ -10,6 +10,7 @@ import nu.esox.gui.model.*;
 import nu.esox.util.*;
 
 
+@SuppressWarnings( "serial" )
 public class TransactionEditor extends ModelPanel
 {
     public TransactionEditor()
@@ -55,9 +56,10 @@ public class TransactionEditor extends ModelPanel
     {
         AccountComboBox()
         {
-            super( new ObservableCollectionComboBoxModel( null ) );
+            super( new ObservableCollectionComboBoxModel<Account>( null ) );
         }
 
+        @SuppressWarnings( "unchecked" )
         public void setTransaction( Transaction t )
         {
             AccountPopulation ap = null;
@@ -71,7 +73,7 @@ public class TransactionEditor extends ModelPanel
 //             System.err.println( t.getVerification().getOwner().getOwner().getAccounts() );
                 ap = t.getVerification().getOwner().getOwner().getAccounts();
             }
-            ( (ObservableCollectionComboBoxModel) getModel() ).setData( ap );
+            ( (ObservableCollectionComboBoxModel<Account>) getModel() ).setData( ap );
         }
     }
 }

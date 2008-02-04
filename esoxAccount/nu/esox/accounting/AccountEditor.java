@@ -8,6 +8,7 @@ import nu.esox.gui.layout.*;
 import nu.esox.util.*;
 
 
+@SuppressWarnings( "serial" )
 public class AccountEditor extends ModelPanel
 {
     private final Predicate m_isEditable = new Predicate();
@@ -175,6 +176,6 @@ public class AccountEditor extends ModelPanel
         e1.setAccount( a );
 
         f.pack();
-        f.show();
+        f.setVisible( true );
     }
 }

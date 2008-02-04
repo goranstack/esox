@@ -13,6 +13,7 @@ import nu.esox.gui.model.*;
 import nu.esox.gui.layout.*;
 
 
+@SuppressWarnings( "serial" )
 public class VerificationSetTable extends JTable
 {
     private final Action m_addAction;
@@ -28,7 +29,7 @@ public class VerificationSetTable extends JTable
         {
             Component c = VerificationSetTable.this.getDefaultRenderer( value.getClass() ).getTableCellRendererComponent( table, value, isSelected, hasFocus, row, column );
             if
-                ( ( (Verification) getVerificationSet().get( row ) ).getAlert().length() > 0 )
+                ( getVerificationSet().get( row ).getAlert().length() > 0 )
             {
                 c.setForeground( Color.red );
             } else {
@@ -168,7 +169,7 @@ public class VerificationSetTable extends JTable
         for
             ( int i = rows.length - 1; i >= 0; i-- )
         {
-            Verification v = (Verification) getVerificationSet().remove( rows[ i ] );
+            Verification v = getVerificationSet().remove( rows[ i ] );
             v.dispose();
         }
 
@@ -186,47 +187,51 @@ public class VerificationSetTable extends JTable
     }
     
     
-    private static class TableModel extends ObservableListTableModel
+    private static class TableModel extends ObservableListTableModel<Verification>
     {
         TableModel()
         {
             super( null );
         }
         
-        protected Column [] getColumns() { return m_columns; }
+        protected Column<Verification> [] getColumns() { return m_columns; }
 
-        private static Verification getVerification( Object o ) { return (Verification) o; }
         
-        private static Column [] m_columns =
-            new Column []
+        private static VerificationColumn [] m_columns =
+            new VerificationColumn []
             {
-                new Column( "Nr", Number.class, false )
+                new VerificationColumn( "Nr", Number.class )
                 {
-                    public Object getValue( Object target ) { return getVerification( target ).getNumber(); }
+                    public Object getValue( Verification v ) { return v.getNumber(); }
                 },
                 
-                new Column( "Text", String.class, false )
+                new VerificationColumn( "Text", String.class )
                 {
-                    public Object getValue( Object target ) { return getVerification( target ).getName(); }
+                    public Object getValue( Verification v ) { return v.getName(); }
                 },
                 
-                new Column( "Datum", String.class, false )
+                new VerificationColumn( "Datum", String.class )
                 {
-                    public Object getValue( Object target ) { return Constants.DATE_FORMAT.format( getVerification( target ).getDate() ); }
+                    public Object getValue( Verification v ) { return Constants.DATE_FORMAT.format( v.getDate() ); }
                 },
                 
-//                 new Column( "Summa", Double.class, false )
+//                 new VerificationColumn( "Summa", Double.class )
 //                 {
-//                     public Object getValue( Object target ) { return (Double) getVerification( target ).getAmount(); }
+//                     public Object getValue( Verification v ) { return (Double) v.getAmount(); }
 //                 },
                 
-                new Column( "Omslutning", Double.class, false )
+                new VerificationColumn( "Omslutning", Double.class )
                 {
-                    public Object getValue( Object target ) { return (Double) getVerification( target ).getSum(); }
+                    public Object getValue( Verification v ) { return (Double) v.getSum(); }
                 },
             };
     }
 
+
+    static abstract class VerificationColumn extends ObservableListTableModel.Column<Verification>
+    {
+        VerificationColumn( String name, Class type ) { super( name, type, false ); }
+    }
 
 }
 

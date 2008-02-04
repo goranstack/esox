@@ -7,7 +7,8 @@ import nu.esox.util.*;
 import nu.esox.xml.*;
 
 
-public class Year extends nu.esox.util.Observable implements XmlWriter.UnsharedWriteable, Comparable
+@SuppressWarnings( "serial" )
+public class Year extends nu.esox.util.Observable implements XmlWriter.UnsharedWriteable, Comparable<Year>
 {
     private final int m_number;
     private final AccountPopulation m_allAccounts = new AccountPopulation();
@@ -25,9 +26,9 @@ public class Year extends nu.esox.util.Observable implements XmlWriter.UnsharedW
 
     public String toString() { return Integer.toString( getNumber() ); }
 
-    public int compareTo( Object o )
+    public int compareTo( Year o )
     {
-        return m_number - ( (Year) o ).m_number;
+        return m_number - o.m_number;
     }
 
     public void closeYear()
@@ -136,7 +137,7 @@ public class Year extends nu.esox.util.Observable implements XmlWriter.UnsharedW
         Verification v0 = null;
         
         for
-            ( Verification tmp : new TypedCollection<Verification>( getVerifications() ) )
+            ( Verification tmp : getVerifications() )
         {
             if
                 ( tmp.getName().toUpperCase().equals( verificationName ) )
@@ -149,7 +150,7 @@ public class Year extends nu.esox.util.Observable implements XmlWriter.UnsharedW
         if ( v0 == null ) return false;
 
         for
-            ( Transaction t0 : new TypedCollection<Transaction>( v0.getTransactions() ) )
+            ( Transaction t0 : v0.getTransactions() )
         {
             Transaction t = v.createTransaction();
             t.setAccount( v.getOwner().getOwner().getAccounts().getAccount( t0.getAccount().getNumber() ) );

@@ -16,6 +16,7 @@ import nu.esox.gui.aspect.*;
 import nu.esox.gui.list.*;
 
 
+@SuppressWarnings( "serial" )
 public class VerificationSetPanel extends ModelPanel
 {
     private final Action m_importAction = new AbstractAction( "Importera" ) { public void actionPerformed( ActionEvent ev ) { openImportDialog(); } };
@@ -68,7 +69,7 @@ public class VerificationSetPanel extends ModelPanel
 //                 return ( selected.length == 1 ) ? getYear().getVerifications().get( selected[ 0 ] ) : null;
 //             }
             
-            protected ObservableIF getItemOfRow( int row ) { return (Verification) getYear().getVerifications().get( row ); }
+            protected ObservableIF getItemOfRow( int row ) { return getYear().getVerifications().get( row ); }
             protected int getRowOfItem( ObservableIF item ) { return getYear().getVerifications().indexOf( item ); }
         };
 
@@ -106,7 +107,7 @@ public class VerificationSetPanel extends ModelPanel
             d.pack();
         }
 
-        ( (JDialog) m_importPanel.getTopLevelAncestor() ).show();
+        ( (JDialog) m_importPanel.getTopLevelAncestor() ).setVisible( true );
     }
 
 
@@ -124,7 +125,7 @@ public class VerificationSetPanel extends ModelPanel
                 ArrayList<Verification> vs = new ArrayList<Verification>();
                 
                 int [] rows = m_table.getSelectedRows();
-                for ( int i : m_table.getSelectedRows() ) vs.add( (Verification) getYear().getVerifications().get( i ) );
+                for ( int i : m_table.getSelectedRows() ) vs.add( getYear().getVerifications().get( i ) );
                 
                 TitlePager.doit( vs, m_fileChooser.getSelectedFile() );
             }

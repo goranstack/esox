@@ -11,6 +11,7 @@ import nu.esox.gui.model.*;
 import nu.esox.gui.list.*;
 
 
+@SuppressWarnings( "serial" )
 public class AccountPopulationTable extends JTable
 {
     private final Action m_addAction;
@@ -110,33 +111,36 @@ public class AccountPopulationTable extends JTable
 
 
     
-    private static class TableModel extends ObservableListTableModel
+    private static class TableModel extends ObservableListTableModel<Account>
     {
         TableModel()
         {
             super( null );
         }
         
-        protected Column [] getColumns() { return m_columns; }
+        protected Column<Account> [] getColumns() { return m_columns; }
 
-        private static Account getAccount( Object o ) { return (Account) o; }
-        
-        private static Column [] m_columns =
-            new Column []
+        private static AccountColumn [] m_columns =
+            new AccountColumn []
             {
-                new Column( "Konto", Account.class, false )
+                new AccountColumn( "Konto", Account.class )
                 {
-                    public Object getValue( Object target ) { return getAccount( target ); }
+                    public Object getValue( Account a ) { return a; }
                 },
-                new Column( "Saldo", Double.class, false )
+                new AccountColumn( "Saldo", Double.class )
                 {
-                    public Object getValue( Object target ) { return getAccount( target ).getAmount(); }
+                    public Object getValue( Account a ) { return a.getAmount(); }
                 },
-                new Column( "Budget", Double.class, false )
+                new AccountColumn( "Budget", Double.class )
                 {
-                    public Object getValue( Object target ) { return getAccount( target ).hasBudget() ? getAccount( target ).getBudget() : null; }
+                    public Object getValue( Account a ) { return a.hasBudget() ? a.getBudget() : null; }
                 },
             };
     }
 
+
+    static abstract class AccountColumn extends ObservableListTableModel.Column<Account>
+    {
+        AccountColumn( String name, Class type ) { super( name, type, false ); }
+    }
 }

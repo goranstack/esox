@@ -4,6 +4,7 @@ import java.util.*;
 import java.text.*;
 
 
+@SuppressWarnings( "serial" )
 class Constants
 {
     public static final DateFormat DATE_FORMAT =
