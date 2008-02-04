@@ -15,6 +15,7 @@ import nu.esox.gui.layout.*;
 import nu.esox.gui.aspect.*;
 
 
+@SuppressWarnings( "serial" )
 public abstract class ReportPanel extends ModelPanel
 {
     interface Section
@@ -63,7 +64,7 @@ public abstract class ReportPanel extends ModelPanel
 
     
     protected abstract JTable createTable( Account a );
-    protected abstract JTable createTable( ObservableList accounts );
+    protected abstract JTable createTable( ObservableList<Account> accounts );
 
 
     
@@ -143,7 +144,7 @@ public abstract class ReportPanel extends ModelPanel
     }
 
     
-    public final class Accounts extends FilteredObservableList
+    public final class Accounts extends FilteredObservableList<Account>
     {
         private final Account m_total;
         private double m_ib = 0;
@@ -155,7 +156,7 @@ public abstract class ReportPanel extends ModelPanel
             this( "Summa " + t, new AccountTypeFilter( t ), t );
         }
         
-        Accounts( String name, FilteredObservableList.Filter filter, Account.Type t )
+        Accounts( String name, FilteredObservableList.Filter<Account> filter, Account.Type t )
         {
             super( null, filter );
 
@@ -177,7 +178,7 @@ public abstract class ReportPanel extends ModelPanel
             refresh();
         }
 
-        public void setSource( ObservableList source )
+        public void setSource( ObservableList<Account> source )
         {
             super.setSource( source );
             refresh();
@@ -190,7 +191,7 @@ public abstract class ReportPanel extends ModelPanel
             m_budget = 0;
 
             for
-                ( Account a : new TypedCollection<Account>( this ) )
+                ( Account a : this )
             {
                 m_ib += a.getIb();
                 m_amount += a.getAmount();
@@ -200,13 +201,13 @@ public abstract class ReportPanel extends ModelPanel
     }
 
  
-    private class EmptyAccountFilter extends nu.esox.util.Observable implements FilteredObservableList.Filter
+    private class EmptyAccountFilter extends nu.esox.util.Observable implements FilteredObservableList.Filter<Account>
     {
         private boolean m_showEmptyAccounts = true;
 
-        public boolean pass( Object o )
+        public boolean pass( Account a )
         {
-            return m_showEmptyAccounts || ( ( (Account) o ).getAmount() != 0 ) || ( ( (Account) o ).getBudget() != 0 );
+            return m_showEmptyAccounts || ( a.getAmount() != 0 ) || ( a.getBudget() != 0 );
         }
         
         public boolean getShowEmptyAccounts() { return m_showEmptyAccounts; }
@@ -219,7 +220,7 @@ public abstract class ReportPanel extends ModelPanel
     }
     
  
-    private class AccountTypeFilter extends nu.esox.util.Observable implements FilteredObservableList.Filter
+    private class AccountTypeFilter extends nu.esox.util.Observable implements FilteredObservableList.Filter<Account>
     {
         private final Account.Type m_type;
 
@@ -229,9 +230,9 @@ public abstract class ReportPanel extends ModelPanel
             listenTo( m_emptyAccountFilter );
         }
         
-        public boolean pass( Object o )
+        public boolean pass( Account a )
         {
-            return ( m_type == ( (Account) o ).getType() ) && m_emptyAccountFilter.pass( o );
+            return ( m_type == a.getType() ) && m_emptyAccountFilter.pass( a );
         }
     }
 

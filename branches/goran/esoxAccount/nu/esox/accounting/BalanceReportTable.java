@@ -10,9 +10,10 @@ import nu.esox.gui.*;
 import nu.esox.gui.model.*;
 
 
+@SuppressWarnings( "serial" )
 public class BalanceReportTable extends JTable
 {
-    public BalanceReportTable( ObservableList accounts )
+    public BalanceReportTable( ObservableList<Account> accounts )
     {
         super( new TableModel( accounts ) );
 
@@ -23,65 +24,67 @@ public class BalanceReportTable extends JTable
 
     public BalanceReportTable( Account total )
     {
-        this( new ObservableList() );
+        this( new ObservableList<Account>() );
         ( (TableModel) getModel() ).getData().add( total );
     }
 
 
     public final AccountPopulation getAccountPopulation()
     {
-        return (AccountPopulation) ( (FilteredObservableList) ( (TableModel) getModel() ).getData() ).getSource();
+        return (AccountPopulation) ( (FilteredObservableList<Account>) ( (TableModel) getModel() ).getData() ).getSource();
     }
 
     public final void setAccountPopulation( AccountPopulation ap )
     {
         if ( ap == getAccountPopulation() ) return;
-        ( (FilteredObservableList) ( (TableModel) getModel() ).getData() ).setSource( ap );
+        ( (FilteredObservableList<Account>) ( (TableModel) getModel() ).getData() ).setSource( ap );
     }
     
 
 
      
-    private static class TableModel extends ObservableListTableModel
+    private static class TableModel extends ObservableListTableModel<Account>
     {
-        TableModel( ObservableList accounts )
+        TableModel( ObservableList<Account> accounts )
         {
             super( accounts );
         }
         
-        protected Column [] getColumns() { return m_columns; }
+        protected Column<Account> [] getColumns() { return m_columns; }
 
-        private static Account getAccount( Object o ) { return (Account) o; }
-        
-        private static Column [] m_columns =
-            new Column []
+        private static AccountColumn [] m_columns =
+            new AccountColumn []
             {
-                new Column( "Konto", String.class, false )
+                new AccountColumn( "Konto", String.class )
                 {
-                    public Object getValue( Object target )
+                    public Object getValue( Account a )
                     {
-                        int nr = getAccount( target ).getNumber();
-                        return ( nr == 0 ) ? getAccount( target ).getName() : NumberTextField.FORMAT.format( nr ) + " " + getAccount( target ).getName();
+                        int nr = a.getNumber();
+                        return ( nr == 0 ) ? a.getName() : NumberTextField.FORMAT.format( nr ) + " " + a.getName();
                     }
                 },
                         
-                new Column( "IB", Double.class, false )
+                new AccountColumn( "IB", Double.class )
                 {
-                    public Object getValue( Object target ) { return getAccount( target ).getIb(); }
+                    public Object getValue( Account a ) { return a.getIb(); }
                 },
                         
-                new Column( "Förändring", Double.class, false )
+                new AccountColumn( "Förändring", Double.class )
                 {
-                    public Object getValue( Object target ) { return getAccount( target ).getAmount() - getAccount( target ).getIb(); }
+                    public Object getValue( Account a ) { return a.getAmount() - a.getIb(); }
                 },
                         
-                new Column( "UB", Double.class, false )
+                new AccountColumn( "UB", Double.class )
                 {
-                    public Object getValue( Object target ) { return getAccount( target ).getAmount(); }
+                    public Object getValue( Account a ) { return a.getAmount(); }
                 },
             };
     }
 
 
+    static abstract class AccountColumn extends ObservableListTableModel.Column<Account>
+    {
+        AccountColumn( String name, Class type ) { super( name, type, false ); }
+    }
 
 }

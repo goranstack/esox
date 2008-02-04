@@ -9,6 +9,7 @@ import nu.esox.gui.layout.*;
 import nu.esox.util.*;
 
 
+@SuppressWarnings( "serial" )
 public class NamedAndNumberedEditor extends ModelPanel
 {
     public final boolean m_isNumberEditable;
@@ -63,6 +64,6 @@ public class NamedAndNumberedEditor extends ModelPanel
         e1.setNamedAndNumbered( a );
 
         f.pack();
-        f.show();
+        f.setVisible( true );
     }
 }

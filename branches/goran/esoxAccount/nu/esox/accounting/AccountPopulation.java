@@ -6,7 +6,8 @@ import nu.esox.util.*;
 import nu.esox.xml.*;
 
 
-public class AccountPopulation extends ObservableList implements XmlWriter.UnsharedWriteable
+@SuppressWarnings( "serial" )
+public class AccountPopulation extends ObservableList<Account> implements XmlWriter.UnsharedWriteable
 {
     private final Map<Integer, Account> m_map = new HashMap<Integer, Account>();
 
@@ -36,12 +37,13 @@ public class AccountPopulation extends ObservableList implements XmlWriter.Unsha
         };
     
     
-    public void add( Account account )
+    public boolean add( Account account )
     {
         assert ! m_map.containsKey( account.getNumber() ) ;
         m_map.put( account.getNumber(), account );
         super.add( - ( Collections.binarySearch( this, account ) + 1 ), account );
         account.addObservableListener( m_numberListener );
+        return true;
     }
     
     public void remove( Account account )
@@ -65,7 +67,7 @@ public class AccountPopulation extends ObservableList implements XmlWriter.Unsha
         assert destination.isEmpty();
 
         for
-            ( Account a : new TypedCollection<Account>( this ) )
+            ( Account a : this )
 
         {
             destination.add( a.newYear() );

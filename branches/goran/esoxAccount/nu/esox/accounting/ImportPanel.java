@@ -12,6 +12,7 @@ import nu.esox.gui.aspect.*;
 import nu.esox.util.*;
 
 
+@SuppressWarnings( "serial" )
 public abstract class ImportPanel extends JPanel
 {
     private final Action m_okAction = new AbstractAction( "Ok" ) { public void actionPerformed( ActionEvent ev ) { ok(); } };
@@ -165,7 +166,7 @@ public abstract class ImportPanel extends JPanel
             {
                 String name = "PG0";
                 for
-                    ( Verification ver : new TypedCollection<Verification>( getVerificationSet() ) )
+                    ( Verification ver : getVerificationSet() )
                 {
                     if ( ver.getName().toUpperCase().startsWith( "PG" ) ) name = ver.getName();
                 }
@@ -228,7 +229,7 @@ public abstract class ImportPanel extends JPanel
         v.setName( m_verificationPanel.getVerification().getName() );
 
         for
-            ( Transaction t0 : new TypedCollection<Transaction>( m_verificationPanel.getVerification().getTransactions() ) )
+            ( Transaction t0 : m_verificationPanel.getVerification().getTransactions() )
         {
             Transaction t = v.createTransaction();
             t.setAccount( t0.getAccount() );

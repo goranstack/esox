@@ -11,6 +11,7 @@ import nu.esox.gui.aspect.*;
 import nu.esox.gui.list.*;
 
 
+@SuppressWarnings( "serial" )
 public class VerificationPanel extends ModelPanel
 {
     private final Predicate m_isEditable = new Predicate();
@@ -206,7 +207,7 @@ public class VerificationPanel extends ModelPanel
         int [] rows = m_table.getSelectedRows();
         if ( rows.length != 1 ) return;
 
-        Transaction t = (Transaction) ts.get( rows[ 0 ] );
+        Transaction t = ts.get( rows[ 0 ] );
         double a = t.hasAmount() ? t.getAmount() : 0;
         t.setAmount( a - ts.getAmount() );
     }
@@ -224,7 +225,7 @@ public class VerificationPanel extends ModelPanel
         for
             ( int i = rows.length - 1; i >= 0; i-- )
         {
-            ( (Transaction) ts.get( rows[ i ] ) ).clear();
+            ts.get( rows[ i ] ).clear();
         }
         ts.endTransaction( null, null );
 

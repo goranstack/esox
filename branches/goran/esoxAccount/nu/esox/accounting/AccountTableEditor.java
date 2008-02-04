@@ -9,6 +9,7 @@ import nu.esox.gui.model.*;
 
     
 
+@SuppressWarnings( "serial" )
 public class AccountTableEditor extends DefaultCellEditor
 {
 
@@ -18,14 +19,15 @@ public class AccountTableEditor extends DefaultCellEditor
     AccountTableEditor()
     {
 //         super( new AccountNumberTextField() );
-        super( new JComboBox( new ObservableCollectionComboBoxModel( null ) ) ); //  todo: what about combobox + popupmenu tha triggers on any key?
+        super( new JComboBox( new ObservableCollectionComboBoxModel<Account>( null ) ) ); //  todo: what about combobox + popupmenu tha triggers on any key?
                                                                                        
         ( (JComboBox) getComponent() ).setRenderer( new AccountListRenderer() );
     }
     
+    @SuppressWarnings( "unchecked" )
     void setAccounts( AccountPopulation accounts )
     {
-        ( (ObservableCollectionComboBoxModel) ( (JComboBox) getComponent() ).getModel() ).setData( accounts );
+        ( (ObservableCollectionComboBoxModel<Account>) ( (JComboBox) getComponent() ).getModel() ).setData( accounts );
 //        m_accounts = accounts;
 //        ( (AccountNumberTextField) getComponent() ).setAccounts( m_accounts );
     }

@@ -5,6 +5,7 @@ import javax.swing.*;
 import javax.swing.table.*;
 
 
+@SuppressWarnings( "serial" )
 public class AmountTableEditor extends AbstractCellEditor implements TableCellEditor
 {
     private final JFormattedTextField m_textField = new AmountTextField();
