@@ -162,7 +162,8 @@ public class XmlWriter
             if
                 ( ! ( w instanceof UnsharedWriteable ) )
             {
-                m_ids.put( w, m_ids.size() );
+                id = m_ids.size();
+                m_ids.put( w, id );
                 write( "id", id.intValue() );
             }
 
