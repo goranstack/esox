@@ -1,0 +1,29 @@
+<project name="esoxCore" default="jar">
+
+    <property name="src.dir"     value="."/>
+    <property name="build.dir"   value="build"/>
+    <property name="classes.dir" value="${build.dir}/classes"/>
+    <property name="jar.dir"     value="${build.dir}"/>
+
+	
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+    </target>
+
+    <target name="compile" depends="clean">
+        <mkdir dir="${classes.dir}"/>
+        <javac srcdir="${src.dir}" destdir="${classes.dir}"/>
+    </target>
+
+	<target name="scr-zip">
+		<zip destfile="build/${ant.project.name}-src.zip" basedir="." includes="**/*.java" />
+	</target>
+	
+    <target name="jar" depends="compile, scr-zip">
+        <mkdir dir="${build.dir}"/>
+        <jar destfile="${build.dir}/${ant.project.name}.jar" basedir="${classes.dir}">
+        </jar>
+    </target>
+
+
+</project>
