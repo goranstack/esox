@@ -1,39 +1,38 @@
 <project name="esoxGui" default="jar">
 
-	<!-- Dependent on project(s) -->
-	<target name="esoxCore">
-		<subant buildpath="../esoxCore/build.xml" target="jar" />
-		<path id="esoxCore">
-			<fileset dir="../esoxCore/build" includes="**/*.jar" />
-		</path>
-	</target>
-
 	<property name="src.dir" value="." />
 	<property name="build.dir" value="build" />
+	<property name="dist.dir" value="dist" />
 	<property name="classes.dir" value="${build.dir}/classes" />
 	<property name="jar.dir" value="${build.dir}" />
 
+	<!-- Dependent on project(s) -->
+	<path id="dependent-on-projects">
+		<pathelement location="../esoxCore/build.xml" />
+	</path>
+
+	<!-- Classpath -->
+	<path id="classpath">
+		<pathelement location="../esoxCore/dist/esoxCore.jar" />
+	</path>
 
 	<target name="clean">
 		<delete dir="${build.dir}" />
+		<delete dir="${dist.dir}" />
 	</target>
 
-	<target name="compile" depends="clean">
+	<target name="compile">
 		<mkdir dir="${classes.dir}" />
-		<javac srcdir="${src.dir}" destdir="${classes.dir}">
-			<classpath>
-				<path refid="esoxCore" />
-			</classpath>
-		</javac>
+		<javac srcdir="${src.dir}" destdir="${classes.dir}" classpathref="classpath" />
 	</target>
 
 	<target name="scr-zip">
-		<zip destfile="build/${ant.project.name}-src.zip" basedir="." includes="**/*.java" />
+		<mkdir dir="${dist.dir}" />
+		<zip destfile="${dist.dir}/${ant.project.name}-src.zip" basedir="." includes="**/*.java" />
 	</target>
 
-	<target name="jar" depends="esoxCore, compile, scr-zip">
-		<mkdir dir="${build.dir}" />
-		<jar destfile="${build.dir}/${ant.project.name}.jar" basedir="${classes.dir}">
+	<target name="jar" depends="compile, scr-zip">
+		<jar destfile="${dist.dir}/${ant.project.name}.jar" basedir="${classes.dir}">
 		</jar>
 	</target>
 
