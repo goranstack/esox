@@ -1,48 +1,55 @@
-<project name="fish" default="jar">
-
-	<!-- Dependent on project(s) -->
-	<target name="esoxCore">
-		<subant buildpath="../esoxCore/build.xml" target="jar" />
-		<path id="esoxCore">
-			<fileset dir="../esoxCore/build" includes="**/*.jar" />
-		</path>
-	</target>
-
-	<target name="esoxGui">
-		<subant buildpath="../esoxGui/build.xml" target="jar" />
-		<path id="esoxGui">
-			<fileset dir="../esoxGui/build" includes="**/*.jar" />
-		</path>
-	</target>
+<project name="fish" default="dist">
 
 	<property name="src.dir" value="." />
 	<property name="build.dir" value="build" />
+	<property name="dist.dir" value="dist" />
 	<property name="classes.dir" value="${build.dir}/classes" />
 	<property name="jar.dir" value="${build.dir}" />
 
 
-	<target name="clean">
+	<!-- Dependent on project(s) -->
+	<path id="dependent-on-projects">
+		<pathelement location="../esoxCore/build.xml" />
+		<pathelement location="../esoxGui/build.xml" />
+	</path>
+	
+	<!-- Classpath -->
+	<path id="classpath">
+		<pathelement location="../esoxCore/dist/esoxCore.jar" />
+		<pathelement location="../esoxGui/dist/esoxGui.jar" />
+	</path>
+
+
+	<target name="clean" description="delete all directories cerated by the build process">
 		<delete dir="${build.dir}" />
+		<delete dir="${dist.dir}" />
 	</target>
 
-	<target name="compile" depends="clean">
+	<target name="compile">
 		<mkdir dir="${classes.dir}" />
-		<javac srcdir="${src.dir}" destdir="${classes.dir}">
-			<classpath>
-				<path refid="esoxCore" />
-				<path refid="esoxGui" />
-			</classpath>
-		</javac>
+		<javac srcdir="${src.dir}" destdir="${classes.dir}" classpathref="classpath"/>
 	</target>
 
 	<target name="scr-zip">
-		<zip destfile="build/${ant.project.name}-src.zip" basedir="." includes="**/*.java" />
+		<mkdir dir="${dist.dir}" />
+		<zip destfile="${dist.dir}/${ant.project.name}-src.zip" basedir="." includes="**/*.java" />
 	</target>
 
-	<target name="jar" depends="esoxCore, esoxGui, compile, scr-zip">
-		<mkdir dir="${build.dir}" />
-		<jar destfile="${build.dir}/${ant.project.name}.jar" basedir="${classes.dir}">
+	<target name="jar" depends="compile, scr-zip">
+		<jar destfile="${dist.dir}/${ant.project.name}.jar" basedir="${classes.dir}">
 		</jar>
+	</target>
+
+	<target name="jar-all" description="jar all projects this depends on and finally jars this">
+		<subant buildpathref="dependent-on-projects" target="jar"/>
+		<antcall target="jar"></antcall>
+	</target>
+
+	<target name="clean-all" depends="clean" description="clean this and all projects this depends on">
+		<subant buildpathref="dependent-on-projects" target="clean"/>		
+	</target>
+
+	<target name="dist" depends="clean-all, jar-all" description="creates a distributable jar file">
 	</target>
 
 </project>
