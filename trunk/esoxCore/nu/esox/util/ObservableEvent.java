@@ -33,6 +33,7 @@ public class ObservableEvent extends EventObject
         return m_data;
     }
 
+    public String toString() { return "ObservableEvent: " + m_info + ", " + m_data; }
 
     static final long serialVersionUID = -3304174174040200488L;
 

@@ -10,9 +10,13 @@ public class CheckBoxAdapter extends AbstractBooleanAdapter implements ActionLis
 {
     private final AbstractButton m_button;
     
-    public CheckBoxAdapter( AbstractButton cb, ModelOwnerIF modelOwner, Class modelClass, String getAspectMethodName, String setAspectMethodName, String aspectName )
+    public CheckBoxAdapter( AbstractButton cb,
+                            ModelOwnerIF modelOwner,
+                            Class modelClass,
+                            String getAspectMethodName,
+                            String setAspectMethodName,
+                            String aspectName )
     {
-//        this( cb, modelOwner, modelClass, getAspectMethodName, setAspectMethodName, Boolean.class, Boolean.TRUE, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE );
         this( cb, modelOwner, modelClass, getAspectMethodName, setAspectMethodName, boolean.class, aspectName, true, false, null, false );
     }
     
@@ -29,6 +33,30 @@ public class CheckBoxAdapter extends AbstractBooleanAdapter implements ActionLis
                             Object undefinedValue )
     {
         super( modelOwner, modelClass, getAspectMethodName, setAspectMethodName, aspectClass, aspectName, trueValue, falseValue, nullValue, undefinedValue );
+
+        m_button = cb;
+        m_button.addActionListener( this );
+        update();
+    }
+    
+    public CheckBoxAdapter( AbstractButton cb,
+                            ModelOwnerIF modelOwner,
+                            AspectIF aspect,
+                            String aspectName )
+    {
+        this( cb, modelOwner, aspect, aspectName, true, false, null, false );
+    }
+    
+    public CheckBoxAdapter( AbstractButton cb,
+                            ModelOwnerIF modelOwner,
+                            AspectIF aspect,
+                            String aspectName,
+                            Object trueValue,
+                            Object falseValue,
+                            Object nullValue,
+                            Object undefinedValue )
+    {
+        super( modelOwner, aspect, aspectName, trueValue, falseValue, nullValue, undefinedValue );
 
         m_button = cb;
         m_button.addActionListener( this );
