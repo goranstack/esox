@@ -211,7 +211,7 @@ public class Observable implements ObservableIF, Serializable, ObservableListene
     
     public void valueChanged( ObservableEvent ev )
     {
-        fireValueChanged( ev.getInfo(), ev.getData() );
+        fireValueChanged( ev.getInfo(), ev.getData() );  // fixit: split transaction events ???
     }
 
     

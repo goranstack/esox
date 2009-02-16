@@ -60,10 +60,28 @@ public abstract class AbstractAdapter implements ObservableListener, ModelOwnerI
     
     public final void valueChanged( ObservableEvent ev ) // implements ObservableListener
     {
+//         if
+//             ( ! javax.swing.SwingUtilities.isEventDispatchThread() )
+//         {
+//             if
+//                 ( ev == null )
+//             {
+//                 System.err.println( "************* " );
+//                 Thread.dumpStack();
+//             } else {
+//                 System.err.println( "************* " + ev.getSource() + " " + ev.getInfo() );
+//             }
+//         }
         if
-            ( ( m_aspectName == null ) || ( ev == null ) || ( m_aspectName.equals( ev.getInfo() ) ) )
+            ( ( ev instanceof ObservableTransactionEvent ) && ( m_aspectName != null ) )
         {
-            update();
+            ( (ObservableTransactionEvent) ev ).dispatch( this );
+        } else {
+            if
+                ( ( m_aspectName == null ) || ( ev == null ) || ( m_aspectName.equals( ev.getInfo() ) ) )
+            {
+                update();
+            }
         }
     }
 
