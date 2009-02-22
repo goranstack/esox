@@ -1,2 +1,47 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
-<accounting/>
+<accounting>
+  <year number="2009">
+    <accounts>
+      <account id="0" number="1" name="konto 1" ib="0.0" budget="0.0">
+        <type-sales-revenue/>
+        <transactions>
+          <transaction id="1" description="ett" amount="1.0">
+            <account idref="0"/>
+          </transaction>
+          <transaction id="2" description="andra" amount="2.0">
+            <account idref="0"/>
+          </transaction>
+          <transaction id="3" description="tre" amount="-3.0">
+            <account idref="0"/>
+          </transaction>
+        </transactions>
+      </account>
+      <account id="4" number="2" name="" ib="0.0" budget="0.0">
+        <type-undefined/>
+        <transactions>
+          <transaction id="5" description="" amount="42.0">
+            <account idref="4"/>
+          </transaction>
+          <transaction id="6" description="" amount="-42.0">
+            <account idref="4"/>
+          </transaction>
+        </transactions>
+      </account>
+    </accounts>
+    <verifications>
+      <verification editable="true" name="test" date="2009-02-22" alert="hepp">
+        <transactions>
+          <transaction idref="1"/>
+          <transaction idref="2"/>
+          <transaction idref="3"/>
+        </transactions>
+      </verification>
+      <verification editable="true" name="">
+        <transactions>
+          <transaction idref="5"/>
+          <transaction idref="6"/>
+        </transactions>
+      </verification>
+    </verifications>
+  </year>
+</accounting>

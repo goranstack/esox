@@ -17,13 +17,13 @@ public class Main extends JFrame
     private static String m_databasePath;
 
 
-    
-
     private final Accounting m_accounting;
 
-    private final JDesktopPane m_desktop = new JDesktopPane();
-    private final VerificationSetPanel m_verificationSetPanel = new VerificationSetPanel();
-    private final AccountPopulationEditor m_accountPopulationEditor = new AccountPopulationEditor();
+//    private final JDesktopPane m_desktop = new JDesktopPane();
+    private final VerificationSetPanel m_verificationSetPanel1 = new VerificationSetPanel();
+    private final VerificationSetPanel m_verificationSetPanel2 = new VerificationSetPanel();
+    private final AccountPopulationEditor m_accountPopulationEditor1 = new AccountPopulationEditor();
+    private final AccountPopulationEditor m_accountPopulationEditor2 = new AccountPopulationEditor();
     private final BalanceReportPanel m_balanceReportPanel = new BalanceReportPanel();
     private final ResultReportPanel m_resultReportPanel = new ResultReportPanel();
     private final JMenu m_yearMenu = new JMenu( "År" );
@@ -35,17 +35,62 @@ public class Main extends JFrame
         m_accounting = accounting;
        
         JPanel p = new JPanel( new BorderLayout() );
-        getContentPane().add( p );
+        add( p );
+
+        JSplitPane spl = new JSplitPane();
+        SwingPrefs.add( "main-split", spl );
+        p.add( spl, BorderLayout.CENTER );
+
+        {
+            JSplitPane tmp = new JSplitPane( JSplitPane.VERTICAL_SPLIT );
+            SwingPrefs.add( "main-left-split", tmp );
+            tmp.setOneTouchExpandable( true );
+            tmp.setBorder( BorderFactory.createTitledBorder( "Konton" ) );
+            spl.setLeftComponent( tmp );
+            tmp.setTopComponent( m_accountPopulationEditor1 );
+            tmp.setBottomComponent( m_accountPopulationEditor2 );
+        }
+
+        {
+            JSplitPane tmp = new JSplitPane( JSplitPane.VERTICAL_SPLIT );
+            SwingPrefs.add( "main-right-split", tmp );
+            tmp.setOneTouchExpandable( true );
+            tmp.setBorder( BorderFactory.createTitledBorder( "Verifikationer" ) );
+            spl.setRightComponent( tmp );
+            tmp.setTopComponent( m_verificationSetPanel1 );
+            tmp.setBottomComponent( m_verificationSetPanel2 );
+        }
+
+
+//         spl.setLeftComponent( m_accountPopulationEditor );
+//         m_accountPopulationEditor.setBorder( BorderFactory.createTitledBorder( "Konton" ) );
+//         m_verificationSetPanel.setBorder( BorderFactory.createTitledBorder( "Verifikationer" ) );
         
-        p.add( m_desktop, BorderLayout.CENTER );
-        m_desktop.setOpaque( true );
-        m_desktop.setBackground( Color.gray );
+//         spl.setRightComponent( m_verificationSetPanel );
+        
+//         p.add( m_desktop, BorderLayout.CENTER );
+//         m_desktop.setOpaque( true );
+//         m_desktop.setBackground( Color.gray );
 
-        addInternalFrame( "verification-frame", "Verifikationer", m_verificationSetPanel );
-        addInternalFrame( "accounts-frame", "Konton", m_accountPopulationEditor );
-        addInternalFrame( "balance-frame", "Balans", m_balanceReportPanel );
-        addInternalFrame( "result-frame", "Resultat", m_resultReportPanel );
+//         addInternalFrame( "verification-frame", "Verifikationer", m_verificationSetPanel );
+//         addInternalFrame( "accounts-frame", "Konton", m_accountPopulationEditor );
+//         addInternalFrame( "balance-frame", "Balans", m_balanceReportPanel );
+//         addInternalFrame( "result-frame", "Resultat", m_resultReportPanel );
 
+        {
+            JDialog d = new JDialog( this, "Balans", false );
+            d.add( m_balanceReportPanel );
+            d.pack();
+            m_balanceReportPanel.putClientProperty( "dialog", d );
+        }
+        
+        {
+            JDialog d = new JDialog( this, "Resultat", false );
+            d.add( m_resultReportPanel );
+            d.pack();
+            m_resultReportPanel.putClientProperty( "dialog", d );
+        }
+        
         p.add( createMenuBar(), BorderLayout.NORTH );
 
         {
@@ -72,15 +117,15 @@ public class Main extends JFrame
         SwingPrefs.apply( prefs );
     }
 
-    private void addInternalFrame( String name, String title, JComponent c )
-    {
-        JInternalFrame f = new JInternalFrame( title, true, false, true, true );
-        SwingPrefs.add( name, f );
-        m_desktop.add( f );
-        f.setVisible( true );
-        f.getContentPane().add( c );
-        f.pack();
-    }
+//     private void addInternalFrame( String name, String title, JComponent c )
+//     {
+//         JInternalFrame f = new JInternalFrame( title, true, false, true, true );
+//         SwingPrefs.add( name, f );
+//         m_desktop.add( f );
+//         f.setVisible( true );
+//         f.getContentPane().add( c );
+//         f.pack();
+//     }
 
     private JMenuBar createMenuBar()
     {
@@ -115,11 +160,27 @@ public class Main extends JFrame
         {
             JMenu m = mb.add( new JMenu( "Fönster" ) );
 
-            for
-                ( JInternalFrame f : m_desktop.getAllFrames() )
+            class Xxx extends AbstractAction
             {
-                m.add( new InternalFrameCheckBoxMenuItem( f ) );
+                private final JDialog m_dialog;
+                
+                Xxx( JPanel p )
+                {
+                    super( ( (JDialog) p.getClientProperty( "dialog" ) ).getTitle() );
+                    m_dialog = (JDialog) p.getClientProperty( "dialog" );
+                }
+
+                public void actionPerformed( ActionEvent ev ) { m_dialog.setVisible( true ); }
             }
+
+            m.add( new Xxx( m_balanceReportPanel ) );
+            m.add( new Xxx( m_resultReportPanel ) );
+            
+//             for
+//                 ( JInternalFrame f : m_desktop.getAllFrames() )
+//             {
+//                 m.add( new InternalFrameCheckBoxMenuItem( f ) );
+//             }
         }
         
         return mb;
@@ -159,15 +220,19 @@ public class Main extends JFrame
             setTitle( m_title );
             m_balanceReportPanel.setYear( null );
             m_resultReportPanel.setYear( null );
-            m_verificationSetPanel.setYear( null );
-            m_accountPopulationEditor.setAccountPopulation( null );
+            m_verificationSetPanel1.setYear( null );
+            m_verificationSetPanel2.setYear( null );
+            m_accountPopulationEditor1.setAccountPopulation( null );
+            m_accountPopulationEditor2.setAccountPopulation( null );
             m_closeYearAction.setEnabled( false );
         } else {
             setTitle( m_title + " - " + Integer.toString( y.getNumber() ) );
             m_balanceReportPanel.setYear( y );
             m_resultReportPanel.setYear( y );
-            m_verificationSetPanel.setYear( y );
-            m_accountPopulationEditor.setAccountPopulation( y.getAccounts() );
+            m_verificationSetPanel1.setYear( y );
+            m_verificationSetPanel2.setYear( y );
+            m_accountPopulationEditor1.setAccountPopulation( y.getAccounts() );
+            m_accountPopulationEditor2.setAccountPopulation( y.getAccounts() );
             m_closeYearAction.setEnabled( true );
         }
     }

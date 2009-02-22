@@ -51,7 +51,7 @@ public class AccountPopulationTable extends JTable
                                         m_deleteAction,
                                         null,
                                         new AndPredicate( m_hasModel,
-                                                          new ListSelectionPredicate( getSelectionModel(), ListSelectionPredicate.TEST_SOME ) ) );  // todo: Test that all are unlocked
+                                                          new ListSelectionPredicate( getSelectionModel(), new Xxx() ) ) );
             getInputMap().put( KeyStroke.getKeyStroke( KeyEvent.VK_DELETE, 0 ), m_deleteAction.getValue( Action.NAME ) );
             getInputMap().put( KeyStroke.getKeyStroke( KeyEvent.VK_BACK_SPACE, 0 ), m_deleteAction.getValue( Action.NAME ) );
             getActionMap().put( m_deleteAction.getValue( Action.NAME ), m_deleteAction );
@@ -62,6 +62,31 @@ public class AccountPopulationTable extends JTable
     }
 
 
+
+    private class Xxx extends ListSelectionPredicate.CountTest // fixit: observe selected accounts
+    {
+        Xxx()
+        {
+            super( 1, Integer.MAX_VALUE );
+        }
+
+        public boolean test( ListSelectionModel selectionModel )
+        {
+            if ( ! super.test( selectionModel ) ) return false;
+            for
+                ( int i : getSelectedRows() )
+            {
+                Account ac = getAccountPopulation().get( i );
+                if ( ac.isLocked() ) return false;
+                if ( ! ac.getTransactions().isEmpty() ) return false;
+            }
+            return true;
+        }
+    }
+
+
+
+    
     public final AccountPopulation getAccountPopulation()
     {
         return (AccountPopulation) ( (TableModel) getModel() ).getData();
