@@ -86,8 +86,14 @@ public abstract class ImportPanel extends JPanel
         
         m_hasTrash.set( false );
     }
-
-
+/*
+2009-07-28  SWEDBANK AB (PUBL)  80 57 08-5  1.000,00  55.968,66    
+2009-07-28  SWEDBANK AB (PUBL)  80 57 08-5  1.042,00  55.968,66    
+2009-07-21  BOCK,GIT ELISABET  147 38 24-9  772,00  54.968,66   
+2009-07-14  SWEDBANK  110 29 25-3  283,36  54.196,66    
+2009-07-10  SVENSKA SPORTDYKARFRBUNDET  46 79 19-7  -1.760,00  53.913,30    
+2009-07-09  IDROTTENS BINGO I GTEBORG AB  5 57 40-5  400,00  55.673,30   
+*/
     private void parse()
     {
         List<Line> lines = new ArrayList<Line>();
@@ -105,8 +111,8 @@ public abstract class ImportPanel extends JPanel
             {
                 Line head = lines.get( 0 );
                 if
-                    ( ( ( head.m_date == null ) &&  ( l.m_date != null ) ) ||
-                      ( ( head.m_date != null ) &&  ( l.m_date == null ) ) ||
+                    ( ( ( head.m_date == null ) && ( l.m_date != null ) ) ||
+                      ( ( head.m_date != null ) && ( l.m_date == null ) ) ||
                       ( l.m_sum != null ) )
                 {
                     lines.clear();
@@ -191,7 +197,13 @@ public abstract class ImportPanel extends JPanel
                 }
             }
 
-            
+/*
+2009-07-28  SWEDBANK AB (PUBL)  80 57 08-5  1.000,00  55.968,66    
+2009-07-21  BOCK,GIT ELISABET  147 38 24-9  772,00  54.968,66   
+2009-07-14  SWEDBANK  110 29 25-3  283,36  54.196,66    
+2009-07-10  SVENSKA SPORTDYKARFRBUNDET  46 79 19-7  -1.760,00  53.913,30    
+2009-07-09  IDROTTENS BINGO I GTEBORG AB  5 57 40-5  400,00  55.673,30    
+*/            
             for
                 ( Line l : lines )
             {
@@ -200,7 +212,7 @@ public abstract class ImportPanel extends JPanel
                   // todo: use getDescription() to lookup account and set it
                 try
                 {
-                    t.setAmount( - Double.parseDouble( l.m_amount.replaceAll( " ", "" ).replaceAll( ",", "." ) ) );
+                    t.setAmount( - Double.parseDouble( l.m_amount.replaceAll( " ", "" ).replaceAll( "[^-,0-9]", "" ).replaceAll( ",", "." ) ) );
                     a += t.getAmount();
                 }
                 catch ( NumberFormatException ex ) {}
@@ -258,13 +270,28 @@ public abstract class ImportPanel extends JPanel
         String amount = "";
         String sum = "";
 
+	String [] t = line.split( "  " );
+        if ( t.length > 0 ) date = t[ 0 ];
+        if ( t.length > 1 ) text = t[ 1 ];
+        if ( t.length > 2 ) accountNumber = t[ 2 ];
+        if ( t.length > 3 ) amount = t[ 3 ];
+        if ( t.length > 4 ) sum = t[ 4 ];
+/*
         StringTokenizer t = new StringTokenizer( line, "\t" );
         if ( t.hasMoreTokens() ) date = t.nextToken().trim();
         if ( t.hasMoreTokens() ) text = t.nextToken().trim();
         if ( t.hasMoreTokens() ) accountNumber = t.nextToken().trim();
         if ( t.hasMoreTokens() ) amount = t.nextToken().trim();
         if ( t.hasMoreTokens() ) sum = t.nextToken().trim();
-
+*/
+/*
+System.err.println( "LINE: " + line );
+System.err.println( date );
+System.err.println( text );
+System.err.println( accountNumber );
+System.err.println( amount );
+System.err.println( sum );
+*/
         return new Line( date, text, accountNumber, amount, sum );
     }
     

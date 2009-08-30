@@ -38,6 +38,7 @@ public class Main extends JFrame
         add( p );
 
         JSplitPane spl = new JSplitPane();
+	spl.setOneTouchExpandable( true );
         SwingPrefs.add( "main-split", spl );
         p.add( spl, BorderLayout.CENTER );
 
@@ -320,13 +321,29 @@ public class Main extends JFrame
         
         try
         {
+            new File( m_databasePath ).renameTo( new File( m_databasePath + "." + new Date() ) );
+        }
+        catch ( Throwable ex )
+	{
+	    ex.printStackTrace();
+	}
+        
+        try
+        {
             PrintStream s = new PrintStream( new FileOutputStream( m_databasePath ) );
             nu.esox.xml.XmlWriter w = new nu.esox.xml.XmlWriter( s, "1.0", "ISO-8859-1", true );
             w.write( m_accounting );
             s.close();
         }
-        catch ( IOException ex ) {}
-        
+        catch ( IOException ex )
+	{
+	    ex.printStackTrace();
+	}
+        catch ( Throwable ex )
+	{
+	    ex.printStackTrace();
+	}
+         
         save();
         System.exit( 0 );
     }
