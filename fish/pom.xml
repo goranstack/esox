@@ -1,18 +1,35 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>nu.esox</groupId>
-  <artifactId>fish</artifactId>
-  <name>Fish Example</name>
-  <version>0.0.1-SNAPSHOT</version>
-  <dependencies>
-  	<dependency>
-  		<groupId>nu.esox</groupId>
-  		<artifactId>esoxGui</artifactId>
-  		<version>0.0.1-SNAPSHOT</version>
-  	</dependency>
-  </dependencies>
-  <build>
- 		<plugins>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>nu.esox</groupId>
+	<artifactId>fish</artifactId>
+	<name>Fish Example</name>
+	<version>0.0.1-SNAPSHOT</version>
+	<dependencies>
+		<dependency>
+			<groupId>nu.esox</groupId>
+			<artifactId>esoxGui</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>jfrog-plugins-dist</id>
+			<name>jfrog-plugins-dist</name>
+			<url>http://repo.jfrog.org/artifactory/plugins-releases-local</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+	<description>A small sample application using Esox GUI framework for binding Swing components to aspects of models. </description>
+	<url>http://code.google.com/p/esox</url>
+	<scm>
+		<connection>http://esox.googlecode.com/svn/trunk/fish</connection>
+		<developerConnection>https://esox.googlecode.com/svn/trunk/fish</developerConnection>
+	</scm>
+	<build>
+		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
@@ -20,6 +37,25 @@
 					<target>1.5</target>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.jfrog.maven.plugins</groupId>
+				<artifactId>jfrog-jnlp-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>jnlp</goal>
+						</goals>
+					</execution>
+				</executions>
+
+				<configuration>
+					<templateFile>master.jnlp</templateFile>
+					<targetFile>launcher.jnlp</targetFile>
+					<verbose>true</verbose>
+					<attach>true</attach>					
+					<mainClass>nu.esox.fish.gui.Main</mainClass>
+				</configuration>
+			</plugin>
 		</plugins>
-  </build>
+	</build>
 </project>

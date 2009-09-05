@@ -5,6 +5,12 @@
 	<artifactId>esoxCore</artifactId>
 	<name>Esox Core</name>
 	<version>0.0.1-SNAPSHOT</version>
+	<description>Esox Core contains classes for implementing the model part of the aspect binding.</description>
+	<url>http://code.google.com/p/esox</url>
+	<scm>
+		<connection>http://esox.googlecode.com/svn/trunk/esoxCore</connection>
+		<developerConnection>https://esox.googlecode.com/svn/trunk/esoxCore</developerConnection>
+	</scm>
 	<build>
 		<plugins>
 			<plugin>
