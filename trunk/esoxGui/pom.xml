@@ -4,6 +4,12 @@
   <artifactId>esoxGui</artifactId>
   <name>Esox GUI</name>
   <version>0.0.1-SNAPSHOT</version>
+  <description>Framework for binding aspects of Swing components to aspects of models. </description>
+  <url>http://code.google.com/p/esox</url>
+  <scm>
+  	<connection>http://esox.googlecode.com/svn/trunk/esoxGui</connection>
+  	<developerConnection>https://esox.googlecode.com/svn/trunk/esoxGui</developerConnection>
+  </scm>
   <build>
  		<plugins>
 			<plugin>

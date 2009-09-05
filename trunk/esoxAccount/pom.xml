@@ -4,6 +4,12 @@
   <artifactId>esoxAccount</artifactId>
   <name>Esox Account</name>
   <version>0.0.1-SNAPSHOT</version>
+  <description>A basic accounting application using the Esox GUI framework. Data is stored in a xml file by the Esox XML module.</description>
+  <url>http://code.google.com/p/esox</url>
+  <scm>
+  	<connection>http://esox.googlecode.com/svn/trunk/esoxAccount</connection>
+  	<developerConnection>https://esox.googlecode.com/svn/trunk/esoxAccount</developerConnection>
+  </scm>
   <build>
  		<plugins>
 			<plugin>
