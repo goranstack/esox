@@ -7,9 +7,15 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<description>Esox Core contains classes for implementing the model part of the aspect binding.</description>
 	<url>http://code.google.com/p/esox</url>
+	<parent>
+	  <artifactId>esox-parent</artifactId>
+	  <groupId>nu.esox</groupId>
+	  <version>0.0.1-SNAPSHOT</version>
+	</parent>
 	<scm>
-		<connection>http://esox.googlecode.com/svn/trunk/esoxCore</connection>
-		<developerConnection>https://esox.googlecode.com/svn/trunk/esoxCore</developerConnection>
+		<connection>scm:svn:http://esox.googlecode.com/svn/trunk/esoxCore</connection>
+		<developerConnection>scm:svn:https://esox.googlecode.com/svn/trunk/esoxCore</developerConnection>
+		<url>http://esox.googlecode.com/svn/trunk/esoxCore</url>
 	</scm>
 	<build>
 		<plugins>
