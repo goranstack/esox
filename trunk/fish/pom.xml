@@ -25,8 +25,8 @@
 	<description>A small sample application using Esox GUI framework for binding Swing components to aspects of models. </description>
 	<url>http://code.google.com/p/esox</url>
 	<scm>
-		<connection>http://esox.googlecode.com/svn/trunk/fish</connection>
-		<developerConnection>https://esox.googlecode.com/svn/trunk/fish</developerConnection>
+		<connection>scm:svn:http://esox.googlecode.com/svn/trunk/fish</connection>
+		<developerConnection>scm:svn:https://esox.googlecode.com/svn/trunk/fish</developerConnection>
 	</scm>
 	<build>
 		<plugins>
