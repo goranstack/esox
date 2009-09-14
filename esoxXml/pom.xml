@@ -4,6 +4,11 @@
   <artifactId>esoxXml</artifactId>
   <name>Esox XML</name>
   <version>0.0.1-SNAPSHOT</version>
+  <scm>
+  	<connection>scm:svn:http://esox.googlecode.com/svn/trunk/esoxXml</connection>
+  	<developerConnection>scm:svn:https://esox.googlecode.com/svn/trunk/esoxXml</developerConnection>
+  	<url>http://esox.googlecode.com/svn/trunk/esoxXml</url>
+  </scm>
   <build>
  		<plugins>
 			<plugin>
