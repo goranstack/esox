@@ -7,8 +7,9 @@
   <description>A basic accounting application using the Esox GUI framework. Data is stored in a xml file by the Esox XML module.</description>
   <url>http://code.google.com/p/esox</url>
   <scm>
-  	<connection>http://esox.googlecode.com/svn/trunk/esoxAccount</connection>
-  	<developerConnection>https://esox.googlecode.com/svn/trunk/esoxAccount</developerConnection>
+  	<connection>scm:svn:http://esox.googlecode.com/svn/trunk/esoxAccount</connection>
+  	<developerConnection>scm:svn:https://esox.googlecode.com/svn/trunk/esoxAccount</developerConnection>
+  	<url>http://esox.googlecode.com/svn/trunk/esoxAccount</url>
   </scm>
   <build>
  		<plugins>
