@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>nu.esox</groupId>
 	<artifactId>fish</artifactId>
@@ -20,6 +19,7 @@
 			</snapshots>
 		</pluginRepository>
 	</pluginRepositories>
+	<version>2.1.0-SNAPSHOT</version>
 	<description>A small sample application using Esox GUI framework for binding Swing components to aspects of models. </description>
 	<url>http://code.google.com/p/esox</url>
 	<parent>
@@ -28,9 +28,10 @@
 		<version>2.1.0</version>
 	</parent>
 	<scm>
-		<connection>scm:svn:http://esox.googlecode.com/svn/trunk/fish</connection>
-		<developerConnection>scm:svn:https://esox.googlecode.com/svn/trunk/fish</developerConnection>
-	</scm>
+		<connection>scm:svn:http://esox.googlecode.com/svn/tags/esox-parent-2.1.0/fish</connection>
+		<developerConnection>scm:svn:https://esox.googlecode.com/svn/tags/esox-parent-2.1.0/fish</developerConnection>
+	  <url>http://code.google.com/p/esox/source/fish/tags/esox-parent-2.1.0/fish</url>
+  </scm>
 	<build>
 		<plugins>
 			<plugin>
