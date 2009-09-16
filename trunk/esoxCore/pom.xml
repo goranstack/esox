@@ -9,7 +9,7 @@
 	<parent>
 	  <artifactId>esox-parent</artifactId>
 	  <groupId>nu.esox</groupId>
-	  <version>2.1.0-SNAPSHOT</version>
+	  <version>2.1.0</version>
 	</parent>
 	<scm>
 		<connection>scm:svn:http://esox.googlecode.com/svn/trunk/esoxCore</connection>
