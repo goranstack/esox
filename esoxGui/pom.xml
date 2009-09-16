@@ -3,6 +3,7 @@
   <groupId>nu.esox</groupId>
   <artifactId>esoxGui</artifactId>
   <name>Esox GUI</name>
+  <version>2.1.0-SNAPSHOT</version>
   <description>Framework for binding aspects of Swing components to aspects of models. </description>
   <url>http://code.google.com/p/esox</url>
   <parent>
@@ -11,9 +12,9 @@
   	<version>2.1.0</version>
   </parent>
   <scm>
-  	<connection>scm:svn:http://esox.googlecode.com/svn/trunk/esoxGui</connection>
-  	<developerConnection>scm:svn:https://esox.googlecode.com/svn/trunk/esoxGui</developerConnection>
-  	<url>http://esox.googlecode.com/svn/trunk/esoxGui</url>
+  	<connection>scm:svn:http://esox.googlecode.com/svn/tags/esox-parent-2.1.0/esoxGui</connection>
+  	<developerConnection>scm:svn:https://esox.googlecode.com/svn/tags/esox-parent-2.1.0/esoxGui</developerConnection>
+  	<url>http://esox.googlecode.com/svn/tags/esox-parent-2.1.0/esoxGui</url>
   </scm>
   <dependencies>
   	<dependency>
