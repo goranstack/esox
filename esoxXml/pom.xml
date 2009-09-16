@@ -10,8 +10,8 @@
   	<version>2.1.0</version>
   </parent>
   <scm>
-  	<connection>scm:svn:http://esox.googlecode.com/svn/tags/esox-parent-2.1.0/esoxXml</connection>
-  	<developerConnection>scm:svn:https://esox.googlecode.com/svn/tags/esox-parent-2.1.0/esoxXml</developerConnection>
-  	<url>http://esox.googlecode.com/svn/tags/esox-parent-2.1.0/esoxXml</url>
+  	<connection>scm:svn:http://esox.googlecode.com/svn/trunk/esoxXml</connection>
+  	<developerConnection>scm:svn:https://esox.googlecode.com/svn/trunk/esoxXml</developerConnection>
+  	<url>http://esox.googlecode.com/svn/trunk/esoxXml</url>
   </scm>
 </project>
