@@ -3,7 +3,7 @@
   <groupId>nu.esox</groupId>
   <artifactId>esoxXml</artifactId>
   <name>Esox XML</name>
-  <version>2.1.0-SNAPSHOT</version>
+  <version>2.1.0</version>
   <parent>
   	<artifactId>esox-parent</artifactId>
   	<groupId>nu.esox</groupId>
