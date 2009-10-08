@@ -1,0 +1,28 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>nu.esox</groupId>
+  <artifactId>esoxAccount</artifactId>
+  <name>Esox Account</name>
+  <description>A basic accounting application using the Esox GUI framework. Data is stored in a xml file by the Esox XML module.</description>
+  <url>http://code.google.com/p/esox</url>
+  <parent>
+  	<artifactId>esoxParent</artifactId>
+  	<groupId>nu.esox</groupId>
+  	<version>2.1.0</version>
+  </parent>
+  <scm>
+  	<connection>scm:svn:http://esox.googlecode.com/svn/trunk/esoxAccount</connection>
+  	<developerConnection>scm:svn:https://esox.googlecode.com/svn/trunk/esoxAccount</developerConnection>
+  	<url>http://esox.googlecode.com/svn/trunk/esoxAccount</url>
+  </scm>
+  <dependencies>
+  	<dependency>
+  		<groupId>nu.esox</groupId>
+  		<artifactId>esoxGui</artifactId>
+  	</dependency>
+  	<dependency>
+  		<groupId>nu.esox</groupId>
+  		<artifactId>esoxXml</artifactId>
+  	</dependency>
+  </dependencies>
+</project>
