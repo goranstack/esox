@@ -3,9 +3,8 @@
   <groupId>nu.esox</groupId>
   <artifactId>esoxXml</artifactId>
   <name>Esox XML</name>
-  <version>2.1.0</version>
   <parent>
-  	<artifactId>esox-parent</artifactId>
+  	<artifactId>esoxParent</artifactId>
   	<groupId>nu.esox</groupId>
   	<version>2.1.0</version>
   </parent>
