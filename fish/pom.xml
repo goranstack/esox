@@ -9,17 +9,6 @@
 			<artifactId>esoxGui</artifactId>
 		</dependency>
 	</dependencies>
-	<pluginRepositories>
-		<pluginRepository>
-			<id>jfrog-plugins-dist</id>
-			<name>jfrog-plugins-dist</name>
-			<url>http://repo.jfrog.org/artifactory/plugins-releases-local</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</pluginRepository>
-	</pluginRepositories>
-	<version>2.1.0</version>
 	<description>A small sample application using Esox GUI framework for binding Swing components to aspects of models. </description>
 	<url>http://code.google.com/p/esox</url>
 	<parent>
@@ -32,27 +21,4 @@
 		<developerConnection>scm:svn:https://esox.googlecode.com/svn/trunk/fish</developerConnection>
 	  <url>http://code.google.com/p/esox/source/fish/trunk/fish</url>
   </scm>
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.jfrog.maven.plugins</groupId>
-				<artifactId>jfrog-jnlp-plugin</artifactId>
-				<executions>
-					<execution>
-						<goals>
-							<goal>jnlp</goal>
-						</goals>
-					</execution>
-				</executions>
-
-				<configuration>
-					<templateFile>master.jnlp</templateFile>
-					<targetFile>launcher.jnlp</targetFile>
-					<verbose>true</verbose>
-					<attach>true</attach>					
-					<mainClass>nu.esox.fish.gui.Main</mainClass>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
 </project>

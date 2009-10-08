@@ -3,11 +3,10 @@
 	<groupId>nu.esox</groupId>
 	<artifactId>esoxCore</artifactId>
 	<name>Esox Core</name>
-	<version>2.1.0</version>
 	<description>Esox Core contains classes for implementing the model part of the aspect binding.</description>
 	<url>http://code.google.com/p/esox</url>
 	<parent>
-	  <artifactId>esox-parent</artifactId>
+	  <artifactId>esoxParent</artifactId>
 	  <groupId>nu.esox</groupId>
 	  <version>2.1.0</version>
 	</parent>
