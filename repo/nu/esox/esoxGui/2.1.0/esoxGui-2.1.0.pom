@@ -3,11 +3,10 @@
   <groupId>nu.esox</groupId>
   <artifactId>esoxGui</artifactId>
   <name>Esox GUI</name>
-  <version>2.1.0</version>
   <description>Framework for binding aspects of Swing components to aspects of models. </description>
   <url>http://code.google.com/p/esox</url>
   <parent>
-  	<artifactId>esox-parent</artifactId>
+  	<artifactId>esoxParent</artifactId>
   	<groupId>nu.esox</groupId>
   	<version>2.1.0</version>
   </parent>
