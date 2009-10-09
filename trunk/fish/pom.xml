@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>nu.esox</groupId>
 	<artifactId>fish</artifactId>
@@ -19,6 +20,54 @@
 	<scm>
 		<connection>scm:svn:http://esox.googlecode.com/svn/trunk/fish</connection>
 		<developerConnection>scm:svn:https://esox.googlecode.com/svn/trunk/fish</developerConnection>
-	  <url>http://code.google.com/p/esox/source/fish/trunk/fish</url>
-  </scm>
+		<url>http://code.google.com/p/esox/source/fish/trunk/fish</url>
+	</scm>
+	<build>
+		<plugins>
+			<!--
+				http://karussell.wordpress.com/2009/05/05/maven-and-webstart-jnlp/
+				http://mojo.codehaus.org/webstart/webstart-maven-plugin/jnlp-mojos-overview.html
+			-->
+			<plugin>
+				<groupId>org.codehaus.mojo.webstart</groupId>
+				<artifactId>webstart-maven-plugin</artifactId>
+				<version>1.0-alpha-2</version>
+			</plugin>
+		</plugins>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>webstart-maven-plugin</artifactId>
+					<!--
+						do not bind to install phase <executions> <execution> <goals>
+						<goal>report</goal> </goals> </execution> </executions>
+					-->
+					<configuration>
+						<jnlp>
+							<mainClass>nu.esox.fish.gui.Main</mainClass>
+						</jnlp>
+						<libPath>lib</libPath>
+						<sign>
+							<keystore>src/jnlp/esox.jks</keystore>
+							<keypass>${keypass}</keypass>
+							<storepass>${storepass}</storepass>
+							<storetype>jks</storetype>
+							<alias>esox</alias>
+							<verify>true</verify>
+						</sign>
+						<verbose>true</verbose>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+	<repositories>
+		<repository>
+			<id>codehaus-repository</id>
+			<name>Codehaus Repository</name>
+			<url>http://repository.codehaus.org/</url>
+		</repository>
+	</repositories>
+
 </project>
