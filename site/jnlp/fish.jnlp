@@ -15,11 +15,11 @@
  </security>
  <resources>
     <j2se version="1.6+" initial-heap-size="32m" max-heap-size="128m" />
-    <property name="jnlp.versionEnabled" value="true"/>
+    <property name="jnlp.versionEnabled" value="false"/>
     
-<jar href="lib/fish-2.1.0.jar" version="2.1.0" main="true"/>
-<jar href="lib/esoxGui-2.1.0.jar" version="2.1.0"/>
-<jar href="lib/esoxCore-2.1.0.jar" version="2.1.0"/>
+<jar href="lib/fish-2.1.0.jar" main="true"/>
+<jar href="lib/esoxGui-2.1.0.jar" />
+<jar href="lib/esoxCore-2.1.0.jar"/>
 
  </resources>
  <application-desc main-class="nu.esox.fish.gui.Main">
