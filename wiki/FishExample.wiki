@@ -1,0 +1,5 @@
+#summary Try the Fish Example.
+
+Run a small application with a master detail user interface built with the Esox framework.
+
+[http://esox.googlecode.com/svn/trunk/site/jnlp/fish.jnlp/ http://esox.googlecode.com/svn/trunk/site/jnlp/webstart.png]
