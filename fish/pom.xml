@@ -17,7 +17,7 @@
 		</dependency>
 	</dependencies>
 	<description>A small sample application using Esox GUI framework for binding Swing components to aspects of models. </description>
-	<url>http://code.google.com/p/esox</url>
+
 	<build>
 		<plugins>
 			<!--
