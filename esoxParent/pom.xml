@@ -4,7 +4,7 @@
 	<groupId>nu.esox</groupId>
 	<artifactId>esoxParent</artifactId>
 	<packaging>pom</packaging>
-	<name>Esox Parent</name>
+	<name>Esox</name>
 	<version>2.1.0</version>
 	<url>http://code.google.com/p/esox</url>
 	<issueManagement>
