@@ -25,7 +25,9 @@
 
 	<build>
 		<resources>
-		<!-- Make it possible to put resource files along side the java classes -->
+			<!--
+				Make it possible to put resource files along side the java classes
+			-->
 			<resource>
 				<directory> src/main/java </directory>
 				<excludes>
@@ -49,9 +51,9 @@
 				<executions>
 					<execution>
 						<id>attach-sources</id>
-						<phase>install</phase>
+						<phase>verify</phase>
 						<goals>
-							<goal>jar</goal>
+							<goal>jar-no-fork</goal>
 						</goals>
 					</execution>
 				</executions>
