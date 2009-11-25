@@ -21,6 +21,7 @@ public class Main extends JFrame
     
     public Main( Catches c )
     {
+    	setIconImage(new ImageIcon(getClass().getResource("bluefish.png")).getImage());
         m_catches = c;
         
         getContentPane().setLayout( new ColumnLayout( 5, true, true ) );
