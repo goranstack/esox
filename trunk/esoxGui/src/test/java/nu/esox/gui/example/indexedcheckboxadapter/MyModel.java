@@ -1,4 +1,4 @@
-package nu.esox.gui.example;
+package nu.esox.gui.example.indexedcheckboxadapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,22 +17,22 @@ public class MyModel extends Observable {
 
 	public MyModel() {
 		booleans = new ArrayList<Boolean>();
-		booleans.add(new Boolean(true));
 		booleans.add(new Boolean(false));
-		booleans.add(new Boolean(true));		
+		booleans.add(new Boolean(true));
+		booleans.add(new Boolean(false));		
 	}
 	
-	public Boolean getBoolean(int index)
+	public Boolean isMyBoolean(int index)
 	{
 		return booleans.get(index);
 	}
 	
-	public void setBoolean(int index, Boolean newValue)
+	public void setMyBoolean(int index, Boolean newValue)
 	{
-		if (!equals(newValue, getBoolean(index)))
+		if (!equals(newValue, isMyBoolean(index)))
 		{
 			booleans.set(index, newValue);
-			fireValueChanged("boolean", newValue);
+			fireValueChanged("myboolean", newValue);
 		}
 	}
 	
