@@ -3,6 +3,8 @@ package nu.esox.gui.example.indexedcheckboxadapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.ObjectUtils;
+
 import nu.esox.util.Observable;
 
 /**
@@ -29,18 +31,11 @@ public class MyModel extends Observable {
 	
 	public void setMyBoolean(int index, Boolean newValue)
 	{
-		if (!equals(newValue, isMyBoolean(index)))
+		if (!ObjectUtils.equals(newValue, isMyBoolean(index)))
 		{
 			booleans.set(index, newValue);
 			fireValueChanged("myboolean", newValue);
 		}
 	}
 	
-	private static boolean equals(Object o1, Object o2) {
-		if (o1 == o2)
-			return true;
-		if (o1 == null)
-			return false;
-		return o1.equals(o2);
-	}
 }
