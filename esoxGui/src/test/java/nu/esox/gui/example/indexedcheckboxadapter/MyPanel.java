@@ -18,9 +18,9 @@ public class MyPanel extends ModelPanel {
 		add(checkbox1);
 		add(checkbox2);
 		add(checkbox3);
-		new IndexedCheckBoxAdapter(0, checkbox1, this, MyModel.class, "isMyBoolean", "setMyBoolean", Boolean.class, "myboolean", true, false, false, false);
-		new IndexedCheckBoxAdapter(1, checkbox2, this, MyModel.class, "isMyBoolean", "setMyBoolean", Boolean.class, "myboolean", true, false, false, false);
-		new IndexedCheckBoxAdapter(2, checkbox3, this, MyModel.class, "isMyBoolean", "setMyBoolean", Boolean.class, "myboolean", true, false, false, false);
+		new IndexedCheckBoxAdapter(0, checkbox1, this, MyModel.class, "isMyBoolean", "setMyBoolean", Boolean.class, "myboolean", true, false, null, false);
+		new IndexedCheckBoxAdapter(1, checkbox2, this, MyModel.class, "isMyBoolean", "setMyBoolean", Boolean.class, "myboolean", true, false, null, false);
+		new IndexedCheckBoxAdapter(2, checkbox3, this, MyModel.class, "isMyBoolean", "setMyBoolean", Boolean.class, "myboolean", Boolean.TRUE, Boolean.FALSE, null, Boolean.FALSE);
 	}
 	
 	public static void main(String[] args) {
