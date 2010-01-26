@@ -7,9 +7,6 @@ import javax.swing.BorderFactory;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
-import javax.swing.text.DateFormatter;
-
-import org.apache.commons.lang.ObjectUtils;
 
 import nu.esox.gui.ModelPanel;
 import nu.esox.gui.TextFieldFocusHandler;
@@ -20,6 +17,8 @@ import nu.esox.gui.layout.ColumnLayout;
 import nu.esox.util.Observable;
 import nu.esox.util.ObservableEvent;
 import nu.esox.util.ObservableListener;
+
+import org.apache.commons.lang.ObjectUtils;
 
 /**
  * Example of how to use a SubModelAdapater
