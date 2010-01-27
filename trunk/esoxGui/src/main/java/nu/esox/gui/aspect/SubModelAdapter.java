@@ -1,7 +1,7 @@
 package nu.esox.gui.aspect;
 
-import java.lang.reflect.*;
-import nu.esox.util.*;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 
 public class SubModelAdapter extends AbstractAdapter
@@ -9,6 +9,27 @@ public class SubModelAdapter extends AbstractAdapter
     private final Object m_subModelTarget;
     private final Method m_setSubModelMethod;
 
+    
+    public SubModelAdapter( Object subModelTarget,
+            String setSubModelMethodName,
+            Class subModelClass,
+            ModelOwnerIF modelOwner,
+            AspectIF aspect,
+            String aspectName)
+    {
+    	super(modelOwner, aspect, aspectName, null, null);
+        m_subModelTarget = subModelTarget;
+        try
+        {
+            m_setSubModelMethod = m_subModelTarget.getClass().getMethod( setSubModelMethodName, subModelClass );
+        }
+        catch ( NoSuchMethodException ex )
+        {
+            throw new Error( "No such method: " + m_subModelTarget.getClass() + "." + setSubModelMethodName + "( " + subModelClass + " )" );
+        }
+        update();
+
+    }
     
     public SubModelAdapter( Object subModelTarget,
                             String setSubModelMethodName,
@@ -27,18 +48,7 @@ public class SubModelAdapter extends AbstractAdapter
                             String getAspectMethodName,
                             String aspectName )
     {
-        super( modelOwner, modelClass, getAspectMethodName, null, null, aspectName, null, null );
-
-        m_subModelTarget = subModelTarget;
-        try
-        {
-            m_setSubModelMethod = m_subModelTarget.getClass().getMethod( setSubModelMethodName, subModelClass );
-        }
-        catch ( NoSuchMethodException ex )
-        {
-            throw new Error( "No such method: " + m_subModelTarget.getClass() + "." + setSubModelMethodName + "( " + subModelClass + " )" );
-        }
-        update();
+    	this(subModelTarget, setSubModelMethodName, subModelClass, modelOwner, new Aspect(modelClass, getAspectMethodName, null, subModelClass), aspectName);
     }
     
     protected void update( Object projectedValue )
