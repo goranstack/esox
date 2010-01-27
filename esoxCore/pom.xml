@@ -9,6 +9,7 @@
 	</parent>
 
 	<artifactId>esoxCore</artifactId>
+	<packaging>jar</packaging>
 	<name>Esox Core</name>
 	<description>Esox Core contains classes for implementing the model part of the aspect binding.</description>
 
@@ -28,11 +29,6 @@
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-bundle-plugin</artifactId>
 				<extensions>true</extensions>
-				<configuration>
-					<instructions>
-						<Export-Package>se.esox.util</Export-Package>
-					</instructions>
-				</configuration>
 				<executions>
 					<execution>
 						<id>bundle-manifest</id>

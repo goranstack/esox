@@ -11,8 +11,8 @@
 		<url>http://code.google.com/p/esox/issues/list</url>
 	</issueManagement>
 	<scm>
-		<connection>scm:svn:http://esox.googlecode.com/svn/trunk/${artifactId}</connection>
-		<developerConnection>scm:svn:https://esox.googlecode.com/svn/trunk/${artifactId}</developerConnection>
+		<connection>scm:svn:http://esox.googlecode.com/svn/trunk/${project.artifactId}</connection>
+		<developerConnection>scm:svn:https://esox.googlecode.com/svn/trunk/${project.artifactId}</developerConnection>
 		<url>http://code.google.com/p/esox/source/browse</url>
 	</scm>
 	<modules>
