@@ -1,15 +1,27 @@
 package nu.esox.fish.gui;
 
-import java.awt.event.*;
-import java.util.*;
-import javax.swing.*;
-import nu.esox.util.*;
-import nu.esox.gui.*;
-import nu.esox.gui.layout.*;
-import nu.esox.gui.aspect.*;
-import nu.esox.gui.list.*;
-import nu.esox.gui.model.*;
-import nu.esox.fish.domain.*;
+import java.awt.event.ActionEvent;
+import java.util.Date;
+
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+
+import nu.esox.fish.domain.Catch;
+import nu.esox.fish.domain.Catches;
+import nu.esox.gui.aspect.EnablePredicateAdapter;
+import nu.esox.gui.aspect.TableSelectionAdapter;
+import nu.esox.gui.layout.ColumnLayout;
+import nu.esox.gui.layout.RowLayout;
+import nu.esox.gui.list.ListSelectionPredicate;
+import nu.esox.util.ObservableIF;
 
 
 @SuppressWarnings( "serial" )
@@ -95,7 +107,7 @@ public class Main extends JFrame
             c.getFish().setWeight( 2.412 );
             c.getFish().setLength( 105 );
             c.getFish().setGirth( Float.NaN );
-            c.getCoordinates().setVenue( "Järnlunden" );
+            c.getCoordinates().setVenue( "JÃ¤rnlunden" );
             c.getCoordinates().setSwim( "Secret" );
             c.getCoordinates().setWhen( new Date() );
             c.setMethod( "ledgering" );
@@ -121,7 +133,7 @@ public class Main extends JFrame
             c.getFish().setWeight( 1.060 );
             c.getFish().setLength( Float.NaN );
             c.getFish().setGirth( Float.NaN );
-            c.getCoordinates().setVenue( "Fullbosjön" );
+            c.getCoordinates().setVenue( "FullbosjÃ¶n" );
             c.getCoordinates().setSwim( "Secret" );
             c.getCoordinates().setWhen( new Date() );
             c.setMethod( "ice fishing" );
