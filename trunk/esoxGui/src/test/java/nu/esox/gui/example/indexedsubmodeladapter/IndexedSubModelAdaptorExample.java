@@ -109,7 +109,7 @@ public class IndexedSubModelAdaptorExample
 	 */
 	static class Car extends CommonModel
 	{
-		static String[] names = new String[]{"Göran", "Urban", "Johan", "Martha", "Josef", "Elisabeth", "Wille", "Dennis"};
+		static String[] names = new String[]{"GÃ¶ran", "Urban", "Johan", "Martha", "Josef", "Elisabeth", "Wille", "Dennis"};
 		List<Passenger> passengers = new ArrayList<Passenger>();
 
 		public Car()
