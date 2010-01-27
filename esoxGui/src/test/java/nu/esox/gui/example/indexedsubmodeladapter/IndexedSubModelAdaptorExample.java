@@ -15,6 +15,7 @@ import nu.esox.gui.TextFieldFocusHandler;
 import nu.esox.gui.aspect.CheckBoxAdapter;
 import nu.esox.gui.aspect.IndexedAspect;
 import nu.esox.gui.aspect.ModelOwnerIF;
+import nu.esox.gui.aspect.SubModelAdapter;
 import nu.esox.gui.aspect.TextFieldAdapter;
 import nu.esox.gui.layout.ColumnLayout;
 import nu.esox.util.Observable;
@@ -24,9 +25,9 @@ import nu.esox.util.ObservableListener;
 import org.apache.commons.lang.ObjectUtils;
 
 /**
- * Example of how to customize an adapter to handle aspect method with arguments.
- * Since aspect is a separate object in the adaptor it's easy to plug in a 
- * special aspect. This technique is already used in the framework in the
+ * This example shows how to customize an adapter to handle an aspect method with arguments.
+ * Since the aspect is a separate object in the adaptor it's easy to plug in a 
+ * special aspect. This technique is already used in the framework by the
  * IndexedCheckBoxAdapter and in this example we customize a SubModelAdapter
  * to bind to an indexed get-sub-model-method.
  * 
@@ -36,7 +37,7 @@ import org.apache.commons.lang.ObjectUtils;
 public class IndexedSubModelAdaptorExample
 {
 	
-	static class IndexedSubModelAdapter extends XSubModelAdapter
+	static class IndexedSubModelAdapter extends SubModelAdapter
 	{
 		public IndexedSubModelAdapter( int index,
 				Object subModelTarget,
