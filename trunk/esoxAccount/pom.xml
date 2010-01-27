@@ -7,6 +7,7 @@
   	<relativePath>../esoxParent</relativePath>
   </parent>
   <artifactId>esoxAccount</artifactId>
+  <packaging>jar</packaging>
   <name>Esox Account</name>
   <description>A basic accounting application using the Esox GUI framework. Data is stored in a xml file by the Esox XML module.</description>
   <dependencies>

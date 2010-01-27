@@ -9,6 +9,7 @@
 	</parent>
 
 	<artifactId>fish</artifactId>
+	<packaging>jar</packaging>
 	<name>Fish Example</name>
 	<dependencies>
 		<dependency>
