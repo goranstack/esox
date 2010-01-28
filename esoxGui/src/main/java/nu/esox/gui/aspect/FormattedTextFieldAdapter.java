@@ -25,13 +25,13 @@ public class FormattedTextFieldAdapter extends AbstractAdapter implements Action
 
         if       ( Long.class.equals( aspectClass ) ) m_converter = LONG_CONVERTER;
         else if ( Integer.class.equals( aspectClass ) ) m_converter = INTEGER_CONVERTER;
-        else if ( Short.class.equals( aspectClass ) ) m_converter = INTEGER_CONVERTER;
+        else if ( Short.class.equals( aspectClass ) ) m_converter = SHORT_CONVERTER;
         else if ( Byte.class.equals( aspectClass ) ) m_converter = BYTE_CONVERTER;
         else if ( Float.class.equals( aspectClass ) ) m_converter = FLOAT_CONVERTER;
         else if ( Double.class.equals( aspectClass ) ) m_converter = DOUBLE_CONVERTER;
         else if ( long.class.equals( aspectClass ) ) m_converter = LONG_CONVERTER;
         else if ( int.class.equals( aspectClass ) ) m_converter = INTEGER_CONVERTER;
-        else if ( short.class.equals( aspectClass ) ) m_converter = INTEGER_CONVERTER;
+        else if ( short.class.equals( aspectClass ) ) m_converter = SHORT_CONVERTER;
         else if ( byte.class.equals( aspectClass ) ) m_converter = BYTE_CONVERTER;
         else if ( float.class.equals( aspectClass ) ) m_converter = FLOAT_CONVERTER;
         else if ( double.class.equals( aspectClass ) ) m_converter = DOUBLE_CONVERTER;
@@ -71,7 +71,7 @@ public class FormattedTextFieldAdapter extends AbstractAdapter implements Action
 
     private interface Converter
     {
-        public Object convert( Object value ) { return value; }
+        public Object convert( Object value );
     }
 
     private static Converter DEFAULT_CONVERTER = new Converter() { public Object convert( Object value ) { return value; } };
