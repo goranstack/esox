@@ -6,6 +6,7 @@ import java.math.BigInteger;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JSplitPane;
 
 import org.apache.commons.lang.ObjectUtils;
 import org.junit.Test;
@@ -25,9 +26,12 @@ public class FormattedTextFieldAdapterTest {
 	public static void main(String[] args) {
 		JFrame window = new JFrame("Numbers");
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		NumberPanel panel = new NumberPanel();
-		panel.setModel(new NumberModel());
-		window.getContentPane().add(panel);
+		NumberModel model = new NumberModel();
+		NumberPanel panel1 = new NumberPanel();
+		panel1.setModel(model);
+		NumberPanel panel2 = new NumberPanel();
+		panel2.setModel(model);
+		window.getContentPane().add(new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, panel1, panel2));
 		window.setLocation(100, 100);
 		window.pack();
 		window.setVisible(true);
@@ -182,6 +186,7 @@ public class FormattedTextFieldAdapterTest {
 		}
 
 		public void setAnInteger(Integer anInteger) {
+			System.out.println("setAnInteger " + anInteger);
 			if (!ObjectUtils.equals(this.anInteger, anInteger))
 			{
 				this.anInteger = anInteger;
