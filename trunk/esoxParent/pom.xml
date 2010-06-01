@@ -75,6 +75,7 @@
 	<!--
 		Found at Don Brown's Weblog:
 		http://www.jroller.com/mrdon/entry/find_of_the_day_wagon
+		dummyLine for test commit
 	-->
 	<distributionManagement>
 		<repository>
