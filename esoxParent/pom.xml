@@ -4,15 +4,15 @@
 	<artifactId>esoxParent</artifactId>
 	<packaging>pom</packaging>
 	<name>Esox</name>
-	<version>2.1.1</version>
+	<version>2.1.2-SNAPSHOT</version>
 	<url>http://code.google.com/p/esox</url>
 	<issueManagement>
 		<url>http://code.google.com/p/esox/issues/list</url>
 	</issueManagement>
 	<scm>
-		<connection>scm:svn:http://esox.googlecode.com/svn/tags/esox-2.1.1</connection>
-		<developerConnection>scm:svn:https://esox.googlecode.com/svn/tags/esox-2.1.1</developerConnection>
-		<url>http://code.google.com/p/esox/source/browse/tags/esox-2.1.1</url>
+		<connection>scm:svn:http://esox.googlecode.com/svn/trunk/esoxParent</connection>
+		<developerConnection>scm:svn:https://esox.googlecode.com/svn/trunk/esoxParent</developerConnection>
+		<url>http://code.google.com/p/esox/source/browse</url>
 	</scm>
 	<modules>
 		<module>../esoxAccount</module>
