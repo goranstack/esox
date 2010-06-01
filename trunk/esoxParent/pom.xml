@@ -1,19 +1,18 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>nu.esox</groupId>
 	<artifactId>esoxParent</artifactId>
 	<packaging>pom</packaging>
 	<name>Esox</name>
-	<version>2.1.1-SNAPSHOT</version>
+	<version>2.1.1</version>
 	<url>http://code.google.com/p/esox</url>
 	<issueManagement>
 		<url>http://code.google.com/p/esox/issues/list</url>
 	</issueManagement>
 	<scm>
-		<connection>scm:svn:http://esox.googlecode.com/svn/trunk/${project.artifactId}</connection>
-		<developerConnection>scm:svn:https://esox.googlecode.com/svn/trunk/${project.artifactId}</developerConnection>
-		<url>http://code.google.com/p/esox/source/browse</url>
+		<connection>scm:svn:http://esox.googlecode.com/svn/tags/esox-2.1.1</connection>
+		<developerConnection>scm:svn:https://esox.googlecode.com/svn/tags/esox-2.1.1</developerConnection>
+		<url>http://code.google.com/p/esox/source/browse/tags/esox-2.1.1</url>
 	</scm>
 	<modules>
 		<module>../esoxAccount</module>
