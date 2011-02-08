@@ -178,7 +178,8 @@ public abstract class ReportPanel extends ModelPanel
             refresh();
         }
 
-        public void setSource( ObservableList<Account> source )
+        @Override
+        public void setSource( ObservableListIF<Account> source )
         {
             super.setSource( source );
             refresh();
@@ -193,21 +194,22 @@ public abstract class ReportPanel extends ModelPanel
             for
                 ( Account a : this )
             {
-                m_ib += a.getIb();
-                m_amount += a.getAmount();
-                m_budget += a.getBudget();
+                m_ib = Transaction.addAmounts( m_ib, a.getIb() );
+                m_amount = Transaction.addAmounts( m_amount, a.getAmount() );
+                m_budget = Transaction.addAmounts( m_budget, a.getBudget() );
             }
         }
     }
 
- 
-    private class EmptyAccountFilter extends nu.esox.util.Observable implements FilteredObservableList.Filter<Account>
+    protected abstract boolean isAccountEmpty( Account a );
+    
+    private class EmptyAccountFilter extends nu.esox.util.Observable implements FilteredObservableList.Filter<Account> // fixit: only wrks for result
     {
         private boolean m_showEmptyAccounts = true;
 
         public boolean pass( Account a )
         {
-            return m_showEmptyAccounts || ( a.getAmount() != 0 ) || ( a.getBudget() != 0 );
+            return m_showEmptyAccounts || ! isAccountEmpty( a );// ( a.getAmount() != 0 ) || ( a.getBudget() != 0 );
         }
         
         public boolean getShowEmptyAccounts() { return m_showEmptyAccounts; }
@@ -251,9 +253,12 @@ public abstract class ReportPanel extends ModelPanel
             listenTo( m_account2 );
         }
 
-        public double getAmount() { return m_account1.getAmount() + m_account2.getAmount(); }
-        public double getIb() { return m_account1.getIb() + m_account2.getIb(); }
-        public double getBudget() { return m_account1.getBudget() + m_account2.getBudget(); }
+        public double getAmount()
+        {
+            return Transaction.addAmounts( m_account1.getAmount(), m_account2.getAmount() );
+        }
+        public double getIb() { return Transaction.addAmounts( m_account1.getIb(), m_account2.getIb() ); }
+        public double getBudget() { return Transaction.addAmounts( m_account1.getBudget(), m_account2.getBudget() ); }
     }
 }
 

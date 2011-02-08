@@ -213,7 +213,7 @@ public abstract class ImportPanel extends JPanel
                 try
                 {
                     t.setAmount( - Double.parseDouble( l.m_amount.replaceAll( " ", "" ).replaceAll( "[^-,0-9]", "" ).replaceAll( ",", "." ) ) );
-                    a += t.getAmount();
+                    a = Transaction.addAmounts( a, t.getAmount() );
                 }
                 catch ( NumberFormatException ex ) {}
                 

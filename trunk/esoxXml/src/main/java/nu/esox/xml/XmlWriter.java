@@ -32,11 +32,10 @@ public class XmlWriter
         if ( version == null ) version = "1.0";
         if ( encoding == null ) encoding = "ISO-8859-1";
 
-        m_stream.print( "<?xml version=\"" );
-        m_stream.print( version );
-        m_stream.print( "\" encoding=\"" );
-        m_stream.print( encoding );
-        m_stream.print( "\"" );
+        m_stream.print( "<?xml version=\"" + version + "\"" );
+
+        if ( encoding.length() > 0 ) m_stream.print( " encoding=\"" + encoding + "\"" );
+        
         if ( standAlone ) m_stream.print( " standalone=\"yes\"" );
         m_stream.println( "?>" );
     }

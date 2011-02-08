@@ -85,6 +85,24 @@ public class Transaction extends Observable implements XmlWriter.Writeable
         return Double.isNaN( amount );
     }
 
+    public static String formatAmount( double amount )
+    {
+        int sign = ( amount >= 0 ) ? 1 : -1;
+        int i =  (int) ( Math.abs( amount ) * 100 + 0.5 );
+
+        return String.format( "%.2f", sign * i / 100.0 );
+    }
+
+    public static double addAmounts( double a, double b )
+    {
+        int signA = ( a < 0 ) ? -1 : 1;
+        int signB = ( b < 0 ) ? -1 : 1;
+        long A = Math.round( Math.abs( a ) * 100 );
+        long B = Math.round( Math.abs( b ) * 100 );
+        long c = signA * A + signB * B;
+        return c / 100.0;
+    }
+
     
     public String xmlGetTag()
     {
@@ -94,7 +112,7 @@ public class Transaction extends Observable implements XmlWriter.Writeable
     public void xmlWriteAttributes( XmlWriter w )
     {
         w.write( "description", m_description );
-        if ( hasAmount() ) w.write( "amount", m_amount );
+        if ( hasAmount() ) w.write( "amount", formatAmount( m_amount ) );
     }
     
     public void xmlWriteSubmodels( XmlWriter w )

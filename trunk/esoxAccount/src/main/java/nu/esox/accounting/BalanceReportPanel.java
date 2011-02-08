@@ -41,4 +41,9 @@ public class BalanceReportPanel extends ReportPanel
     {
         return new BalanceReportTable( accounts );
     }
+
+    protected boolean isAccountEmpty( Account a )
+    {
+        return ( a.getAmount() == 0 ) && ( a.getBudget() == 0 ) && ( a.getIb() == 0 );
+    }
 }

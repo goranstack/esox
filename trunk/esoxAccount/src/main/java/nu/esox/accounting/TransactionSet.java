@@ -45,10 +45,10 @@ public class TransactionSet extends ObservableList<Transaction> implements XmlWr
     private void assure()
     {
         if
-            ( m_amount == null )
+            ( m_amount == null )//Transaction.addAmounts( tmp, m_ib );
         {
-            int amount = 0;
-            int sum = 0;
+            double amount = 0;
+            double sum = 0;
             int size = 0;
             
             for
@@ -58,8 +58,8 @@ public class TransactionSet extends ObservableList<Transaction> implements XmlWr
                     ( ( t.getAccount() != null ) && t.hasAmount() )
                 {
                     size++;
-                    amount += 100 * t.getAmount();
-                    if ( t.getAmount() > 0 ) sum += 100 * t.getAmount();
+                    amount = Transaction.addAmounts( amount, t.getAmount() );
+                    if ( t.getAmount() > 0 ) sum = Transaction.addAmounts( sum, t.getAmount() );
                 }
             }
 
@@ -71,11 +71,11 @@ public class TransactionSet extends ObservableList<Transaction> implements XmlWr
                 m_amount = Transaction.AMOUNT_UNDEFINED;
                 m_sum = Transaction.AMOUNT_UNDEFINED;
             } else {
-                m_amount = amount / 100.0;
+                m_amount = amount;
                 if
                     ( amount == 0 )
                 {
-                    m_sum = sum / 100.0;
+                    m_sum = sum;
                 } else {
                     m_sum = Transaction.AMOUNT_UNDEFINED;
                 }

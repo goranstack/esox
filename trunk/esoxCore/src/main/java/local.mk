@@ -14,4 +14,4 @@ localinfo :
 
 jar : 
 	make
-	jar cf $${PWD/*\//}".jar" `find nu -path "*/.svn" -prune -or -not -name "*.java" -and -not -name "makefile" -and -type f -print`
+	jar cf esoxCore.jar `find nu -path "*/.svn" -prune -or -not -name "*.java" -and -not -name "makefile" -and -type f -print`

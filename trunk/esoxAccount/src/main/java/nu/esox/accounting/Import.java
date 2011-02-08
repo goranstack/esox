@@ -305,7 +305,7 @@ public class Import
         try
         {
             PrintStream s = new PrintStream( new FileOutputStream( databasePath ) );
-            nu.esox.xml.XmlWriter w = new nu.esox.xml.XmlWriter( s, "1.0", "ISO-8859-1", true );
+            nu.esox.xml.XmlWriter w = new nu.esox.xml.XmlWriter( s, "1.0", /*"ISO-8859-1"*/"", true );
             w.write( a );
             s.close();
         }
