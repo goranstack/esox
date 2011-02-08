@@ -51,5 +51,11 @@ public class ResultReportPanel extends ReportPanel
     {
         return new ResultReportTable( accounts );
     }
+
+    protected boolean isAccountEmpty( Account a )
+    {
+        return ( a.getAmount() == 0 ) && ( a.getBudget() == 0 );
+    }
+
 }
 

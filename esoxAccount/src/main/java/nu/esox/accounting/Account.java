@@ -95,7 +95,7 @@ public class Account extends NamedAndNumbered implements XmlWriter.Writeable
     {
         double tmp = m_transactions.getAmount();
         if ( Transaction.isAmountUndefined( tmp ) ) tmp = 0;
-        if ( hasIb() ) tmp += m_ib;
+        if ( hasIb() ) tmp = Transaction.addAmounts( tmp, m_ib );
         return tmp;
     }
 
@@ -148,8 +148,8 @@ public class Account extends NamedAndNumbered implements XmlWriter.Writeable
     {
         w.write( "number", getNumber() );
         w.write( "name", getName() );
-        w.write( "ib", m_ib );
-        w.write( "budget", m_budget );
+        w.write( "ib", Transaction.formatAmount( m_ib ) );
+        w.write( "budget", Transaction.formatAmount( m_budget ) );
     }
     
     public void xmlWriteSubmodels( XmlWriter w )

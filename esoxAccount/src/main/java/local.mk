@@ -1,4 +1,4 @@
-MAIN_CLASS = nu.esox.accounting.Main $(MAKEHOME)/db.xml
+MAIN_CLASS = nu.esox.accounting.Main $(MAKEHOME)/../../../db2010.xml
 
 info : localinfo
 localinfo : 
