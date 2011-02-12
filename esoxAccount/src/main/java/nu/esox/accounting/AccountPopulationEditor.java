@@ -18,9 +18,9 @@ public class AccountPopulationEditor extends ModelPanel
     private final AccountPopulationTable m_table =
         new AccountPopulationTable( "Nytt", "Ta bort" )
         {
-            {
-                SwingPrefs.add( "account-table", this );
-            }
+//             {
+//                 SwingPrefs.add( "account-table", this );
+//             }
             
             protected void add()
             {
@@ -63,7 +63,7 @@ public class AccountPopulationEditor extends ModelPanel
         east.add( m_editor );
 
         final TransactionSetTable tst = new TransactionSetTable( false );
-        SwingPrefs.add( "account-transaction-table", tst );
+//        SwingPrefs.add( "account-transaction-table", tst );
         east.add( new JScrollPane( tst ), ColumnLayout.FILL );
 
         add( center, BorderLayout.CENTER );

@@ -44,7 +44,7 @@ public class VerificationSetTable extends JTable
         super( new TableModel() );
 
         setAutoCreateColumnsFromModel( false );
-        setDefaultRenderer( Double.class, new AmountTableRenderer() );
+        setDefaultRenderer( Double.class, new AmountTableRenderer( "%s" ) );
         getColumn( "Nr" ).setCellRenderer( new VerificationNumberRenderer() );
         
         m_addAction = new AbstractAction( addLabel ) { public void actionPerformed( ActionEvent ev ) { add(); } };

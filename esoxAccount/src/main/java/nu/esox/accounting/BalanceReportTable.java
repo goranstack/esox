@@ -13,18 +13,24 @@ import nu.esox.gui.model.*;
 @SuppressWarnings( "serial" )
 public class BalanceReportTable extends JTable
 {
-    public BalanceReportTable( ObservableList<Account> accounts )
+    private BalanceReportTable( ObservableList<Account> accounts, String format )
     {
         super( new TableModel( accounts ) );
 
         setAutoCreateColumnsFromModel( false );
-        setDefaultRenderer( Double.class, new AmountTableRenderer() );
+        setDefaultRenderer( String.class, new FormattedTableCellRenderer( format ) );
+        setDefaultRenderer( Double.class, new AmountTableRenderer( format ) );
         setShowGrid( false );
+    }
+
+    public BalanceReportTable( ObservableList<Account> accounts )
+    {
+        this( accounts, "%s" );
     }
 
     public BalanceReportTable( Account total )
     {
-        this( new ObservableList<Account>() );
+        this( new ObservableList<Account>(), "<html><b>%s</html>" );
         ( (TableModel) getModel() ).getData().add( total );
     }
 

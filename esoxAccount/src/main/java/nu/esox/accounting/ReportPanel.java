@@ -114,7 +114,7 @@ public abstract class ReportPanel extends ModelPanel
         as.add( a );
         JTable t = createTable( a );
         JPanel p = new JPanel( new ColumnLayout( 0, true, true ) );
-        p.add( new JLabel( a.getTotal().getType().toString() ) );
+        p.add( new JLabel( "<html><b><u>" + a.getTotal().getType().toString() + "</html>" ) );
         addTable( t, p, ts );
         addTable( createTable( a.getTotal() ), p, ts );
           //new SubModelAdapter( t, this, "setAccountPopulation", AccountPopulation.class, Year.class, "getAccounts" );

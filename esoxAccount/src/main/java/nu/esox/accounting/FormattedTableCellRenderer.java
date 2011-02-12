@@ -7,19 +7,19 @@ import javax.swing.table.*;
 
 
 @SuppressWarnings( "serial" )
-public class AmountTableRenderer extends DefaultTableCellRenderer
+public class FormattedTableCellRenderer extends DefaultTableCellRenderer
 {
     private final String m_format;
 
-    AmountTableRenderer( String format )
+    FormattedTableCellRenderer( String format )
     {
         m_format = format;
-        setHorizontalAlignment( JTextField.RIGHT );
+//        setHorizontalAlignment( JTextField.RIGHT );
     }
     
     public Component getTableCellRendererComponent( JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column )
     {
-        return super.getTableCellRendererComponent( table, String.format( m_format, AmountTextField.format( value ) ), isSelected, hasFocus, row, column );
+        return super.getTableCellRendererComponent( table, String.format( m_format, value.toString() ), isSelected, hasFocus, row, column );
     }
 }
 

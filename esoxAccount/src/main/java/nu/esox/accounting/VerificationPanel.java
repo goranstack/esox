@@ -56,7 +56,7 @@ public class VerificationPanel extends ModelPanel
             JPanel p = new JPanel( new ColumnLayout( 5, true, true ) );
             add( p, BorderLayout.CENTER );
       
-            if ( tableId != null ) SwingPrefs.add( tableId, m_table );
+              //if ( tableId != null ) SwingPrefs.add( tableId, m_table );
             p.add( new JScrollPane( m_table ), ColumnLayout.FILL );
             new SubModelAdapter( m_table, "setTransactionSet", TransactionSet.class, this, Verification.class, "getTransactions", null );
             new SubModelAdapter( m_table, "setAccounts", AccountPopulation.class, this, Verification.class, "getAccounts", null );
