@@ -11,6 +11,16 @@ import nu.esox.gui.*;
 import nu.esox.util.*;
 
 
+/*
+  fixit:
+
+  single table based reports with formatting -> export=dnd
+  transaction table.double click -> popup transaction editor
+  transaction table.xxx -> select account
+  account table.xxx -> select transaction
+  splash x 2
+*/
+
 @SuppressWarnings( "serial" )
 public class Main extends JFrame
 {
@@ -19,7 +29,6 @@ public class Main extends JFrame
 
     private final Accounting m_accounting;
 
-//    private final JDesktopPane m_desktop = new JDesktopPane();
     private final VerificationSetPanel m_verificationSetPanel1 = new VerificationSetPanel();
     private final VerificationSetPanel m_verificationSetPanel2 = new VerificationSetPanel();
     private final AccountPopulationEditor m_accountPopulationEditor1 = new AccountPopulationEditor();
@@ -31,20 +40,20 @@ public class Main extends JFrame
     
     public Main( Accounting accounting )
     {
-        SwingPrefs.add( "main", this );
+//        SwingPrefs.add( "main", this );
         m_accounting = accounting;
        
         JPanel p = new JPanel( new BorderLayout() );
         add( p );
 
         JSplitPane spl = new JSplitPane();
-	spl.setOneTouchExpandable( true );
-        SwingPrefs.add( "main-split", spl );
+        spl.setOneTouchExpandable( true );
+//        SwingPrefs.add( "main-split", spl );
         p.add( spl, BorderLayout.CENTER );
 
         {
             JSplitPane tmp = new JSplitPane( JSplitPane.VERTICAL_SPLIT );
-            SwingPrefs.add( "main-left-split", tmp );
+              //SwingPrefs.add( "main-left-split", tmp );
             tmp.setOneTouchExpandable( true );
             tmp.setBorder( BorderFactory.createTitledBorder( "Konton" ) );
             spl.setLeftComponent( tmp );
@@ -54,29 +63,13 @@ public class Main extends JFrame
 
         {
             JSplitPane tmp = new JSplitPane( JSplitPane.VERTICAL_SPLIT );
-            SwingPrefs.add( "main-right-split", tmp );
+//            SwingPrefs.add( "main-right-split", tmp );
             tmp.setOneTouchExpandable( true );
             tmp.setBorder( BorderFactory.createTitledBorder( "Verifikationer" ) );
             spl.setRightComponent( tmp );
             tmp.setTopComponent( m_verificationSetPanel1 );
             tmp.setBottomComponent( m_verificationSetPanel2 );
         }
-
-
-//         spl.setLeftComponent( m_accountPopulationEditor );
-//         m_accountPopulationEditor.setBorder( BorderFactory.createTitledBorder( "Konton" ) );
-//         m_verificationSetPanel.setBorder( BorderFactory.createTitledBorder( "Verifikationer" ) );
-        
-//         spl.setRightComponent( m_verificationSetPanel );
-        
-//         p.add( m_desktop, BorderLayout.CENTER );
-//         m_desktop.setOpaque( true );
-//         m_desktop.setBackground( Color.gray );
-
-//         addInternalFrame( "verification-frame", "Verifikationer", m_verificationSetPanel );
-//         addInternalFrame( "accounts-frame", "Konton", m_accountPopulationEditor );
-//         addInternalFrame( "balance-frame", "Balans", m_balanceReportPanel );
-//         addInternalFrame( "result-frame", "Resultat", m_resultReportPanel );
 
         {
             JDialog d = new JDialog( this, "Balans", false );
@@ -99,34 +92,34 @@ public class Main extends JFrame
         }
 
         pack();
-
-        SwingUtilities.invokeLater( new Runnable() { public void run() { load(); } } );
     }
 
-    private void load()
+    private static boolean load( Accounting a )
     {
         Preferences prefs = Preferences.userRoot().node( "nu/esox/accounting" );
         try
         {
             prefs.sync();
+
+            int i = 0;
+            
+            while
+                ( prefs.nodeExists( "" + i ) )
+            {
+                Preferences n = prefs.node( "" + i );
+                System.err.println( n.absolutePath() + " = " + n.getInt( "year", 0 ) );
+                newWindow( a, a.getYears().getYear( n.getInt( "year", 0 ) ), n );
+                i++;
+            }
+
+            return i > 0;
         }
         catch ( BackingStoreException ex )
         {
             System.err.println( ex );
+            return false;
         }
-
-        SwingPrefs.apply( prefs );
     }
-
-//     private void addInternalFrame( String name, String title, JComponent c )
-//     {
-//         JInternalFrame f = new JInternalFrame( title, true, false, true, true );
-//         SwingPrefs.add( name, f );
-//         m_desktop.add( f );
-//         f.setVisible( true );
-//         f.getContentPane().add( c );
-//         f.pack();
-//     }
 
     private JMenuBar createMenuBar()
     {
@@ -176,12 +169,6 @@ public class Main extends JFrame
 
             m.add( new Xxx( m_balanceReportPanel ) );
             m.add( new Xxx( m_resultReportPanel ) );
-            
-//             for
-//                 ( JInternalFrame f : m_desktop.getAllFrames() )
-//             {
-//                 m.add( new InternalFrameCheckBoxMenuItem( f ) );
-//             }
         }
         
         return mb;
@@ -211,7 +198,7 @@ public class Main extends JFrame
     }
 
 
-    private static final String m_title = "LSDK bokföring 1.1";
+    private static final String m_title = "LSDK bokföring 1.2.RC1";
     
     private void setYear( Year y )
     {
@@ -237,37 +224,38 @@ public class Main extends JFrame
             m_closeYearAction.setEnabled( true );
         }
     }
-    
-//     private JComponent createYearList()
-//     {
-//         JList l = new JList( new ObservableCollectionListModel( m_accounting.getYears() ) );
-//         SwingPrefs.add( "years", l );
-//           //todo: single selection
-//         new ListSelectionAdapter( l, m_balanceReportPanel, Year.class, "setYear" );
-//         new ListSelectionAdapter( l, m_resultReportPanel, Year.class, "setYear" );
-//         new ListSelectionAdapter( l, m_verificationSetPanel, Year.class, "setYear" );
-//         new ListSelectionAdapter( l, m_accountPopulationEditor, AccountPopulation.class, "setAccountPopulation" )
-//         {
-//             protected Object getModelFrom( Object model )
-//             {
-//                 return ( (Year) model ).getAccounts();
-//             }
-//         };
-//         new ListSelectionMonitor( l.getSelectionModel(), new Object [] { m_closeYearAction } );
-    
-//         return new JScrollPane( l );
-//     }
 
     
-    private void save()
+    private Year getYear()
     {
-        Preferences prefs = Preferences.userRoot().node( "nu/esox/accounting" );
-//        prefs.clear();
-        
-        SwingPrefs.collect( prefs );
+        return m_verificationSetPanel1.getYear();
+    }
 
+
+    
+    
+    private static void save()
+    {
         try
         {
+            Preferences prefs = Preferences.userRoot().node( "nu/esox/accounting" );
+
+            int i = 0;
+            for
+                ( Main f : m_instances )
+            {
+                Preferences n = prefs.node( "" + i );
+                n.putInt( "year", f.getYear().getNumber() );
+
+                System.err.println( n.absolutePath() + " = " + n.getInt( "year", -1 ) );
+                save( f, n );
+                save( (JDialog) f.m_balanceReportPanel.getClientProperty( "dialog" ), n );
+                save( (JDialog) f.m_resultReportPanel.getClientProperty( "dialog" ), n );
+                i++;
+            }
+            
+            prefs.node( "" + i ).removeNode();
+        
             prefs.flush();
         }
         catch ( BackingStoreException ex )
@@ -275,9 +263,129 @@ public class Main extends JFrame
             System.err.println( ex );
         }
     }
+    
+    
+    private static void save( Component c, Preferences n )
+    {
+        if      ( c instanceof JDialog )     save( n, (JDialog) c );
+        else if ( c instanceof Window )      save( n, (Window) c );
+        else if ( c instanceof JSplitPane )  save( n, (JSplitPane) c );
+        else if ( c instanceof JScrollBar )  save( n, (JScrollBar) c );
+        else if ( c instanceof JTable )      save( n, (JTable) c );
+
+        if
+            ( c instanceof Container )
+        {
+            int i = 0;
+            for ( Component ch : ( (Container) c ).getComponents() ) save( ch, n.node( "" + i++ ) );
+        }
+        
+    }
+    
+    private static void save( Preferences n, JDialog d )
+    {
+        save( n.node( d.getTitle() ), (Window) d );
+    }
+    
+    private static void save( Preferences n, Window w )
+    {
+        n.putInt( "x", w.getX() );
+        n.putInt( "y", w.getY() );
+        n.putInt( "w", w.getWidth() );
+        n.putInt( "h", w.getHeight() );
+    }
+    
+    private static void save( Preferences n, JSplitPane c )
+    {
+        n.putInt( "div", c.getDividerLocation() );
+        n.putInt( "ldiv", c.getLastDividerLocation() );
+    }
+    
+    private static void save( Preferences n, JScrollBar c )
+    {
+        n.putInt( "v", c.getValue() );
+    }
+    
+    private static void save( Preferences n, JTable c )
+    {
+        for
+            ( javax.swing.table.TableColumn tc : Collections.list( c.getColumnModel().getColumns() ) )
+        {
+            n.node( tc.getIdentifier().toString() ).putInt( "w", tc.getWidth() );
+        }
+    }
 
 
-    private final Action m_newAction = new AbstractAction( "Nytt fönster" ) { public void actionPerformed( ActionEvent ev ) { newWindow( m_accounting, null ); } };
+
+
+    private static void load( Main f, Preferences n )
+    {
+        if
+            ( n != null )
+        {
+            load( (Component) f, n );
+            load( (JDialog) f.m_balanceReportPanel.getClientProperty( "dialog" ), n );
+            load( (JDialog) f.m_resultReportPanel.getClientProperty( "dialog" ), n );
+        }
+
+    }
+
+    
+    private static void load( Component c, Preferences n )
+    {
+        if      ( c instanceof JDialog )     load( n, (JDialog) c );
+        else if ( c instanceof Window )      load( n, (Window) c );
+        else if ( c instanceof JSplitPane )  load( n, (JSplitPane) c );
+        else if ( c instanceof JScrollBar )  load( n, (JScrollBar) c );
+        else if ( c instanceof JTable )      load( n, (JTable) c );
+
+        if
+            ( c instanceof Container )
+        {
+            int i = 0;
+            for ( Component ch : ( (Container) c ).getComponents() ) load( ch, n.node( "" + i++ ) );
+        }
+    }
+    
+    private static void load( Preferences n, JDialog d )
+    {
+        load( n.node( d.getTitle() ), (Window) d );
+    }
+     
+    private static void load( Preferences prefs, Window w )
+    {
+        System.err.println( prefs.absolutePath() + "   " + w.getClass() );
+        w.setBounds( prefs.getInt( "x", w.getX() ),
+                     prefs.getInt( "y", w.getY() ),
+                     prefs.getInt( "w", w.getWidth() ),
+                     prefs.getInt( "h", w.getHeight() ) );
+    }
+     
+    private static void load( Preferences prefs, JSplitPane c )
+    {
+        int div = prefs.getInt( "div", -1 );
+        if ( div != -1 ) c.setDividerLocation( div );
+        div = prefs.getInt( "ldiv", -1 );
+        if ( div != -1 ) c.setLastDividerLocation( div );
+    }
+     
+    private static void load( Preferences prefs, JScrollBar c )
+    {
+        c.setValue( prefs.getInt( "v", 0 ) );
+    }
+    
+    private static void load( Preferences n, JTable c )
+    {
+        for
+            ( javax.swing.table.TableColumn tc : Collections.list( c.getColumnModel().getColumns() ) )
+        {
+            tc.setPreferredWidth( n.node( tc.getIdentifier().toString() ).getInt( "w", tc.getWidth() ) );
+        }
+    }
+
+
+
+    private final Action m_newAction = new AbstractAction( "Nytt fönster" ) { public void actionPerformed( ActionEvent ev ) { newWindow( m_accounting, null, null ); } };
     private final Action m_closeAction = new AbstractAction( "Stäng" ) { public void actionPerformed( ActionEvent ev ) { closeWindow(); } };
     private final Action m_exitAction = new AbstractAction( "Avsluta" ) { public void actionPerformed( ActionEvent ev ) { exit(); } };
     private final Action m_newYearAction = new AbstractAction( "Nytt år" ) { public void actionPerformed( ActionEvent ev ) { newYear(); } };
@@ -287,21 +395,22 @@ public class Main extends JFrame
     private static LinkedList<Main> m_instances = new LinkedList<Main>();
 
     
-    private static void newWindow( Accounting a, Year y )
+    private static void newWindow( Accounting a, Year y, Preferences n )
     {
         final Main f = new Main( a );
         m_instances.add( f );
         
         f.setYear( y );
+        load( f, n );
         f.setVisible( true );
         f.addWindowListener( new WindowAdapter() { public void windowClosing( WindowEvent ev ) { f.closeWindow(); } } );
     }
     
     private void closeWindow()
     {
-        m_instances.remove( this );
+        if ( m_instances.size() > 1 ) m_instances.remove( this );
         dispose();
-        if ( m_instances.isEmpty() ) exit();
+        if ( m_instances.size() == 1 ) exit();
     }
     
     private void exit()
@@ -324,9 +433,9 @@ public class Main extends JFrame
             new File( m_databasePath ).renameTo( new File( m_databasePath + "." + new Date() ) );
         }
         catch ( Throwable ex )
-	{
-	    ex.printStackTrace();
-	}
+        {
+            ex.printStackTrace();
+        }
         
         try
         {
@@ -336,18 +445,18 @@ public class Main extends JFrame
             s.close();
         }
         catch ( IOException ex )
-	{
-	    ex.printStackTrace();
-	}
+        {
+            ex.printStackTrace();
+        }
         catch ( Throwable ex )
-	{
-	    ex.printStackTrace();
-	}
-         
+        {
+            ex.printStackTrace();
+        }
+        
         save();
         System.exit( 0 );
     }
-
+    
     
     private void newYear()
     {
@@ -453,7 +562,11 @@ public class Main extends JFrame
                     a.getYears().add( new Year( Calendar.getInstance().get( Calendar.YEAR ) ) );
                 }
 
-                newWindow( a, a.getYears().get( a.getYears().size() - 1 ) );
+                if
+                    ( ! load( a ) )
+                {
+                    newWindow( a, a.getYears().get( a.getYears().size() - 1 ), null );
+                }
             }
             catch ( Exception ex )
             {

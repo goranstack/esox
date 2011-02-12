@@ -13,18 +13,24 @@ import nu.esox.gui.model.*;
 @SuppressWarnings( "serial" )
 public class ResultReportTable extends JTable
 {
-    public ResultReportTable( ObservableList<Account> accounts )
+    private ResultReportTable( ObservableList<Account> accounts, String format )
     {
         super( new TableModel( accounts ) );
 
         setAutoCreateColumnsFromModel( false );
-        setDefaultRenderer( Double.class, new NegativeAmountTableRenderer() );
+        setDefaultRenderer( String.class, new FormattedTableCellRenderer( format ) );
+        setDefaultRenderer( Double.class, new NegativeAmountTableRenderer( format ) );
         setShowGrid( false );
+    }
+
+    public ResultReportTable( ObservableList<Account> accounts )
+    {
+        this( accounts, "%s" );
     }
 
     public ResultReportTable( Account total )
     {
-        this( new ObservableList<Account>() );
+        this( new ObservableList<Account>(), "<html><b>%s</html>" );
         ( (TableModel) getModel() ).getData().add( total );
     }
 
@@ -42,6 +48,11 @@ public class ResultReportTable extends JTable
     
     private static class NegativeAmountTableRenderer extends AmountTableRenderer
     {
+        NegativeAmountTableRenderer( String format )
+        {
+            super( format );
+        }
+        
         public Component getTableCellRendererComponent( JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column )
         {
             if

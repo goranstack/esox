@@ -28,7 +28,7 @@ public class VerificationSetPanel extends ModelPanel
     public VerificationSetPanel()
     {
         super( new BorderLayout( 5, 5 ) );
-        SwingPrefs.add( "verification-table", m_table );
+//        SwingPrefs.add( "verification-table", m_table );
         
         setBorder( BorderFactory.createEmptyBorder( 5, 5, 5, 5 ) );
 
@@ -53,7 +53,7 @@ public class VerificationSetPanel extends ModelPanel
 
         {
             JSplitPane sp = new JSplitPane( JSplitPane.HORIZONTAL_SPLIT, left, right );
-            SwingPrefs.add( "verification-split", sp );
+//            SwingPrefs.add( "verification-split", sp );
             add( sp, BorderLayout.CENTER );
         }
 

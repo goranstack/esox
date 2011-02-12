@@ -30,7 +30,7 @@ public class TransactionSetTable extends JTable
         setDefaultRenderer( Account.class, new AccountTableRenderer() );
         setDefaultEditor( Account.class, new AccountTableEditor() );
         
-        setDefaultRenderer( Double.class, new AmountTableRenderer() );
+        setDefaultRenderer( Double.class, new AmountTableRenderer( "%s" ) );
         setDefaultEditor( Double.class, new AmountTableEditor() );
 
         m_upAction = new AbstractAction( "Upp" ) { public void actionPerformed( ActionEvent ev ) { up(); } };

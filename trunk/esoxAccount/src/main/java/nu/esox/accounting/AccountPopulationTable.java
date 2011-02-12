@@ -25,7 +25,7 @@ public class AccountPopulationTable extends JTable
 
         setAutoCreateColumnsFromModel( false );
         setDefaultRenderer( Account.class, new AccountTableRenderer() );
-        setDefaultRenderer( Double.class, new AmountTableRenderer() );
+        setDefaultRenderer( Double.class, new AmountTableRenderer( "%s" ) );
 
         if
             ( addLabel != null )
