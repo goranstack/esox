@@ -1,0 +1,26 @@
+language: java
+
+jdk:
+  - oraclejdk8
+  
+install: true 
+
+script: mvn clean install
+
+deploy:
+- 
+  provider: pages
+  local-dir: gh-pages/target/generated-docs
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN
+  keep-history: true
+  true:
+    branch: master
+-
+    provider: script
+    script: .travis/deploy.sh
+    skip_cleanup: true
+    on:
+      repo: goranstack/esox
+      tags: true
+      jdk: oraclejdk8

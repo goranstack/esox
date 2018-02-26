@@ -1,0 +1,51 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>nu.esox</groupId>
+		<artifactId>esoxParent</artifactId>
+		<version>2.1.2-SNAPSHOT</version>
+	</parent>
+	<artifactId>gh-pages</artifactId>
+	<packaging>pom</packaging>
+	<name>${project.artifactId}</name>
+	<description>Collects documentation from modules and pushes to GitHub pages</description>
+	<properties>
+		<generated.docs.directory>${project.build.directory}/generated-docs</generated.docs.directory>
+	</properties>
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-clean-plugin</artifactId>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.asciidoctor</groupId>
+				<artifactId>asciidoctor-maven-plugin</artifactId>
+				<version>1.5.6</version>
+				<configuration>
+					<backend>html5</backend>
+					<imagesDir>.</imagesDir>
+					<outputDirectory>${generated.docs.directory}</outputDirectory>
+					<sourceHighlighter>coderay</sourceHighlighter>
+					<attributes>
+						<current-version>${project.version}</current-version>
+						<revnumber>${project.version}</revnumber>
+						<revdate>${maven.build.timestamp}</revdate>
+					</attributes>
+				</configuration>
+				<executions>
+					<execution>
+						<id>output-html</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>process-asciidoc</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

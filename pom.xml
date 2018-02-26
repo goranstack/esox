@@ -1,0 +1,154 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>nu.esox</groupId>
+	<artifactId>esoxParent</artifactId>
+	<version>2.1.2-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>${project.artifactId}</name>
+	<description>Parent module to Esox modules</description>
+	<scm>
+		<connection>scm:git:git@github.com:goranstack/esox.git</connection>
+		<developerConnection>scm:git:git@github.com:goranstack/esox.git</developerConnection>
+		<url>scm:git:https://github.com/goranstack/esox</url>
+	</scm>
+	<properties>
+		<maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<rootDirectory>${project.basedir}</rootDirectory>
+	</properties>
+
+	<url>https://github.com/goranstack/esox</url>
+
+	<developers>
+		<developer>
+			<id>dennis</id>
+			<name>Dennis Malmström</name>
+			<email>dennis@esox.nu</email>
+			<roles>
+				<role>owner</role>
+			</roles>
+		</developer>
+		<developer>
+			<id>goran.stack</id>
+			<name>Göran Stäck</name>
+			<email>goran.stack@bluebrim.se</email>
+			<roles>
+				<role>maintainer</role>
+			</roles>
+		</developer>
+	</developers>
+
+	<modules>
+		<module>esoxCore</module>
+		<module>esoxGui</module>
+	</modules>
+
+	<build>
+		<resources>
+			<!-- Make it possible to put resource files along side the java classes -->
+			<resource>
+				<directory> src/main/java </directory>
+				<excludes>
+					<exclude> **/*.java</exclude>
+					<exclude> **/*.mk</exclude>
+					<exclude> **/makefile</exclude>
+				</excludes>
+			</resource>
+		</resources>
+		<testResources>
+			<testResource>
+				<directory>src/test/resources</directory>
+			</testResource>
+			<testResource>
+				<directory>src/test/java</directory>
+				<excludes>
+					<exclude>**/*.java</exclude>
+				</excludes>
+			</testResource>
+		</testResources>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.5.1</version>
+					<configuration>
+						<source>1.8</source>
+						<target>1.8</target>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+	<profiles>
+		<profile>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<modules>
+				<module>esoxAccount</module>
+				<module>esoxXml</module>
+				<module>fish</module>
+			</modules>
+		</profile>
+		<profile>
+			<id>release</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.sonatype.plugins</groupId>
+						<artifactId>nexus-staging-maven-plugin</artifactId>
+						<version>1.6.7</version>
+						<extensions>true</extensions>
+						<configuration>
+							<serverId>ossrh</serverId>
+							<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+							<autoReleaseAfterClose>false</autoReleaseAfterClose>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-source-plugin</artifactId>
+						<version>2.2.1</version>
+						<executions>
+							<execution>
+								<id>attach-sources</id>
+								<goals>
+									<goal>jar-no-fork</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<version>2.9.1</version>
+						<executions>
+							<execution>
+								<id>attach-javadocs</id>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>1.6</version>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+</project>
