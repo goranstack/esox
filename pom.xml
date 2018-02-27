@@ -90,6 +90,7 @@
 				<module>esoxAccount</module>
 				<module>esoxXml</module>
 				<module>fish</module>
+				<module>gh-pages</module>
 			</modules>
 		</profile>
 		<profile>

@@ -7,6 +7,11 @@ install: true
 
 script: mvn clean install
 
+addons:
+  apt:
+    packages:
+      - graphviz
+
 deploy:
 - 
   provider: pages

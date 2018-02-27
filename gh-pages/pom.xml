@@ -11,20 +11,26 @@
 	<name>${project.artifactId}</name>
 	<description>Collects documentation from modules and pushes to GitHub pages</description>
 	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<asciidoctor.maven.plugin.version>1.5.6</asciidoctor.maven.plugin.version>
+		<asciidoctorj.version>1.5.6</asciidoctorj.version>
+		<asciidoctorj.diagram.version>1.5.4.1</asciidoctorj.diagram.version>
+		<jruby.version>1.7.26</jruby.version>
 		<generated.docs.directory>${project.build.directory}/generated-docs</generated.docs.directory>
 	</properties>
 	<build>
 		<plugins>
 			<plugin>
-				<artifactId>maven-clean-plugin</artifactId>
-				<configuration>
-					<skip>true</skip>
-				</configuration>
-			</plugin>
-			<plugin>
 				<groupId>org.asciidoctor</groupId>
 				<artifactId>asciidoctor-maven-plugin</artifactId>
 				<version>1.5.6</version>
+				<dependencies>
+					<dependency>
+						<groupId>org.asciidoctor</groupId>
+						<artifactId>asciidoctorj-diagram</artifactId>
+						<version>${asciidoctorj.diagram.version}</version>
+					</dependency>
+				</dependencies>
 				<configuration>
 					<backend>html5</backend>
 					<imagesDir>.</imagesDir>
@@ -35,6 +41,9 @@
 						<revnumber>${project.version}</revnumber>
 						<revdate>${maven.build.timestamp}</revdate>
 					</attributes>
+					<requires>
+                        <require>asciidoctor-diagram</require>
+                    </requires>
 				</configuration>
 				<executions>
 					<execution>

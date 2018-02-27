@@ -1,0 +1,53 @@
+= Esox Java Swing binding library
+:toc: left
+:icons: font
+:sectnums:
+
+Bind properties of models (Aspects) to Swing components (Aspect projectors) using instances of objects called
+Aspect adapters
+
+== Concepts
+
+This section introduces some concepts needed to describe the design pattern. The concept descriptions are rather abstract, see section 3 for a concrete example.
+
+=== Model
+A model object represents an entity of the application domain. It has a set of aspects (see below).
+Model objects are observable. This means that other objects (not necessarily model objects) can register themselves as listeners. Listeners are notified when the state of the model object changes. The most common model object state change is the change of an aspect value.
+
+=== Aspect
+A model object has a set of aspects. For each aspect the model object has methods for accessing (getting and/or setting) the aspect value. Normally an aspect has both get and set methods but read-only and write-only aspects are conceivable.
+
+=== Submodel
+Given a model object A, the value of one of its aspects can be another model object B. In this case B is said to be a submodel of A. B can be a submodel of many other model objects so no unambiguous super model relation exists.
+
+=== Aspect projector
+Aspect projectors are swing objects used for displaying and/or manipulating aspect values. Examples of such objects are instances of the classes JTextField, JComboBox, JCheckBox and JProgressBar.
+
+=== Model owner
+A model owner has a reference to a model object. The value of this reference is observable. This means that other objects can register themselves as listeners. Listeners are notified when the value of the reference changes.
+
+=== Aspect adapter
+An aspect adapter connects an aspect with an aspect projector. Its task is to keep the aspect value synchronized with the value displayed in the aspect projector. The aspect adapter is also responsible for all conversion between aspect values and projected values.
+
+
+== Test diagram
+[graphviz, er-diagram, svg]
+....
+digraph {
+
+node[ fontname="Helvetica", shape=rect];
+edge[ fontname="Helvetica"];
+
+i1 [label="model"];
+i2 [label="model owner"];
+i3 [label="aspect adapter"];
+i4[label="aspect"];
+i5[label="aspect projector"];
+
+i2->i1[label="knows"];
+i1->i4[label="knows"];
+i3->i2[label="observes model value"];
+i3->i1[label="observes aspect value\ngets aspect value\nsets aspect value"];
+i3->i5[label="monitor user inputs\ngets projected value\nsets projected value"];
+}
+....
