@@ -522,7 +522,7 @@ table.CodeRay td.code>pre{padding:0}
 <h1>Esox Java Swing binding library</h1>
 <div class="details">
 <span id="revnumber">version 2.1.2-SNAPSHOT,</span>
-<span id="revdate">2018-02-27 09:53</span>
+<span id="revdate">2018-02-27 16:54</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -537,6 +537,7 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#_aspect_adapter">1.6. Aspect adapter</a></li>
 </ul>
 </li>
+<li><a href="#_putting_it_all_together">2. Putting it all together</a></li>
 </ul>
 </div>
 </div>
@@ -544,7 +545,7 @@ table.CodeRay td.code>pre{padding:0}
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Bind properties of models (Aspects) to Swing components (Aspect projectors) using instances of objects called .
+<p>Bind properties of models (Aspects) to Swing components (Aspect projectors) using instances of objects called
 Aspect adapters</p>
 </div>
 </div>
@@ -594,11 +595,27 @@ Model objects are observable. This means that other objects (not necessarily mod
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_putting_it_all_together">2. Putting it all together</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When created, an aspect adapter is given a reference to the aspect projector and a reference to a model owner. It also maintains a reference to a model object.
+The purpose of reference the aspect projector is obvious. It makes it possible to access the projected value (the value displayed to the user) and to monitor user input.
+The model object reference serves a similar purpose. It makes it possible to access and monitor the aspect.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./er-diagram.svg" alt="Aspect adapter and related objects" width="618" height="462">
+</div>
+<div class="title">Aspect adapter and related objects</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
 Version 2.1.2-SNAPSHOT<br>
-Last updated 2018-02-27 10:45:28 CET
+Last updated 2018-02-27 16:53:45 UTC
 </div>
 </div>
 </body>
