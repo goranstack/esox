@@ -30,7 +30,12 @@ A model owner has a reference to a model object. The value of this reference is 
 An aspect adapter connects an aspect with an aspect projector. Its task is to keep the aspect value synchronized with the value displayed in the aspect projector. The aspect adapter is also responsible for all conversion between aspect values and projected values.
 
 
-== Test diagram
+== Putting it all together
+When created, an aspect adapter is given a reference to the aspect projector and a reference to a model owner. It also maintains a reference to a model object.
+The purpose of reference the aspect projector is obvious. It makes it possible to access the projected value (the value displayed to the user) and to monitor user input.
+The model object reference serves a similar purpose. It makes it possible to access and monitor the aspect.
+
+.Aspect adapter and related objects
 [graphviz, er-diagram, svg]
 ....
 digraph {
