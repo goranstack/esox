@@ -46,13 +46,37 @@ edge[ fontname="Helvetica"];
 i1 [label="model"];
 i2 [label="model owner"];
 i3 [label="aspect adapter"];
-i4[label="aspect"];
-i5[label="aspect projector"];
+i4 [label="aspect"];
+i5 [label="aspect projector"];
 
-i2->i1[label="knows"];
-i1->i4[label="knows"];
-i3->i2[label="observes model value"];
-i3->i1[label="observes aspect value\ngets aspect value\nsets aspect value"];
-i3->i5[label="monitor user inputs\ngets projected value\nsets projected value"];
+i2->i1 [label="knows"];
+i1->i4 [label="knows"];
+i3->i2 [label="observes model value"];
+i3->i1 [label="observes aspect value\ngets aspect value\nsets aspect value"];
+i3->i5 [label="monitor user inputs\ngets projected value\nsets projected value"];
 }
+....
+
+In many cases, a reference to the model is not available when the aspect adapter is created. Another common scenario is a model owner which changes models during the lifespan of an aspect adapter. The aspect adapter must therefore observe the model owner in order to maintain a reference to the actual model.
+
+.Maintaining the model reference
+[plantuml, seq-diagram, svg]
+....
+@startuml
+actor context
+
+model->"aspect adapter" : create(model owner, aspect)
+"aspect adapter"->"model owner" : listen to model value changes
+"aspect adapter"->"aspect projector" : listen to projected value
+"aspect adapter"->"aspect projector": set no projected value
+context->"model owner": set model( model )
+"model owner"->"aspect adapter": notify of model value change
+"aspect adapter"->model: listen to aspect value changes
+"aspect adapter"->model: v = get aspect value
+"aspect adapter"->"aspect projector": set projected value( v )
+context->"model owner": set model( null )
+"model owner"->"aspect adapter": notify of model value change
+"aspect adapter"->model: unlisten to aspect value
+"aspect adapter"->"aspect projector": set no projected value
+@enduml
 ....
