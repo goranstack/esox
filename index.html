@@ -5,6 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.6.1">
+<meta name="author" content="Dennis">
 <title>Esox Java Swing binding library</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
@@ -521,8 +522,10 @@ table.CodeRay td.code>pre{padding:0}
 <div id="header">
 <h1>Esox Java Swing binding library</h1>
 <div class="details">
+<span id="author" class="author">Dennis</span><br>
+<span id="email" class="email"><a href="mailto:dennis@esox.nu">dennis@esox.nu</a></span><br>
 <span id="revnumber">version 2.1.2-SNAPSHOT,</span>
-<span id="revdate">2018-02-28 03:11</span>
+<span id="revdate">2018-02-28 15:54</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -540,6 +543,19 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#_putting_it_all_together">2. Putting it all together</a></li>
 <li><a href="#_submodels_and_model_owners">3. Submodels and model owners</a></li>
 <li><a href="#_example">4. Example</a></li>
+<li><a href="#_code_example">5. Code example</a>
+<ul class="sectlevel2">
+<li><a href="#_the_model_class">5.1. The model class</a></li>
+<li><a href="#_the_model_owner_class">5.2. The model owner class</a></li>
+</ul>
+</li>
+<li><a href="#_supporting_classes">6. Supporting classes</a>
+<ul class="sectlevel2">
+<li><a href="#_observable_model">6.1. Observable model</a></li>
+<li><a href="#_projected_aspect">6.2. Projected aspect</a></li>
+<li><a href="#_concrete_aspect_adapters">6.3. Concrete aspect adapters</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -548,7 +564,10 @@ table.CodeRay td.code>pre{padding:0}
 <div class="sectionbody">
 <div class="paragraph">
 <p>Bind properties of models (Aspects) to Swing components (Aspect projectors) using instances of objects called
-Aspect adapters</p>
+Aspect adapters.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/goranstack/esox">Checkout source code from GitHub</a></p>
 </div>
 </div>
 </div>
@@ -616,7 +635,7 @@ The model object reference serves a similar purpose. It makes it possible to acc
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="./model-reference.svg" alt="model reference" width="731" height="516">
+<img src="./model-reference.svg" alt="model reference" width="790" height="481">
 </div>
 </div>
 <div class="paragraph">
@@ -624,7 +643,7 @@ The model object reference serves a similar purpose. It makes it possible to acc
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="./value-synchronization.svg" alt="value synchronization" width="612" height="370">
+<img src="./value-synchronization.svg" alt="value synchronization" width="609" height="370">
 </div>
 </div>
 </div>
@@ -647,7 +666,7 @@ Note that the submodel adapter does not monitor the model property of the submod
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="./submodel-synchronization.svg" alt="submodel synchronization" width="818" height="516">
+<img src="./submodel-synchronization.svg" alt="submodel synchronization" width="817" height="516">
 </div>
 </div>
 </div>
@@ -660,13 +679,235 @@ Note that the submodel adapter does not monitor the model property of the submod
 The model is implemented by the class Person which has the aspect name. The model owner is implemented by the class PersonPanel. PersonPanel is a descendant of the swing class JPanel. It contains an aspect projector which is an instance of the swing class JTextField. The class TextFieldAdapter implements the aspect adapter.
 The figures in this chapter correspond to the figures in the previous chapter.</p>
 </div>
+<div class="imageblock">
+<div class="content">
+<img src="./er-diagram-example.svg" alt="Example object model" width="638" height="462">
+</div>
+<div class="title">Example object model</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./person-reference.svg" alt="person reference" width="689" height="481">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./person-reference.svg" alt="person reference" width="549" height="370">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_code_example">5. Code example</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_the_model_class">5.1. The model class</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">class</span> <span class="class">Person</span> <span class="directive">extends</span> nu.esox.util.Observable
+{
+    <span class="directive">private</span> <span class="predefined-type">String</span> m_name;
+
+    <span class="directive">public</span> person( <span class="predefined-type">String</span> name )
+    {
+        m_name = name;
+    }
+    <span class="directive">public</span> <span class="predefined-type">String</span> getName() { <span class="keyword">return</span> m_name; }
+
+    <span class="directive">public</span> <span class="type">void</span> setName( <span class="predefined-type">String</span> name )
+    {
+        <span class="keyword">if</span> ( name.equals( m_name ) ) <span class="keyword">return</span>;
+        m_name = name;
+        fireValueChanged( <span class="string"><span class="delimiter">&quot;</span><span class="content">name</span><span class="delimiter">&quot;</span></span>, m_name ); <span class="comment">// aspect name, aspect value</span>
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The class <code>nu.esox.util.Observable</code> implements the capability of maintaining a set of observers. It also
+supplies a method
+(<code>fireValueChanged</code>) for notifying the listeners but it is the responsibility of the subclass to call this
+method (as in <code>setName</code>).</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_the_model_owner_class">5.2. The model owner class</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">class</span> <span class="class">PersonPanel</span> <span class="directive">extends</span> nu.esox.gui.ModelPanel
+{
+    <span class="directive">public</span> PersonPanel()
+    {
+        <span class="local-variable">super</span>( <span class="keyword">new</span> <span class="predefined-type">GridLayout</span>( <span class="integer">0</span>, <span class="integer">2</span> ) );
+
+        add( <span class="keyword">new</span> <span class="predefined-type">JLabel</span>( <span class="string"><span class="delimiter">&quot;</span><span class="content">name</span><span class="delimiter">&quot;</span></span> ) );
+
+        javax.swing.JTextField tf = <span class="keyword">new</span> javax.swing.JTextField( <span class="integer">20</span> );
+        add( tf );
+
+        <span class="keyword">new</span> nu.esox.gui.aspect.TextFieldAdapter(
+                tf,             <span class="comment">// aspect projector</span>
+                <span class="local-variable">this</span>,           <span class="comment">// model owner</span>
+                Person.class,   <span class="comment">// model class</span>
+                <span class="string"><span class="delimiter">&quot;</span><span class="content">getName</span><span class="delimiter">&quot;</span></span>,      <span class="comment">// name of method used to get aspect value</span>
+                <span class="string"><span class="delimiter">&quot;</span><span class="content">setName</span><span class="delimiter">&quot;</span></span>,      <span class="comment">// name of method used to set method value</span>
+                <span class="predefined-type">String</span>.class,   <span class="comment">// aspect value class</span>
+                <span class="string"><span class="delimiter">&quot;</span><span class="content">name</span><span class="delimiter">&quot;</span></span> );       <span class="comment">// aspect name</span>
+        }
+
+        <span class="directive">public</span> <span class="type">void</span> main( <span class="predefined-type">String</span> <span class="type">[]</span> args )
+        {
+            PersonPanel pp1 = <span class="keyword">new</span> PersonPanel();
+            PersonPanel pp2 = <span class="keyword">new</span> PersonPanel();
+            javax.swing.JFrame f = <span class="keyword">new</span> javax.swing.JFrame();
+            f.add( pp1 );
+            f.pack();
+            f.show();
+            f = <span class="keyword">new</span> javax.swing.JFrame();
+            f.add( pp2 );
+            f.pack();
+            f.show();
+            Person p = <span class="keyword">new</span> Person( <span class="string"><span class="delimiter">&quot;</span><span class="content">John Doe</span><span class="delimiter">&quot;</span></span> );
+            pp1.setModel( p );
+            pp2.setModel( p );
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The class <code>nu.esox.gui.ModelPanel</code> is a subclass of <code>JPanel</code> that implements the interface of a model owner.
+There is no need to keep a reference to the text field outside the constructor. The instance of
+<code>nu.esox.gui.aspect.TextFieldAdapter</code> handles this reference. Note that the validity of the method names
+supplied to the
+constructor of <code>nu.esox.gui.aspect.TextFieldAdapter</code> is verified at run time not at compile time.
+Since both person panels have the same person as model one will be updated when a name value is entered
+into the other.
+This illustrates the aspect value synchronization behavior of aspect adapters.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_supporting_classes">6. Supporting classes</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section briefly describes some of the supporting classes. For the details see the source code.</p>
+</div>
+<div class="sect2">
+<h3 id="_observable_model">6.1. Observable model</h3>
+<div class="paragraph">
+<p>All classes that support the observable model design pattern are found in the package nu.esox.util.</p>
+</div>
+<div class="sect3">
+<h4 id="_nu_esox_util_observableif">6.1.1. nu.esox.util.ObservableIF</h4>
+<div class="paragraph">
+<p>This interface defines the protocol of an observable model object.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_nu_esox_util_observable">6.1.2. nu.esox.util.Observable</h4>
+<div class="paragraph">
+<p>This class implements <code>ObservableIF</code>. Normally, the simplest way to implement an observable model is
+to inherit
+<code>nu.esox.util.Observable</code> and call the method <code>fireValueChanged</code> when appropriate. For cases when inheriting
+<code>nu.esox.util.Observable</code> isn’t an option see the class <code>ObservableImpl</code>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_nu_esox_util_observablelistener">6.1.3. nu.esox.util.ObservableListener</h4>
+<div class="paragraph">
+<p>This interface defines the protocol of an observer.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_nu_esox_util_observableevent">6.1.4. nu.esox.util.ObservableEvent</h4>
+<div class="paragraph">
+<p>This class and its subclasses are used to carry a notification from an observable model object to its
+observers. The subclass
+<code>ObservableTransactionEvent</code> carries multiple notifications that make up a transaction.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_nu_esox_util_observableimpl">6.1.5. nu.esox.util.ObservableImpl</h4>
+<div class="paragraph">
+<p>This class is useful when the class one wants to make observable already has a super class (making it
+impossible to inherit the class <code>Observable</code>). Instructions are found in the source code file.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_nu_esox_util_observablecollection_and_nu_esox_util_observablelist">6.1.6. nu.esox.util.ObservableCollection and nu.esox.util.ObservableList</h4>
+<div class="paragraph">
+<p>These classes are used to wrap collection objects making them observable. Associated with them are
+subclasses of <code>ObservableEvent</code> that carry collection specific notification information.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_projected_aspect">6.2. Projected aspect</h3>
+<div class="sect3">
+<h4 id="_nu_esox_gui_aspect_modelownerif">6.2.1. nu.esox.gui.aspect.ModelOwnerIF</h4>
+<div class="paragraph">
+<p>This interface defines the protocol of a model owner. It also contains an interface that defines the
+protocol of a model owner observer.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_nu_esox_gui_modelpanel">6.2.2. nu.esox.gui.ModelPanel</h4>
+<div class="paragraph">
+<p>This class inherits the swing class <code>JPanel</code> and implements <code>ModelOwnerIF</code>. The result is a swing panel that
+can act as a model owner for its aspect projecting children (in the swing component hierarchy).</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_nu_esox_gui_modelframe_and_nu_esox_gui_modeldialog">6.2.3. nu.esox.gui.ModelFrame and nu.esox.gui.ModelDialog</h4>
+<div class="paragraph">
+<p>These classes do for <code>JFrame</code> and <code>JDialog</code> what <code>ModelPanel</code> does for <code>JPanel</code>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_nu_esox_gui_aspect_defaultmodelowner">6.2.4. nu.esox.gui.aspect.DefaultModelOwner</h4>
+<div class="paragraph">
+<p>This is an implementation of <code>ModelOwnerIF</code>. It implements model owner behavior but nothing else. Normally
+the classes
+<code>ModelPanel</code>, <code>ModelDialog</code> and <code>ModelFrame</code> are more useful but there are some special cases when
+<code>DefaultModelOwner</code> is the correct choice.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_nu_esox_gui_aspect_simplemodelowner">6.2.5. nu.esox.gui.aspect.SimpleModelOwner</h4>
+<div class="paragraph">
+<p>This is an implementation of <code>ModelOwnerIF</code> for which the model value can not be changed. It is useful when
+a reference to the model object is available but there is no natural model owner.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_nu_esox_gui_aspect_abstractadapter">6.2.6. nu.esox.gui.aspect.AbstractAdapter</h4>
+<div class="paragraph">
+<p>This is the super class of all aspect adapter classes. It implements all aspect adapter behavior except
+that which is specific to the aspect projector type.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_concrete_aspect_adapters">6.3. Concrete aspect adapters</h3>
+<div class="paragraph">
+<p>The package <code>nu.esox.gui.aspect</code> contains aspect adapters for most swing components. A few examples are
+<code>TextFieldAdapter</code>, <code>ComboBoxAdapter</code>, <code>SpinnerAdapter</code> and <code>LabelTextAdapter</code>.</p>
+</div>
+<div class="sect3">
+<h4 id="_submodeladapter">6.3.1. SubModelAdapter</h4>
+<div class="paragraph">
+<p>This class implements the submodel adapter behavior described in section .</p>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
 Version 2.1.2-SNAPSHOT<br>
-Last updated 2018-02-28 03:10:50 UTC
+Last updated 2018-02-28 15:53:54 UTC
 </div>
 </div>
 </body>
