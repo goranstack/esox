@@ -522,7 +522,7 @@ table.CodeRay td.code>pre{padding:0}
 <h1>Esox Java Swing binding library</h1>
 <div class="details">
 <span id="revnumber">version 2.1.2-SNAPSHOT,</span>
-<span id="revdate">2018-02-27 21:32</span>
+<span id="revdate">2018-02-28 03:11</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -538,6 +538,8 @@ table.CodeRay td.code>pre{padding:0}
 </ul>
 </li>
 <li><a href="#_putting_it_all_together">2. Putting it all together</a></li>
+<li><a href="#_submodels_and_model_owners">3. Submodels and model owners</a></li>
+<li><a href="#_example">4. Example</a></li>
 </ul>
 </div>
 </div>
@@ -614,9 +616,49 @@ The model object reference serves a similar purpose. It makes it possible to acc
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="./seq-diagram.svg" alt="Maintaining the model reference" width="739" height="569">
+<img src="./model-reference.svg" alt="model reference" width="731" height="516">
 </div>
-<div class="title">Maintaining the model reference</div>
+</div>
+<div class="paragraph">
+<p>Aspect value and the projected value synchronization is achieved by monitoring both aspect value changes and user input. When user input occurs, the projected value is propagated from the aspect projector to the model. When the aspect value changes, it is propagated from the model to the aspect projector. All necessary value conversions are performed by the aspect adapter.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./value-synchronization.svg" alt="value synchronization" width="612" height="370">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_submodels_and_model_owners">3. Submodels and model owners</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A special case that warrants further description is the relations between models, submodels and model owners. Normally, a model-submodel pair is handled by a pair of model owners. A submodel adapter (which is actually a kind of read-only aspect adapter) assures that the two model owners stay synchronized. Synchronized in this case means that the (sub)model owner refers to the submodel of the model being referred to by the model owner. In the diagram below, the relations that are synchronized by the submodel adapter are represented by the thick arrows.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./submodels.svg" alt="Submodels and model owners" width="571" height="436">
+</div>
+<div class="title">Submodels and model owners</div>
+</div>
+<div class="paragraph">
+<p>The diagram below illustrates the submodel owner synchronization behaviour. The first two scenarios describe what happens when the model property of the model owner is changed. The last scenario describe s what happens when the submodel aspect of the model is changed.
+Note that the submodel adapter does not monitor the model property of the submodel owner. If it is changed by a call from another object (not the submodel owner) then the synchronization breaks.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./submodel-synchronization.svg" alt="submodel synchronization" width="818" height="516">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_example">4. Example</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To illustrate the concepts introduced in the previous chapter we’ll use a very simple example.
+The model is implemented by the class Person which has the aspect name. The model owner is implemented by the class PersonPanel. PersonPanel is a descendant of the swing class JPanel. It contains an aspect projector which is an instance of the swing class JTextField. The class TextFieldAdapter implements the aspect adapter.
+The figures in this chapter correspond to the figures in the previous chapter.</p>
 </div>
 </div>
 </div>
@@ -624,7 +666,7 @@ The model object reference serves a similar purpose. It makes it possible to acc
 <div id="footer">
 <div id="footer-text">
 Version 2.1.2-SNAPSHOT<br>
-Last updated 2018-02-27 21:32:10 UTC
+Last updated 2018-02-28 03:10:50 UTC
 </div>
 </div>
 </body>
