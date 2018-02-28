@@ -7,9 +7,26 @@ image:http://img.shields.io/travis/goranstack/screenshot-maven-plugin/master.svg
 :icons: font
 :sectnums:
 
-Declarative binding of Swing components to model aspects
+Binds model values to Swing components using the observable pattern and Java reflection.
 
-Read more at:
-http://goranstack.github.io/esox[GitHub Pages]
+== What it does
+Synchronize value changes between model and Swing components. A change of a model value updates the Swing component and a value entered in a Swing component updates corresponding value
+in the model. The library also handle the case where a Swing UI should show the absence of a model. A case very common in a 
+https://en.wikipedia.org/wiki/Master%E2%80%93detail_interface[master-detail UI] when no master is selected.
+
+The binding is defined by creating instances of objects called `AspectAdapter` that takes constructor arguments to define the binding. The binding is defined without any reference to a model instance and can therefore be located in the Swing component constructor. Once the Swing component is created it can handle different model instances with the same binding definition. 
+
+== The purpose of the project
+The library is developed by my friend Dennis and adapted to Maven conventions by me.
+
+The purpose of this GitHub project is to provide documentation and stable releases as Maven dependencies to current users of the library.
+There are no plans for extensive further development but some minor improvements will be implemented over time.
+Java Swing will be replaced by JavaFx and since JavaFx contains its own binding solution there will be no future support for JavaFx.
+
+But if you still fancy Java Swing and need a binding library give it a try. The library are successfully used in several in-house applications.
+
+== Documentation
+Although the library implements some kind of MVC pattern it has a slightly different vocabulary.
+Read about it in the http://goranstack.github.io/esox[documentation].
 
 

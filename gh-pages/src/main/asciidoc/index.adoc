@@ -1,10 +1,13 @@
 = Esox Java Swing binding library
+Dennis <dennis@esox.nu>
 :toc: left
 :icons: font
 :sectnums:
 
 Bind properties of models (Aspects) to Swing components (Aspect projectors) using instances of objects called
-Aspect adapters
+Aspect adapters.
+
+https://github.com/goranstack/esox[Checkout source code from GitHub]
 
 == Concepts
 
@@ -66,18 +69,18 @@ In many cases, a reference to the model is not available when the aspect adapter
 hide footbox
 title Maintaining the model reference
 
-actor context
+control feature
 
-context -> "aspect adapter" : create(model owner, aspect)
+feature -> "aspect adapter" : create(model owner, aspect projector)
 "aspect adapter" -> "model owner" : listen to model value changes
 "aspect adapter" -> "aspect projector" : listen to projected value
 "aspect adapter" -> "aspect projector" : set no projected value
-context -> "model owner" : set model( model )
+feature -> "model owner" : set model( model )
 "model owner" -> "aspect adapter" : notify of model value change
 "aspect adapter" -> model : listen to aspect value changes
 "aspect adapter" -> model : v = get aspect value
 "aspect adapter" -> "aspect projector": set projected value( v )
-context -> "model owner" : set model( null )
+feature -> "model owner" : set model( null )
 "model owner" -> "aspect adapter" : notify of model value change
 "aspect adapter" -> model : unlisten to aspect value
 "aspect adapter" -> "aspect projector" : set no projected value
@@ -94,13 +97,13 @@ hide footbox
 title Value synchronization
 
 actor user
-actor context
+control feature
 
 user -> "aspect projector" : enter new projected
 "aspect projector" -> "aspect adapter" : notify of projected value
 "aspect adapter" -> "aspect projector" : get projected value
 "aspect adapter" -> model : set aspect value
-context -> model : set aspect value
+feature -> model : set aspect value
 model -> "aspect adapter" : notify of aspect value change
 "aspect adapter" -> model : get aspect value
 "aspect adapter" -> "aspect projector" : set projected value
@@ -143,18 +146,18 @@ Note that the submodel adapter does not monitor the model property of the submod
 hide footbox
 title Submodel owner synchronization
 
-actor context
+actor feature
 
-context -> "model owner" : set model( model )
+feature -> "model owner" : set model( model )
 "model owner" -> "submodel adapter" : notify of model value change
 "submodel adapter" -> model : listen to submodel value changes
 "submodel adapter" -> model : v = get submodel
 "submodel adapter" -> "(sub)model owner" : set model( v )
-context -> "model owner" : set model( null )
+feature -> "model owner" : set model( null )
 "model owner" -> "submodel adapter" : notify of model value change
 "submodel adapter" -> model : unlisten to submodel value
 "submodel adapter" -> "(sub)model owner" : set model( null )
-context -> model : set submodel ( v )
+feature -> model : set submodel ( v )
 model -> "submodel adapter" : notify of submodel value
 "submodel adapter" -> model : v = get submodel
 "submodel adapter" -> "(sub)model owner" : set model( v )
@@ -166,4 +169,220 @@ To illustrate the concepts introduced in the previous chapter we’ll use a very
 The model is implemented by the class Person which has the aspect name. The model owner is implemented by the class PersonPanel. PersonPanel is a descendant of the swing class JPanel. It contains an aspect projector which is an instance of the swing class JTextField. The class TextFieldAdapter implements the aspect adapter.
 The figures in this chapter correspond to the figures in the previous chapter.
 
+.Example object model
+[graphviz, er-diagram-example, svg]
+....
+digraph {
 
+node[ fontname="Helvetica", shape=rect];
+edge[ fontname="Helvetica"];
+
+i1 [label="Person"];
+i2 [label="PersonPanel"];
+i3 [label="TextFieldAdapter"];
+i4 [label="name"];
+i5 [label="JTextField"];
+
+i1 -> i4 [label="knows"];
+i2 -> i1 [label="knows"];
+i3 -> i2 [label="observes model value"];
+i3 -> i1 [label="observes name value\ngets name value\nsets name value"];
+i3 -> i5 [label="monitor user inputs\ngets text field value\nsets text field value value"];
+}
+....
+
+[plantuml, person-reference, svg]
+....
+@startuml
+
+hide footbox
+title Maintaining the person reference
+
+control feature
+
+feature -> "text field adapter" : create(person panel, text field)
+"text field adapter" -> "person panel" : addListener( this )
+"text field adapter" -> "text field" : addActionListener( this )
+"text field adapter" -> "text field" : setText("")
+feature -> "person panel" : setPerson( person )
+"person panel" -> "text field adapter" : modelAssigned( null, person)
+"text field adapter" -> person : addObservableListener( this )
+"text field adapter" -> person : x = getName()
+"text field adapter" -> "text field": setText( x )
+feature -> "person panel" : setPerson( null )
+"person panel" -> "text field adapter" : modelAssigned( person, null)
+"text field adapter" -> person : removeObservableListener( this )
+"text field adapter" -> "text field" : setText("")
+@enduml
+....
+
+
+[plantuml, person-reference, svg]
+....
+@startuml
+
+hide footbox
+title Name value synchronization
+
+actor user
+control feature
+
+user -> "text field" : enters new text
+"text field" -> "text field adapter" : actionPerformed( event )
+"text field adapter" -> "text field" : x = getText()
+"text field adapter" -> person : setName( x )
+feature -> person : setName( "joe" )
+person -> "text field adapter" : valueChanged( event )
+"text field adapter" -> person : x = getName()
+"text field adapter" -> "text field" : setText( x )
+
+@enduml
+....
+
+== Code example
+
+=== The model class
+[source, java]
+----
+public class Person extends nu.esox.util.Observable
+{
+    private String m_name;
+
+    public person( String name )
+    {
+        m_name = name;
+    }
+    public String getName() { return m_name; }
+
+    public void setName( String name )
+    {
+        if ( name.equals( m_name ) ) return;
+        m_name = name;
+        fireValueChanged( "name", m_name ); // aspect name, aspect value
+    }
+}
+----
+
+The class `nu.esox.util.Observable` implements the capability of maintaining a set of observers. It also
+supplies a method
+(`fireValueChanged`) for notifying the listeners but it is the responsibility of the subclass to call this
+method (as in `setName`).
+
+
+=== The model owner class
+
+[source, java]
+----
+public class PersonPanel extends nu.esox.gui.ModelPanel
+{
+    public PersonPanel()
+    {
+        super( new GridLayout( 0, 2 ) );
+
+        add( new JLabel( "name" ) );
+
+        javax.swing.JTextField tf = new javax.swing.JTextField( 20 );
+        add( tf );
+
+        new nu.esox.gui.aspect.TextFieldAdapter(
+                tf,             // aspect projector
+                this,           // model owner
+                Person.class,   // model class
+                "getName",      // name of method used to get aspect value
+                "setName",      // name of method used to set method value
+                String.class,   // aspect value class
+                "name" );       // aspect name
+        }
+
+        public void main( String [] args )
+        {
+            PersonPanel pp1 = new PersonPanel();
+            PersonPanel pp2 = new PersonPanel();
+            javax.swing.JFrame f = new javax.swing.JFrame();
+            f.add( pp1 );
+            f.pack();
+            f.show();
+            f = new javax.swing.JFrame();
+            f.add( pp2 );
+            f.pack();
+            f.show();
+            Person p = new Person( "John Doe" );
+            pp1.setModel( p );
+            pp2.setModel( p );
+    }
+}
+----
+
+The class `nu.esox.gui.ModelPanel` is a subclass of `JPanel` that implements the interface of a model owner.
+There is no need to keep a reference to the text field outside the constructor. The instance of
+`nu.esox.gui.aspect.TextFieldAdapter` handles this reference. Note that the validity of the method names
+supplied to the
+constructor of `nu.esox.gui.aspect.TextFieldAdapter` is verified at run time not at compile time.
+Since both person panels have the same person as model one will be updated when a name value is entered
+into the other.
+This illustrates the aspect value synchronization behavior of aspect adapters.
+
+== Supporting classes
+This section briefly describes some of the supporting classes. For the details see the source code.
+
+=== Observable model
+All classes that support the observable model design pattern are found in the package nu.esox.util.
+
+==== nu.esox.util.ObservableIF
+This interface defines the protocol of an observable model object.
+
+==== nu.esox.util.Observable
+This class implements `ObservableIF`. Normally, the simplest way to implement an observable model is
+to inherit
+`nu.esox.util.Observable` and call the method `fireValueChanged` when appropriate. For cases when inheriting
+`nu.esox.util.Observable` isn’t an option see the class `ObservableImpl`.
+
+==== nu.esox.util.ObservableListener
+This interface defines the protocol of an observer.
+
+==== nu.esox.util.ObservableEvent
+This class and its subclasses are used to carry a notification from an observable model object to its
+observers. The subclass
+`ObservableTransactionEvent` carries multiple notifications that make up a transaction.
+
+==== nu.esox.util.ObservableImpl
+This class is useful when the class one wants to make observable already has a super class (making it
+impossible to inherit the class `Observable`). Instructions are found in the source code file.
+
+==== nu.esox.util.ObservableCollection and nu.esox.util.ObservableList
+These classes are used to wrap collection objects making them observable. Associated with them are
+subclasses of `ObservableEvent` that carry collection specific notification information.
+
+=== Projected aspect
+
+==== nu.esox.gui.aspect.ModelOwnerIF
+This interface defines the protocol of a model owner. It also contains an interface that defines the
+protocol of a model owner observer.
+
+==== nu.esox.gui.ModelPanel
+This class inherits the swing class `JPanel` and implements `ModelOwnerIF`. The result is a swing panel that
+can act as a model owner for its aspect projecting children (in the swing component hierarchy).
+
+==== nu.esox.gui.ModelFrame and nu.esox.gui.ModelDialog
+These classes do for `JFrame` and `JDialog` what `ModelPanel` does for `JPanel`.
+
+==== nu.esox.gui.aspect.DefaultModelOwner
+This is an implementation of `ModelOwnerIF`. It implements model owner behavior but nothing else. Normally
+the classes
+`ModelPanel`, `ModelDialog` and `ModelFrame` are more useful but there are some special cases when
+`DefaultModelOwner` is the correct choice.
+
+==== nu.esox.gui.aspect.SimpleModelOwner
+This is an implementation of `ModelOwnerIF` for which the model value can not be changed. It is useful when
+a reference to the model object is available but there is no natural model owner.
+
+==== nu.esox.gui.aspect.AbstractAdapter
+This is the super class of all aspect adapter classes. It implements all aspect adapter behavior except
+that which is specific to the aspect projector type.
+
+=== Concrete aspect adapters
+The package `nu.esox.gui.aspect` contains aspect adapters for most swing components. A few examples are
+`TextFieldAdapter`, `ComboBoxAdapter`, `SpinnerAdapter` and `LabelTextAdapter`.
+
+==== SubModelAdapter
+This class implements the submodel adapter behavior described in section .
