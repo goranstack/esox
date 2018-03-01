@@ -1,12 +1,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>nu.esox</groupId>
-		<artifactId>esoxParent</artifactId>
+		<groupId>com.github.goranstack.esox</groupId>
+		<artifactId>esox-parent</artifactId>
 		<version>2.1.2-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>esoxGui</artifactId>
+	<artifactId>esox-gui</artifactId>
 	<packaging>jar</packaging>
 	<name>${project.artifactId}</name>
 	<description>The GUI part of the framework for binding aspects of Swing components to aspects of models. </description>
@@ -14,7 +14,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>esoxCore</artifactId>
+			<artifactId>esox-core</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>

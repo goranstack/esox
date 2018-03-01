@@ -20,8 +20,8 @@ The binding is defined by creating instances of objects called `AspectAdapter` t
 The library is developed by my friend Dennis and adapted to Maven conventions by me.
 
 The purpose of this GitHub project is to provide documentation and stable releases as Maven dependencies to current users of the library.
-There are no plans for extensive further development but some minor improvements will be implemented over time.
-Java Swing will be replaced by JavaFx and since JavaFx contains its own binding solution there will be no future support for JavaFx.
+There will be no extensive further development but some minor improvements will be implemented over time.
+There are no plans to support JavaFx that has its own solution for binding.
 
 But if you still fancy Java Swing and need a binding library give it a try. The library are successfully used in several in-house applications.
 

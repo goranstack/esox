@@ -4,8 +4,7 @@ Dennis <dennis@esox.nu>
 :icons: font
 :sectnums:
 
-Bind properties of models (Aspects) to Swing components (Aspect projectors) using instances of objects called
-Aspect adapters.
+Binds model values to Swing components using the observable pattern and Java reflection.
 
 https://github.com/goranstack/esox[Checkout source code from GitHub]
 
@@ -69,18 +68,18 @@ In many cases, a reference to the model is not available when the aspect adapter
 hide footbox
 title Maintaining the model reference
 
-control feature
+control "app logic"
 
-feature -> "aspect adapter" : create(model owner, aspect projector)
+"app logic" -> "aspect adapter" : create(model owner, aspect projector)
 "aspect adapter" -> "model owner" : listen to model value changes
 "aspect adapter" -> "aspect projector" : listen to projected value
 "aspect adapter" -> "aspect projector" : set no projected value
-feature -> "model owner" : set model( model )
+"app logic" -> "model owner" : set model( model )
 "model owner" -> "aspect adapter" : notify of model value change
 "aspect adapter" -> model : listen to aspect value changes
 "aspect adapter" -> model : v = get aspect value
 "aspect adapter" -> "aspect projector": set projected value( v )
-feature -> "model owner" : set model( null )
+"app logic" -> "model owner" : set model( null )
 "model owner" -> "aspect adapter" : notify of model value change
 "aspect adapter" -> model : unlisten to aspect value
 "aspect adapter" -> "aspect projector" : set no projected value
@@ -97,13 +96,13 @@ hide footbox
 title Value synchronization
 
 actor user
-control feature
+control "app logic"
 
 user -> "aspect projector" : enter new projected
 "aspect projector" -> "aspect adapter" : notify of projected value
 "aspect adapter" -> "aspect projector" : get projected value
 "aspect adapter" -> model : set aspect value
-feature -> model : set aspect value
+"app logic" -> model : set aspect value
 model -> "aspect adapter" : notify of aspect value change
 "aspect adapter" -> model : get aspect value
 "aspect adapter" -> "aspect projector" : set projected value
@@ -146,18 +145,18 @@ Note that the submodel adapter does not monitor the model property of the submod
 hide footbox
 title Submodel owner synchronization
 
-actor feature
+control "app logic"
 
-feature -> "model owner" : set model( model )
+"app logic" -> "model owner" : set model( model )
 "model owner" -> "submodel adapter" : notify of model value change
 "submodel adapter" -> model : listen to submodel value changes
 "submodel adapter" -> model : v = get submodel
 "submodel adapter" -> "(sub)model owner" : set model( v )
-feature -> "model owner" : set model( null )
+"app logic" -> "model owner" : set model( null )
 "model owner" -> "submodel adapter" : notify of model value change
 "submodel adapter" -> model : unlisten to submodel value
 "submodel adapter" -> "(sub)model owner" : set model( null )
-feature -> model : set submodel ( v )
+"app logic" -> model : set submodel ( v )
 model -> "submodel adapter" : notify of submodel value
 "submodel adapter" -> model : v = get submodel
 "submodel adapter" -> "(sub)model owner" : set model( v )
@@ -198,18 +197,18 @@ i3 -> i5 [label="monitor user inputs\ngets text field value\nsets text field val
 hide footbox
 title Maintaining the person reference
 
-control feature
+control "app logic"
 
-feature -> "text field adapter" : create(person panel, text field)
+"app logic" -> "text field adapter" : create(person panel, text field)
 "text field adapter" -> "person panel" : addListener( this )
 "text field adapter" -> "text field" : addActionListener( this )
 "text field adapter" -> "text field" : setText("")
-feature -> "person panel" : setPerson( person )
+"app logic" -> "person panel" : setPerson( person )
 "person panel" -> "text field adapter" : modelAssigned( null, person)
 "text field adapter" -> person : addObservableListener( this )
 "text field adapter" -> person : x = getName()
 "text field adapter" -> "text field": setText( x )
-feature -> "person panel" : setPerson( null )
+"app logic" -> "person panel" : setPerson( null )
 "person panel" -> "text field adapter" : modelAssigned( person, null)
 "text field adapter" -> person : removeObservableListener( this )
 "text field adapter" -> "text field" : setText("")
@@ -217,7 +216,7 @@ feature -> "person panel" : setPerson( null )
 ....
 
 
-[plantuml, person-reference, svg]
+[plantuml, name-value-synchronization, svg]
 ....
 @startuml
 
@@ -225,13 +224,13 @@ hide footbox
 title Name value synchronization
 
 actor user
-control feature
+control "app logic"
 
 user -> "text field" : enters new text
 "text field" -> "text field adapter" : actionPerformed( event )
 "text field adapter" -> "text field" : x = getText()
 "text field adapter" -> person : setName( x )
-feature -> person : setName( "joe" )
+"app logic" -> person : setName( "joe" )
 person -> "text field adapter" : valueChanged( event )
 "text field adapter" -> person : x = getName()
 "text field adapter" -> "text field" : setText( x )
