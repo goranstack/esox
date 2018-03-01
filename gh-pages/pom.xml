@@ -9,32 +9,30 @@
 	<artifactId>gh-pages</artifactId>
 	<packaging>pom</packaging>
 	<name>${project.artifactId}</name>
-	<description>Collects documentation from modules and pushes to GitHub pages</description>
+	<description>Process AsciiDoc source to html and push it to GitHub pages</description>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<asciidoctor.maven.plugin.version>1.5.6</asciidoctor.maven.plugin.version>
-		<asciidoctorj.version>1.5.6</asciidoctorj.version>
-		<asciidoctorj.diagram.version>1.5.4.1</asciidoctorj.diagram.version>
-		<jruby.version>1.7.26</jruby.version>
-		<generated.docs.directory>${project.build.directory}/generated-docs</generated.docs.directory>
+		<asciidoctor-maven-plugin.version>1.5.6</asciidoctor-maven-plugin.version>
+		<asciidoctorj-diagram.version>1.5.8</asciidoctorj-diagram.version>
+		<generated-docs-directory>${project.build.directory}/generated-docs</generated-docs-directory>
 	</properties>
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.asciidoctor</groupId>
 				<artifactId>asciidoctor-maven-plugin</artifactId>
-				<version>1.5.6</version>
+				<version>${asciidoctor-maven-plugin.version}</version>
 				<dependencies>
 					<dependency>
 						<groupId>org.asciidoctor</groupId>
 						<artifactId>asciidoctorj-diagram</artifactId>
-						<version>${asciidoctorj.diagram.version}</version>
+						<version>${asciidoctorj-diagram.version}</version>
 					</dependency>
 				</dependencies>
 				<configuration>
 					<backend>html5</backend>
 					<imagesDir>.</imagesDir>
-					<outputDirectory>${generated.docs.directory}</outputDirectory>
+					<outputDirectory>${generated-docs-directory}</outputDirectory>
 					<sourceHighlighter>coderay</sourceHighlighter>
 					<attributes>
 						<current-version>${project.version}</current-version>
