@@ -6,7 +6,7 @@ Dennis <dennis@esox.nu>
 
 Binds model values to Swing components using the observable pattern and Java reflection.
 
-https://github.com/goranstack/esox[Checkout source code from GitHub]
+image:images/Octocat.jpg[] https://github.com/goranstack/esox[Checkout source code on GitHub]
 
 == Concepts
 
@@ -61,16 +61,19 @@ i3 -> i5 [label="monitor user inputs\ngets projected value\nsets projected value
 
 In many cases, a reference to the model is not available when the aspect adapter is created. Another common scenario is a model owner which changes models during the lifespan of an aspect adapter. The aspect adapter must therefore observe the model owner in order to maintain a reference to the actual model.
 
+.Maintaining the model reference
 [plantuml, model-reference, svg]
 ....
 @startuml
+participant "app logic"
+
 
 hide footbox
-title Maintaining the model reference
 
 control "app logic"
 
-"app logic" -> "aspect adapter" : create(model owner, aspect projector)
+
+"app logic" -> "aspect adapter" : create( model owner, aspect )
 "aspect adapter" -> "model owner" : listen to model value changes
 "aspect adapter" -> "aspect projector" : listen to projected value
 "aspect adapter" -> "aspect projector" : set no projected value
@@ -88,17 +91,17 @@ control "app logic"
 
 Aspect value and the projected value synchronization is achieved by monitoring both aspect value changes and user input. When user input occurs, the projected value is propagated from the aspect projector to the model. When the aspect value changes, it is propagated from the model to the aspect projector. All necessary value conversions are performed by the aspect adapter.
 
+.Value synchronization
 [plantuml, value-synchronization, svg]
 ....
 @startuml
 
 hide footbox
-title Value synchronization
 
 actor user
 control "app logic"
 
-user -> "aspect projector" : enter new projected
+user -> "aspect projector" : enter new\nprojected value
 "aspect projector" -> "aspect adapter" : notify of projected value
 "aspect adapter" -> "aspect projector" : get projected value
 "aspect adapter" -> model : set aspect value
@@ -138,12 +141,12 @@ i5 -> i4 [label="knows"];
 The diagram below illustrates the submodel owner synchronization behaviour. The first two scenarios describe what happens when the model property of the model owner is changed. The last scenario describe s what happens when the submodel aspect of the model is changed.
 Note that the submodel adapter does not monitor the model property of the submodel owner. If it is changed by a call from another object (not the submodel owner) then the synchronization breaks.
 
+.Submodel owner synchronization
 [plantuml, submodel-synchronization, svg]
 ....
 @startuml
 
 hide footbox
-title Submodel owner synchronization
 
 control "app logic"
 
@@ -190,12 +193,12 @@ i3 -> i5 [label="monitor user inputs\ngets text field value\nsets text field val
 }
 ....
 
+.Maintaining the person reference
 [plantuml, person-reference, svg]
 ....
 @startuml
 
 hide footbox
-title Maintaining the person reference
 
 control "app logic"
 
@@ -215,13 +218,12 @@ control "app logic"
 @enduml
 ....
 
-
+.Name value synchronization
 [plantuml, name-value-synchronization, svg]
 ....
 @startuml
 
 hide footbox
-title Name value synchronization
 
 actor user
 control "app logic"

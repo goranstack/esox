@@ -30,7 +30,7 @@ import java.util.List;
 public class SiblingAttachment extends Attachment
 {
       /**
-       * @see com.bluebrim.al.SiblingAttachment
+       * @see nu.esox.al.SiblingAttachment
        * 
    * @author  Dennis Malmström
        * @version 2.0
@@ -57,7 +57,7 @@ public class SiblingAttachment extends Attachment
        * 
        * @param edge The attached edge.
        * @param attachable Attachable to which the edge is attached.
-       * @param componentEdge The edge of attachable to which the edge is attached.
+       * @param attachableEdge The edge of attachable to which the edge is attached.
        */
     public static SiblingAttachment create( Edge edge, Attachable attachable, Edge attachableEdge )
     {
@@ -71,7 +71,7 @@ public class SiblingAttachment extends Attachment
        * @param edge The attached edge.
        * @param attachables Attachables to which the edge is attached.
        * @param pos Max or min position among attachables to which the edge is attached.
-       * @param componentEdge The edge of attachable to which the edge is attached.
+       * @param attachableEdge The edge of attachable to which the edge is attached.
        */
     public static SiblingAttachment create( Edge edge, Attachable [] attachables, Position pos, Edge attachableEdge )
     {
@@ -84,8 +84,8 @@ public class SiblingAttachment extends Attachment
        * 
        * @param edge The attached edge.
        * @param attachable Attachable to which the edge is attached.
-       * @param componentEdge The edge of attachable to which the edge is attached.
-       * @param offset Offset from componentEdge.
+       * @param attachableEdge The edge of attachable to which the edge is attached.
+       * @param offset Offset from attachableEdge.
        */
     public static SiblingAttachment create( Edge edge, Attachable attachable, Edge attachableEdge, double offset )
     {
@@ -99,7 +99,7 @@ public class SiblingAttachment extends Attachment
        * @param edge The attached edge.
        * @param attachables Attachables to which the edge is attached.
        * @param pos Max or min position among attachables to which the edge is attached.
-       * @param offset Offset from componentEdge.
+       * @param offset Offset from attachableEdge.
        */
     public static SiblingAttachment create( Edge edge, Attachable [] attachables, Position pos, Edge attachableEdge, double offset )
     {

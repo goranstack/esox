@@ -69,7 +69,6 @@ public class LabeledBorder extends AbstractBorder implements SwingConstants
        * Creates a LabeledBorder instance with the specified border
        * and an empty title.
        * 
-       * @param border  the border
        */
     public LabeledBorder()
     {
@@ -80,11 +79,9 @@ public class LabeledBorder extends AbstractBorder implements SwingConstants
        * Creates a LabeledBorder instance with the specified border,
        * title, title-justification, and title-position.
        * 
-       * @param border  the border
        * @param title  the title the border should display
        * @param titleJustification the justification for the title
-       * @param titlePosition the position for the title
-       */
+        */
     public LabeledBorder( String title, int titleJustification )
     {
         this( title, titleJustification, NORTH, 0, null, null );
@@ -99,10 +96,8 @@ public class LabeledBorder extends AbstractBorder implements SwingConstants
        * Creates a LabeledBorder instance with the specified border,
        * title, title-justification, title-position, and title-font.
        * 
-       * @param border  the border
        * @param title  the title the border should display
        * @param titleJustification the justification for the title
-       * @param titlePosition the position for the title
        * @param titleFont the font for rendering the title
        */
     public LabeledBorder( String title, int titleJustification, Font titleFont )
@@ -120,7 +115,6 @@ public class LabeledBorder extends AbstractBorder implements SwingConstants
        * title, title-justification, title-position, title-font, and
        * title-color.
        * 
-       * @param border  the border
        * @param title  the title the border should display
        * @param titleJustification the justification for the title
        * @param titlePosition the position for the title
@@ -135,7 +129,6 @@ public class LabeledBorder extends AbstractBorder implements SwingConstants
        * title, title-justification, title-position, title-font, and
        * title-color.
        * 
-       * @param border  the border
        * @param title  the title the border should display
        * @param titleJustification the justification for the title
        * @param titlePosition the position for the title
