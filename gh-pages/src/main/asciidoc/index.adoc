@@ -1,4 +1,5 @@
 = Esox Java Swing binding library
+:docinfo: shared
 Dennis <dennis@esox.nu>
 :toc: left
 :icons: font
@@ -10,7 +11,7 @@ image:images/Octocat.jpg[] https://github.com/goranstack/esox[Checkout source co
 
 == Concepts
 
-This section introduces some concepts needed to describe the design pattern. The concept descriptions are rather abstract, see section 3 for a concrete example.
+This section introduces some concepts needed to describe the design pattern. The concept descriptions are rather abstract, see the <<Example>> section for a concrete example.
 
 === Model
 A model object represents an entity of the application domain. It has a set of aspects (see below).
@@ -386,4 +387,4 @@ The package `nu.esox.gui.aspect` contains aspect adapters for most swing compone
 `TextFieldAdapter`, `ComboBoxAdapter`, `SpinnerAdapter` and `LabelTextAdapter`.
 
 ==== SubModelAdapter
-This class implements the submodel adapter behavior described in section .
+This class implements the submodel adapter behavior described in section.
