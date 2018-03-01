@@ -26,11 +26,8 @@ There are no plans to support JavaFx that has its own solution for binding.
 But if you still fancy Java Swing and need a binding library give it a try. The library are successfully used in several in-house applications.
 
 == Documentation
-Although the library implements some kind of MVC pattern it has a slightly different vocabulary.
-Read about it in the http://goranstack.github.io/esox[documentation].
+Since the library use some concepts slightly different from most MVC implementations you get the most out of the library by reading
+the documentation at the http://goranstack.github.io/esox[documentation].
 
-++++
-<small>
-<div>The pike image credit Joseph Tomelleri from <a href="http://www.fishesoftexas.org/home/" title="Fishes of Texas Project">www.fishesoftexas.org</a> is licensed by <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" title="Creative Commons BY-NC-SA 3.0" target="_blank">CC BY-NC-SA 3.0</a></div>
-</small>
-++++
+You can also have a look at the `fish` and `esox-account` module that uses the library for real working examples.
+
