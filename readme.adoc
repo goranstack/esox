@@ -29,4 +29,8 @@ But if you still fancy Java Swing and need a binding library give it a try. The 
 Although the library implements some kind of MVC pattern it has a slightly different vocabulary.
 Read about it in the http://goranstack.github.io/esox[documentation].
 
-
+++++
+<small>
+<div>The pike image credit Joseph Tomelleri from <a href="http://www.fishesoftexas.org/home/" title="Fishes of Texas Project">www.fishesoftexas.org</a> is licensed by <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" title="Creative Commons BY-NC-SA 3.0" target="_blank">CC BY-NC-SA 3.0</a></div>
+</small>
+++++

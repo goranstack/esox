@@ -388,3 +388,12 @@ The package `nu.esox.gui.aspect` contains aspect adapters for most swing compone
 
 ==== SubModelAdapter
 This class implements the submodel adapter behavior described in section.
+
+'''
+image:images/pike.jpg[width=250]
+
+++++
+<small>
+<div>The pike image credit Joseph Tomelleri from <a href="http://www.fishesoftexas.org/home/" title="Fishes of Texas Project">www.fishesoftexas.org</a> is licensed by <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" title="Creative Commons BY-NC-SA 3.0" target="_blank">CC BY-NC-SA 3.0</a></div>
+</small>
+++++
