@@ -1,5 +1,5 @@
 // Badges
-image:http://img.shields.io/travis/goranstack/screenshot-maven-plugin/master.svg["Build Status (Travis CI)", link="https://travis-ci.org/goranstack/screenshot-maven-plugin"]
+image:http://img.shields.io/travis/goranstack/esox/master.svg["Build Status (Travis CI)", link="https://travis-ci.org/goranstack/esox"]
 
 
 = Esox Java Swing binding library
