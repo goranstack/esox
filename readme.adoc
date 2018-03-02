@@ -1,6 +1,6 @@
 // Badges
 image:http://img.shields.io/travis/goranstack/esox/master.svg["Build Status (Travis CI)", link="https://travis-ci.org/goranstack/esox"]
-
+image:https://maven-badges.herokuapp.com/maven-central/com.github.goranstack.esox/esox-gui/badge.svg["Maven Central",link="https://maven-badges.herokuapp.com/maven-central/com.github.goranstack.esox/esox-gui"]
 
 = Esox Java Swing binding library
 :toc: left
