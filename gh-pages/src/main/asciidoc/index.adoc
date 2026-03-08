@@ -1,4 +1,5 @@
 = Esox Java Swing binding library
+:graphvizdot: C:\Program Files\Graphviz\bin\dot.exe
 :docinfo: shared
 Dennis <dennis@esox.nu>
 :toc: left
@@ -7,7 +8,7 @@ Dennis <dennis@esox.nu>
 
 Binds model values to Swing components using the observable pattern and Java reflection.
 
-image:images/Octocat.jpg[] https://github.com/goranstack/esox[Checkout source code on GitHub]
+image:Octocat.jpg[] https://github.com/goranstack/esox[Checkout source code on GitHub]
 
 == Concepts
 
@@ -390,7 +391,7 @@ The package `nu.esox.gui.aspect` contains aspect adapters for most swing compone
 This class implements the submodel adapter behavior described in section.
 
 '''
-image:images/pike.png[width=250]
+image:pike.png[width=250]
 
 ++++
 <small>
