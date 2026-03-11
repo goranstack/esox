@@ -41,7 +41,7 @@ Multi-module Maven project (`com.github.goranstack.esox`, version 2.1.2-SNAPSHOT
 ### Setup required for releases
 1. **GitHub Pages**: Settings > Pages > Source → select "GitHub Actions"
 2. **Sonatype Central Portal**: Log in at https://central.sonatype.com, migrate OSSRH namespace, generate a user token
-3. **Repository secrets** (Settings > Secrets > Actions):
+3. **Repository secrets** (Settings > Secrets and variables > Actions > New repository secret — use repository secrets, not environment secrets):
    - `CENTRAL_TOKEN_USERNAME` — Central Portal token username
    - `CENTRAL_TOKEN_PASSWORD` — Central Portal token password
    - `GPG_PRIVATE_KEY` — ASCII-armored GPG private key (`gpg --armor --export-secret-keys <keyid>`)
