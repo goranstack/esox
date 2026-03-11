@@ -1,9 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(where gpg:*)",
-      "Bash(gpg:*)",
-      "WebSearch"
-    ]
-  }
-}
