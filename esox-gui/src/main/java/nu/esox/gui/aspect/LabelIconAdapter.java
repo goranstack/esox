@@ -1,6 +1,7 @@
 package nu.esox.gui.aspect;
 
 
+import java.util.function.*;
 import nu.esox.util.*;
 import javax.swing.*;
 
@@ -8,6 +9,14 @@ import javax.swing.*;
 public class LabelIconAdapter extends AbstractAdapter
 {
     private final JLabel m_label;
+
+    public <M> LabelIconAdapter( JLabel l, ModelOwnerIF modelOwner, Function<M, ?> getter, String aspectName, String nullValue, String undefinedValue )
+    {
+        super( modelOwner, getter, null, aspectName, nullValue, undefinedValue );
+
+        m_label = l;
+        update();
+    }
 
     public LabelIconAdapter( JLabel l, ModelOwnerIF modelOwner, Class modelClass, String getAspectMethodName, String aspectName, String nullValue, String undefinedValue )
     {

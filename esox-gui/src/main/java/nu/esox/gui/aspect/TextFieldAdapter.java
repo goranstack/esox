@@ -1,6 +1,7 @@
 package nu.esox.gui.aspect;
 
 import java.awt.event.*;
+import java.util.function.*;
 import nu.esox.util.*;
 import javax.swing.*;
 
@@ -10,6 +11,24 @@ public class TextFieldAdapter extends AbstractAdapter implements ActionListener
     private final JTextField m_textField;
 
     
+    public <M> TextFieldAdapter( JTextField textField, ModelOwnerIF modelOwner, Function<M, ?> getter, BiConsumer<M, ?> setter, String aspectName )
+    {
+        this( textField, modelOwner, getter, setter, aspectName, "", "" );
+    }
+
+    public <M> TextFieldAdapter( JTextField textField, ModelOwnerIF modelOwner, Function<M, ?> getter, BiConsumer<M, ?> setter, String aspectName, String nullValue, String undefinedValue )
+    {
+        super( modelOwner, getter, setter, aspectName, nullValue, undefinedValue );
+
+        assert nullValue != null;
+        assert undefinedValue != null;
+
+        m_textField = textField;
+        m_textField.addActionListener( this );
+        m_textField.setEditable( setter != null );
+        update();
+    }
+
     public TextFieldAdapter( JTextField textField, ModelOwnerIF modelOwner, Class modelClass, String getAspectMethodName, String setAspectMethodName, String aspectName )
     {
         this( textField, modelOwner, modelClass, getAspectMethodName, setAspectMethodName, String.class, aspectName, "", "" );

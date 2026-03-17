@@ -4,6 +4,7 @@ package nu.esox.gui.aspect;
 import java.awt.*;
 import java.awt.event.*;
 import java.text.*;
+import java.util.function.*;
 import javax.swing.*;
 import javax.swing.event.*;
 
@@ -13,7 +14,20 @@ public class ListAdapter extends AbstractAdapter implements ListSelectionListene
     private final JList m_list;
     private transient boolean m_isUpdating = false;
 
-    
+
+    public <M> ListAdapter( JList list,
+                             ModelOwnerIF modelOwner,
+                             Function<M, ?> getter,
+                             BiConsumer<M, ?> setter,
+                             String aspectName )
+    {
+        super( modelOwner, getter, setter, aspectName, null, null );
+
+        m_list = list;
+        m_list.getSelectionModel().addListSelectionListener( this );
+        update();
+    }
+
     public ListAdapter( JList list,
                         ModelOwnerIF modelOwner,
                         Class modelClass,

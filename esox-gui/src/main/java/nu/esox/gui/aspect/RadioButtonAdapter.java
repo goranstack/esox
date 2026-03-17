@@ -2,6 +2,8 @@ package nu.esox.gui.aspect;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.function.BiConsumer;
+import java.util.function.Function;
 
 import javax.swing.JRadioButton;
 
@@ -23,6 +25,21 @@ public class RadioButtonAdapter extends AbstractAdapter implements ActionListene
     private transient boolean m_isUpdating = false;
 
     
+    public <M> RadioButtonAdapter( JRadioButton radioButton,
+                                    ModelOwnerIF modelOwner,
+                                    Function<M, ?> getter,
+                                    BiConsumer<M, ?> setter,
+                                    String aspectName,
+                                    Object choice )
+    {
+        super( modelOwner, getter, setter, aspectName, null, null );
+
+        m_radioButton = radioButton;
+        m_radioButton.addActionListener( this );
+        m_choice = choice;
+        update();
+    }
+
     public RadioButtonAdapter( JRadioButton radioButton,
                                ModelOwnerIF modelOwner,
                                Class modelClass,

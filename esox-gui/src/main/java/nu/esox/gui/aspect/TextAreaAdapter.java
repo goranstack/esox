@@ -1,6 +1,7 @@
 package nu.esox.gui.aspect;
 
 import java.awt.event.*;
+import java.util.function.*;
 import nu.esox.util.*;
 import javax.swing.*;
 import javax.swing.event.*;
@@ -13,7 +14,28 @@ public class TextAreaAdapter extends AbstractAdapter implements FocusListener, A
     private long m_t0 = 0;
     private Timer m_timer = null;
 
-    
+
+    public <M> TextAreaAdapter( JTextArea textArea, int commitDelay, ModelOwnerIF modelOwner, Function<M, ?> getter, BiConsumer<M, ?> setter, String aspectName )
+    {
+        this( textArea, commitDelay, modelOwner, getter, setter, aspectName, "", "" );
+    }
+
+    public <M> TextAreaAdapter( JTextArea textArea, int commitDelay, ModelOwnerIF modelOwner, Function<M, ?> getter, BiConsumer<M, ?> setter, String aspectName, String nullValue, String undefinedValue )
+    {
+        super( modelOwner, getter, setter, aspectName, nullValue, undefinedValue );
+
+        assert nullValue != null;
+        assert undefinedValue != null;
+
+        m_commitDelay = commitDelay;
+        m_textArea = textArea;
+        m_textArea.addFocusListener( this );
+        m_textArea.setEditable( setter != null );
+        update();
+
+        m_textArea.getDocument().addDocumentListener( this );
+    }
+
     public TextAreaAdapter( JTextArea textArea, int commitDelay, ModelOwnerIF modelOwner, Class modelClass, String getAspectMethodName, String setAspectMethodName, String aspectName )
     {
         this( textArea, commitDelay, modelOwner, modelClass, getAspectMethodName, setAspectMethodName, String.class, aspectName, "", "" );

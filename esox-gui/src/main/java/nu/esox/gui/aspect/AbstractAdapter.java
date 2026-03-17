@@ -2,6 +2,7 @@ package nu.esox.gui.aspect;
 
 
 import java.util.*;
+import java.util.function.*;
 import java.lang.reflect.*;
 import nu.esox.util.*;
 import javax.swing.*;
@@ -29,6 +30,17 @@ public abstract class AbstractAdapter implements ObservableListener, ModelOwnerI
               aspectName,
               nullValue,
               undefinedValue );
+    }
+
+    @SuppressWarnings( { "unchecked", "rawtypes" } )
+    public AbstractAdapter( ModelOwnerIF modelOwner,
+                            Function getter,
+                            BiConsumer setter,
+                            String aspectName,
+                            Object nullValue,
+                            Object undefinedValue )
+    {
+        this( modelOwner, new FunctionalAspect( getter, setter ), aspectName, nullValue, undefinedValue );
     }
 
     public AbstractAdapter( ModelOwnerIF modelOwner,

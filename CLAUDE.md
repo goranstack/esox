@@ -4,7 +4,7 @@
 Esox binds model values to Java Swing components using the observable pattern and Java reflection. It synchronizes value changes bidirectionally between models and Swing components. Developed by Dennis Malmström, maintained by Göran Stäck.
 
 ## Project Structure
-Multi-module Maven project (`com.github.goranstack.esox`, version 2.1.2-SNAPSHOT):
+Multi-module Maven project (`com.github.goranstack.esox`, version 2.2.0-SNAPSHOT):
 
 - **esox-core** (`nu.esox.util`): Observable model classes (`Observable`, `ObservableIF`, `ObservableListener`, `ObservableEvent`, `ObservableList`, etc.)
 - **esox-gui** (`nu.esox.gui`, `nu.esox.gui.aspect`): Swing binding classes — `ModelPanel`, `ModelFrame`, `ModelDialog`, `AbstractAdapter`, and concrete adapters (`TextFieldAdapter`, `ComboBoxAdapter`, `SpinnerAdapter`, `LabelTextAdapter`, `SubModelAdapter`, etc.)
@@ -23,6 +23,8 @@ Multi-module Maven project (`com.github.goranstack.esox`, version 2.1.2-SNAPSHOT
 ## Build
 - Java 8 (source/target 1.8)
 - Build: `mvn clean install`
+- Local build (bypasses corporate Nexus mirror): `mvn clean install -s ~/.m2/default-settings.xml`
+- JAVA_HOME: `C:\Program Files\Java\jdk1.8.0_231`
 - Release profile: `mvn -P release` (signs artifacts, deploys to Maven Central via Sonatype Central Portal)
 - License: Apache 2.0
 
@@ -47,9 +49,6 @@ Multi-module Maven project (`com.github.goranstack.esox`, version 2.1.2-SNAPSHOT
    - `GPG_PRIVATE_KEY` — ASCII-armored GPG private key (`gpg --armor --export-secret-keys <keyid>`)
    - `GPG_PASSPHRASE` — passphrase for the GPG key
 4. Publish GPG public key: `gpg --keyserver keyserver.ubuntu.com --send-keys <keyid>`
-
-### Cleanup TODO
-- Delete `.travis.yml` and `.travis/` directory after verifying workflows work
 
 ## Documentation
 - `gh-pages/src/main/asciidoc/index.adoc` — full documentation with PlantUML/Graphviz diagrams

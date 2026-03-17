@@ -2,6 +2,7 @@ package nu.esox.gui.aspect;
 
 
 import java.util.*;
+import java.util.function.*;
 import nu.esox.util.*;
 import javax.swing.*;
 
@@ -10,7 +11,50 @@ public class EnableAdapter extends AbstractBooleanAdapter
 {
     private final EnableableCollection m_enableables = new EnableableCollection();
 
-    
+
+    public <M> EnableAdapter( JComponent trueComponent,
+                               JComponent falseComponent,
+                               Action trueAction,
+                               Action falseAction,
+                               ModelOwnerIF modelOwner,
+                               Function<M, ?> getter,
+                               String aspectName,
+                               Object trueValue,
+                               Object falseValue,
+                               Object nullValue,
+                               Object undefinedValue )
+    {
+        this( ( trueComponent == null ) ? null : new JComponent [] { trueComponent },
+              ( falseComponent == null ) ? null : new JComponent [] { falseComponent },
+              ( trueAction == null ) ? null : new Action [] { trueAction },
+              ( falseAction == null ) ? null : new Action [] { falseAction },
+              modelOwner,
+              getter,
+              aspectName,
+              trueValue,
+              falseValue,
+              nullValue,
+              undefinedValue );
+    }
+
+    public <M> EnableAdapter( JComponent [] trueComponents,
+                               JComponent [] falseComponents,
+                               Action [] trueActions,
+                               Action [] falseActions,
+                               ModelOwnerIF modelOwner,
+                               Function<M, ?> getter,
+                               String aspectName,
+                               Object trueValue,
+                               Object falseValue,
+                               Object nullValue,
+                               Object undefinedValue )
+    {
+        super( modelOwner, getter, aspectName );
+
+        m_enableables.add( trueComponents, falseComponents, trueActions, falseActions );
+        update();
+    }
+
     public EnableAdapter( JComponent trueComponent,
                           JComponent falseComponent,
                           Action trueAction,

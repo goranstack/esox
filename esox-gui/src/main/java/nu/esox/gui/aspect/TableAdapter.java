@@ -4,6 +4,7 @@ package nu.esox.gui.aspect;
 import java.awt.*;
 import java.awt.event.*;
 import java.text.*;
+import java.util.function.*;
 import javax.swing.*;
 import javax.swing.event.*;
 
@@ -13,7 +14,20 @@ public class TableAdapter extends AbstractAdapter implements ListSelectionListen
     private final JTable m_table;
     private transient boolean m_isUpdating = false;
 
-    
+
+    public <M> TableAdapter( JTable table,
+                              ModelOwnerIF modelOwner,
+                              Function<M, ?> getter,
+                              BiConsumer<M, ?> setter,
+                              String aspectName )
+    {
+        super( modelOwner, getter, setter, aspectName, null, null );
+
+        m_table = table;
+        m_table.getSelectionModel().addListSelectionListener( this );
+        update();
+    }
+
     public TableAdapter( JTable table,
                          ModelOwnerIF modelOwner,
                          Class modelClass,

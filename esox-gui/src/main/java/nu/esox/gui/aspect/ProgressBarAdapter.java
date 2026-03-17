@@ -1,6 +1,7 @@
 package nu.esox.gui.aspect;
 
 
+import java.util.function.*;
 import nu.esox.util.*;
 import javax.swing.*;
 
@@ -8,6 +9,14 @@ import javax.swing.*;
 public class ProgressBarAdapter extends AbstractAdapter
 {
     private final JProgressBar m_progressBar;
+
+    public <M> ProgressBarAdapter( JProgressBar progressBar, ModelOwnerIF modelOwner, Function<M, ?> getter, String aspectName )
+    {
+        super( modelOwner, getter, null, aspectName, (Integer) 0, (Integer) 0 );
+
+        m_progressBar = progressBar;
+        update();
+    }
 
     public ProgressBarAdapter( JProgressBar progressBar, ModelOwnerIF modelOwner, Class modelClass, String getAspectMethodName, String aspectName )
     {

@@ -2,6 +2,7 @@ package nu.esox.gui.aspect;
 
 
 import java.awt.event.*;
+import java.util.function.*;
 import nu.esox.util.*;
 import javax.swing.*;
 import java.lang.reflect.*;
@@ -30,6 +31,29 @@ public abstract class AbstractBooleanAdapter extends AbstractAdapter
                                    Object undefinedValue )
     {
         super( modelOwner, modelClass, getAspectMethodName, setAspectMethodName, aspectClass, aspectName, nullValue, undefinedValue );
+
+        m_trueValue = trueValue;
+        m_falseValue = falseValue;
+    }
+
+    public AbstractBooleanAdapter( ModelOwnerIF modelOwner,
+                                   Function getter,
+                                   String aspectName )
+    {
+        this( modelOwner, getter, null, aspectName, Boolean.TRUE, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE );
+    }
+
+    @SuppressWarnings( { "unchecked", "rawtypes" } )
+    public AbstractBooleanAdapter( ModelOwnerIF modelOwner,
+                                   Function getter,
+                                   BiConsumer setter,
+                                   String aspectName,
+                                   Object trueValue,
+                                   Object falseValue,
+                                   Object nullValue,
+                                   Object undefinedValue )
+    {
+        super( modelOwner, getter, setter, aspectName, nullValue, undefinedValue );
 
         m_trueValue = trueValue;
         m_falseValue = falseValue;

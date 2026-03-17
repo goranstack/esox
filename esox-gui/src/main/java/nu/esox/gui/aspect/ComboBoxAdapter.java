@@ -4,6 +4,7 @@ package nu.esox.gui.aspect;
 import java.awt.*;
 import java.awt.event.*;
 import java.text.*;
+import java.util.function.*;
 import javax.swing.*;
 
 
@@ -13,6 +14,21 @@ public class ComboBoxAdapter extends AbstractAdapter implements ActionListener
     private transient boolean m_isUpdating = false;
 
     
+    public <M> ComboBoxAdapter( JComboBox cb,
+                                 ModelOwnerIF modelOwner,
+                                 Function<M, ?> getter,
+                                 BiConsumer<M, ?> setter,
+                                 String aspectName,
+                                 Object nullValue,
+                                 Object undefinedValue )
+    {
+        super( modelOwner, getter, setter, aspectName, nullValue, undefinedValue );
+
+        m_comboBox = cb;
+        m_comboBox.addActionListener( this );
+        update();
+    }
+
     public ComboBoxAdapter( JComboBox cb,
                             ModelOwnerIF modelOwner,
                             Class modelClass,

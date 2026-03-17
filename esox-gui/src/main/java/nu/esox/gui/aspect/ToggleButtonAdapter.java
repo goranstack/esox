@@ -2,6 +2,7 @@ package nu.esox.gui.aspect;
 
 
 import java.awt.event.*;
+import java.util.function.*;
 import nu.esox.util.*;
 import javax.swing.*;
 
@@ -9,7 +10,17 @@ import javax.swing.*;
 public class ToggleButtonAdapter extends AbstractBooleanAdapter implements ActionListener
 {
     private final JToggleButton m_button;
-    
+
+
+    public <M> ToggleButtonAdapter( JToggleButton b, ModelOwnerIF modelOwner, Function<M, ?> getter, BiConsumer<M, ?> setter, String aspectName )
+    {
+        super( modelOwner, getter, setter, aspectName, Boolean.TRUE, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE );
+
+        m_button = b;
+        m_button.addActionListener( this );
+        update();
+    }
+
     public ToggleButtonAdapter( JToggleButton b, ModelOwnerIF modelOwner, Class modelClass, String getAspectMethodName, String setAspectMethodName, String aspectName )
     {
         this( b, modelOwner, modelClass, getAspectMethodName, setAspectMethodName, Boolean.class, aspectName, Boolean.TRUE, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE );

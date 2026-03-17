@@ -2,6 +2,7 @@ package nu.esox.gui.aspect;
 
 
 import java.awt.event.*;
+import java.util.function.*;
 import nu.esox.util.*;
 import javax.swing.*;
 
@@ -9,7 +10,21 @@ import javax.swing.*;
 public class CheckBoxAdapter extends AbstractBooleanAdapter implements ActionListener
 {
     private final AbstractButton m_button;
-    
+
+
+    public <M> CheckBoxAdapter( AbstractButton cb,
+                                ModelOwnerIF modelOwner,
+                                Function<M, ?> getter,
+                                BiConsumer<M, ?> setter,
+                                String aspectName )
+    {
+        super( modelOwner, getter, setter, aspectName, true, false, null, false );
+
+        m_button = cb;
+        m_button.addActionListener( this );
+        update();
+    }
+
     public CheckBoxAdapter( AbstractButton cb,
                             ModelOwnerIF modelOwner,
                             Class modelClass,

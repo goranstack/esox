@@ -1,6 +1,7 @@
 package nu.esox.gui.aspect;
 
 
+import java.util.function.*;
 import javax.swing.*;
 import javax.swing.event.*;
 
@@ -8,7 +9,17 @@ import javax.swing.event.*;
 public class SliderAdapter extends AbstractAdapter implements ChangeListener
 {
     private final JSlider m_slider;
-    
+
+
+    public <M> SliderAdapter( JSlider slider, ModelOwnerIF modelOwner, Function<M, ?> getter, BiConsumer<M, ?> setter, String aspectName, int nullValue, int undefinedValue )
+    {
+        super( modelOwner, getter, setter, aspectName, new Integer( nullValue ), new Integer( undefinedValue ) );
+
+        m_slider = slider;
+        m_slider.addChangeListener( this );
+        update();
+    }
+
     public SliderAdapter( JSlider slider, ModelOwnerIF modelOwner, Class modelClass, String getAspectMethodName, String setAspectMethodName, String aspectName, int nullValue, int undefinedValue )
     {
         super( modelOwner, modelClass, getAspectMethodName, setAspectMethodName, Integer.class, aspectName, new Integer( nullValue ), new Integer( undefinedValue ) );

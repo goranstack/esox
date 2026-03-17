@@ -3,6 +3,7 @@ package nu.esox.gui.aspect;
 
 import java.awt.event.*;
 import java.beans.*;
+import java.util.function.*;
 import javax.swing.*;
 
 
@@ -11,13 +12,45 @@ public class FormattedTextFieldAdapter extends AbstractAdapter implements Action
     private final JFormattedTextField m_textField;
     private final Converter m_converter;
 
+    public <M> FormattedTextFieldAdapter( JFormattedTextField tf,
+                                           ModelOwnerIF modelOwner,
+                                           Function<M, ?> getter,
+                                           BiConsumer<M, ?> setter,
+                                           Class aspectClass,
+                                           String aspectName,
+                                           Object nullValue,
+                                           Object undefinedValue )
+    {
+        super( modelOwner, getter, setter, aspectName, nullValue, undefinedValue );
+
+        if       ( Long.class.equals( aspectClass ) ) m_converter = LONG_CONVERTER;
+        else if ( Integer.class.equals( aspectClass ) ) m_converter = INTEGER_CONVERTER;
+        else if ( Short.class.equals( aspectClass ) ) m_converter = SHORT_CONVERTER;
+        else if ( Byte.class.equals( aspectClass ) ) m_converter = BYTE_CONVERTER;
+        else if ( Float.class.equals( aspectClass ) ) m_converter = FLOAT_CONVERTER;
+        else if ( Double.class.equals( aspectClass ) ) m_converter = DOUBLE_CONVERTER;
+        else if ( long.class.equals( aspectClass ) ) m_converter = LONG_CONVERTER;
+        else if ( int.class.equals( aspectClass ) ) m_converter = INTEGER_CONVERTER;
+        else if ( short.class.equals( aspectClass ) ) m_converter = SHORT_CONVERTER;
+        else if ( byte.class.equals( aspectClass ) ) m_converter = BYTE_CONVERTER;
+        else if ( float.class.equals( aspectClass ) ) m_converter = FLOAT_CONVERTER;
+        else if ( double.class.equals( aspectClass ) ) m_converter = DOUBLE_CONVERTER;
+        else m_converter = DEFAULT_CONVERTER;
+
+        m_textField = tf;
+        m_textField.addActionListener( this );
+        m_textField.addPropertyChangeListener( "value", this );
+        m_textField.setEditable( setter != null );
+        update();
+    }
+
     public FormattedTextFieldAdapter( JFormattedTextField tf,
                                       ModelOwnerIF modelOwner,
                                       Class modelClass,
                                       String getAspectMethodName,
                                       String setAspectMethodName,
                                       Class aspectClass,
-                                      String aspectName, 
+                                      String aspectName,
                                       Object nullValue,
                                       Object undefinedValue )
     {
