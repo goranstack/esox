@@ -13,10 +13,10 @@ public class SubModelAdapter extends AbstractAdapter
     private final BiConsumer m_setSubModelConsumer;
 
 
-    public <T, M> SubModelAdapter( T subModelTarget,
-                                   BiConsumer<T, ?> setSubModel,
+    public <T, M, V> SubModelAdapter( T subModelTarget,
+                                   BiConsumer<T, V> setSubModel,
                                    ModelOwnerIF modelOwner,
-                                   Function<M, ?> getter,
+                                   Function<M, V> getter,
                                    String aspectName )
     {
         super( modelOwner, getter, null, aspectName, null, null );

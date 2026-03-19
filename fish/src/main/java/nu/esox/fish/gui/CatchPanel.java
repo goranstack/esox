@@ -1,6 +1,7 @@
 package nu.esox.fish.gui;
 
 import java.text.*;
+import java.util.function.*;
 import javax.swing.*;
 import nu.esox.gui.*;
 import nu.esox.gui.layout.*;
@@ -19,13 +20,13 @@ public class CatchPanel extends ModelPanel
         {
             FishPanel p = new FishPanel();
             add( p );
-            new SubModelAdapter( p, "setFish", Fish.class, this, Catch.class, "getFish", "fish" );
+            new SubModelAdapter( p, FishPanel::setFish, this, Catch::getFish, "fish" );
         }
 
         {
             CoordinatesPanel p = new CoordinatesPanel();
             add( p );
-            new SubModelAdapter( p, "setCoordinates", Coordinates.class, this, Catch.class, "getCoordinates", "coordinates" );
+            new SubModelAdapter( p, CoordinatesPanel::setCoordinates, this, Catch::getCoordinates, "coordinates" );
         }
 
         {
@@ -41,7 +42,7 @@ public class CatchPanel extends ModelPanel
                 cb.addItem( "freelining" );
                 cb.addItem( "spinning" );
                 cb.addItem( "ice fishing" );
-                new ComboBoxAdapter( cb, this, Catch.class, "getMethod", "setMethod", String.class, "method", null, null );
+                new ComboBoxAdapter( cb, this, Catch::getMethod, Catch::setMethod, "method", null, null );
             }
             
 
@@ -49,7 +50,7 @@ public class CatchPanel extends ModelPanel
                 p.add( new JLabel( "Bait" ) );
                 JTextField tf = new JTextField( 20 );
                 p.add( tf );
-                new TextFieldAdapter( tf, this, Catch.class, "getBait", "setBait", "bait" );
+                new TextFieldAdapter( tf, this, Catch::getBait, Catch::setBait, "bait" );
                 TextFieldFocusHandler.add( tf );
             }
         }

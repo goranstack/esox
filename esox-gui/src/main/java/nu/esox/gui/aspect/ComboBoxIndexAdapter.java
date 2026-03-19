@@ -14,10 +14,10 @@ public class ComboBoxIndexAdapter extends AbstractAdapter implements ActionListe
     private transient boolean m_isUpdating = false;
 
 
-    public <M> ComboBoxIndexAdapter( JComboBox cb,
+    public <M, V> ComboBoxIndexAdapter( JComboBox cb,
                                       ModelOwnerIF modelOwner,
-                                      Function<M, ?> getter,
-                                      BiConsumer<M, ?> setter,
+                                      Function<M, V> getter,
+                                      BiConsumer<M, V> setter,
                                       String aspectName )
     {
         super( modelOwner, getter, setter, aspectName, null, null );

@@ -10,7 +10,7 @@ public class TooltipTextAdapter extends AbstractAdapter
 {
     private final JComponent m_component;
 
-    public <M> TooltipTextAdapter( JComponent l, ModelOwnerIF modelOwner, Function<M, ?> getter, String aspectName, String nullValue, String undefinedValue )
+    public <M, V> TooltipTextAdapter( JComponent l, ModelOwnerIF modelOwner, Function<M, V> getter, String aspectName, String nullValue, String undefinedValue )
     {
         super( modelOwner, getter, null, aspectName, nullValue, undefinedValue );
 

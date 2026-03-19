@@ -25,10 +25,10 @@ public class RadioButtonAdapter extends AbstractAdapter implements ActionListene
     private transient boolean m_isUpdating = false;
 
     
-    public <M> RadioButtonAdapter( JRadioButton radioButton,
+    public <M, V> RadioButtonAdapter( JRadioButton radioButton,
                                     ModelOwnerIF modelOwner,
-                                    Function<M, ?> getter,
-                                    BiConsumer<M, ?> setter,
+                                    Function<M, V> getter,
+                                    BiConsumer<M, V> setter,
                                     String aspectName,
                                     Object choice )
     {

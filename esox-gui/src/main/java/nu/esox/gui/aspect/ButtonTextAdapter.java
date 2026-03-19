@@ -10,7 +10,7 @@ public class ButtonTextAdapter extends AbstractAdapter
     private final AbstractButton m_button;
 
 
-    public <M> ButtonTextAdapter( AbstractButton b, ModelOwnerIF modelOwner, Function<M, ?> getter, String aspectName, String nullValue, String undefinedValue )
+    public <M, V> ButtonTextAdapter( AbstractButton b, ModelOwnerIF modelOwner, Function<M, V> getter, String aspectName, String nullValue, String undefinedValue )
     {
         super( modelOwner, getter, null, aspectName, nullValue, undefinedValue );
         m_button = b;

@@ -60,7 +60,7 @@ public class VerificationSetPanel extends ModelPanel
 
         new EnablePredicateAdapter( this, null, m_importAction, null, m_table.getHasModel() );
         
-        new SubModelAdapter( m_table, "setVerificationSet", VerificationSet.class, this, Year.class, "getVerifications", null );
+        new SubModelAdapter( m_table, VerificationSetTable::setVerificationSet, this, Year::getVerifications, null );
 
         new TableSelectionAdapter( m_table, verificationPanel )//, Verification.class, "setVerification" )
         {

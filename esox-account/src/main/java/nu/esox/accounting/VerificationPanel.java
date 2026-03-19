@@ -35,15 +35,15 @@ public class VerificationPanel extends ModelPanel
         {
             e.setLayout( new RowLayout( 10, false, false, RowLayout.LEFT, 0.5 ) );
             add( e, BorderLayout.NORTH );
-            new SubModelAdapter( e, "setNamedAndNumbered", NamedAndNumbered.class, this, null );
-            
+            new SubModelAdapter( e, NamedAndNumberedEditor::setNamedAndNumbered, this, null, null );
+
             e.add( new LabelPanel( dtf, "Datum" ) );
             dtf.setColumns( 10 );
-            new FormattedTextFieldAdapter( dtf, this, Verification.class, "getDate", "setDate", java.util.Date.class, null, null, null );
+            new FormattedTextFieldAdapter( dtf, this, Verification::getDate, Verification::setDate, java.util.Date.class, null, null, null );
 
             JCheckBox cb = new JCheckBox();
             e.add( new LabelPanel( cb, "Öppen" ) );
-            new CheckBoxAdapter( cb, this, Verification.class, "isEditable", "setEditable", null );
+            new CheckBoxAdapter( cb, this, Verification::isEditable, Verification::setEditable, null );
         }
         
         m_table =
@@ -58,8 +58,8 @@ public class VerificationPanel extends ModelPanel
       
               //if ( tableId != null ) SwingPrefs.add( tableId, m_table );
             p.add( new JScrollPane( m_table ), ColumnLayout.FILL );
-            new SubModelAdapter( m_table, "setTransactionSet", TransactionSet.class, this, Verification.class, "getTransactions", null );
-            new SubModelAdapter( m_table, "setAccounts", AccountPopulation.class, this, Verification.class, "getAccounts", null );
+            new SubModelAdapter( m_table, TransactionSetTable::setTransactionSet, this, Verification::getTransactions, null );
+            new SubModelAdapter( m_table, TransactionSetTable::setAccounts, this, Verification::getAccounts, null );
 
 
             {
@@ -75,7 +75,7 @@ public class VerificationPanel extends ModelPanel
                 m_table.getActionMap().put( m_deleteAction.getValue( Action.NAME ), m_deleteAction );
 
                 p.add( new LabelPanel( ata, "Kom ihåg!" ) );
-                new TextAreaAdapter( ata, 500, this, Verification.class, "getAlert", "setAlert", null );
+                new TextAreaAdapter( ata, 500, this, Verification::getAlert, Verification::setAlert, null );
                 
                 JPanel buttons = new JPanel( new RowLayout( 5 ) );
                 p.add( buttons );
@@ -105,7 +105,7 @@ public class VerificationPanel extends ModelPanel
             JFormattedTextField tf = new AmountTextField();
             p.add( new JLabel( "" ),  RowLayout.FILL );
             p.add( new LabelPanel( tf, "Saldo" ) );
-            new FormattedTextFieldAdapter( tf, this, Verification.class, "getAmount", null, double.class, null, Double.NaN, Double.NaN );
+            new FormattedTextFieldAdapter( tf, this, Verification::getAmount, null, double.class, null, Double.NaN, Double.NaN );
         }
 
         new EnablePredicateAdapter( new JComponent [] { m_table },

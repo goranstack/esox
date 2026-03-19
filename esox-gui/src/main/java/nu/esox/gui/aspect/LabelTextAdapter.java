@@ -10,7 +10,7 @@ public class LabelTextAdapter extends AbstractAdapter
 {
     private final JLabel m_label;
 
-    public <M> LabelTextAdapter( JLabel l, ModelOwnerIF modelOwner, Function<M, ?> getter, String aspectName, String nullValue, String undefinedValue )
+    public <M, V> LabelTextAdapter( JLabel l, ModelOwnerIF modelOwner, Function<M, V> getter, String aspectName, String nullValue, String undefinedValue )
     {
         super( modelOwner, getter, null, aspectName, nullValue, undefinedValue );
 

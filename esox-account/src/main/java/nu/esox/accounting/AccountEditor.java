@@ -36,15 +36,15 @@ public class AccountEditor extends ModelPanel
             add( p );
 
             p.add( new LabelPanel( m_numberTextField, "Nummer" ) );
-            new FormattedTextFieldAdapter( m_numberTextField, this, Account.class, "getNumber", "setNumber", int.class, null, null, null );
+            new FormattedTextFieldAdapter( m_numberTextField, this, Account::getNumber, Account::setNumber, int.class, null, null, null );
 
             typeComboBox.setPreferredSize( new java.awt.Dimension( typeComboBox.getPreferredSize().width, m_numberTextField.getPreferredSize().height ) );
             typeComboBox.setMaximumRowCount( Account.TYPES.length );
             p.add( new LabelPanel( typeComboBox, "Typ" ) );
-            new ComboBoxAdapter( typeComboBox, this, Account.class, "getType", "setType", Account.Type.class, null, Account.TYPE_UNDEFINED.toString(), Account.TYPE_UNDEFINED.toString() );
-            
+            new ComboBoxAdapter( typeComboBox, this, Account::getType, Account::setType, null, Account.TYPE_UNDEFINED.toString(), Account.TYPE_UNDEFINED.toString() );
+
             p.add( new LabelPanel( lockedCheckBox, "Låst" ) );
-            new CheckBoxAdapter( lockedCheckBox, this, Account.class, "isLocked", "setLocked", null );
+            new CheckBoxAdapter( lockedCheckBox, this, Account::isLocked, Account::setLocked, null );
         }
 
         {
@@ -52,21 +52,21 @@ public class AccountEditor extends ModelPanel
             add( p );
 
             p.add( new LabelPanel( nameTextField, "Namn" ) );
-            new TextFieldAdapter( nameTextField, this, Account.class, "getName", "setName", String.class, null, "", "" );
+            new TextFieldAdapter( nameTextField, this, Account::getName, Account::setName, null, "", "" );
             TextFieldFocusHandler.add( nameTextField );
 
             {
                 LabelPanel l = new LabelPanel( initialBalanceTextField, "Ingånde balans" );
                 p.add( l );
-                new FormattedTextFieldAdapter( initialBalanceTextField, this, Account.class, "getIb", "setIb", double.class, null, null, null );
-                new VisibleAdapter( l, this, Account.class, "hasIb", null, true, false, false, false );
+                new FormattedTextFieldAdapter( initialBalanceTextField, this, Account::getIb, Account::setIb, double.class, null, null, null );
+                new VisibleAdapter( l, this, Account::hasIb, null, true, false, false, false );
             }
 
             {
                 LabelPanel l = new LabelPanel( budgetTextField, "Budget" );
                 p.add( l );
-                new FormattedTextFieldAdapter( budgetTextField, this, Account.class, "getBudget", "setBudget", double.class, null, null, null );
-                new VisibleAdapter( l, this, Account.class, "hasBudget", null, true, false, false, false );
+                new FormattedTextFieldAdapter( budgetTextField, this, Account::getBudget, Account::setBudget, double.class, null, null, null );
+                new VisibleAdapter( l, this, Account::hasBudget, null, true, false, false, false );
             }
         }
 
@@ -79,7 +79,7 @@ public class AccountEditor extends ModelPanel
             {
                 JFormattedTextField t = new AmountTextField();
                 p.add( new LabelPanel( t, "Saldo" ) );
-                new FormattedTextFieldAdapter( t, this, Account.class, "getAmount", null, double.class, null, Double.NaN, Double.NaN );
+                new FormattedTextFieldAdapter( t, this, Account::getAmount, null, double.class, null, Double.NaN, Double.NaN );
             }
         }
 

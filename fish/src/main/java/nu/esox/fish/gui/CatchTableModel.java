@@ -24,9 +24,9 @@ public class CatchTableModel extends ObservableListTableModel<Catch>
         new CatchColumn []
         {
             new CatchColumn( "Species", String.class ) { public Object getValue( Catch c ) { return c.getFish().getSpecies(); } },
-            new CatchColumn( "Weight",  Number.class ) { public Object getValue( Catch c ) { return c.getFish().getWeight(); } },
-            new CatchColumn( "Length",  Number.class ) { public Object getValue( Catch c ) { return c.getFish().getLength(); } },
-            new CatchColumn( "Girth",   Number.class ) { public Object getValue( Catch c ) { return c.getFish().getGirth(); } },
+            new CatchColumn( "Weight",  Number.class ) { public Object getValue( Catch c ) { return nanToNull( c.getFish().getWeight() ); } },
+            new CatchColumn( "Length",  Number.class ) { public Object getValue( Catch c ) { return nanToNull( c.getFish().getLength() ); } },
+            new CatchColumn( "Girth",   Number.class ) { public Object getValue( Catch c ) { return nanToNull( c.getFish().getGirth() ); } },
             new CatchColumn( "Venue",   String.class ) { public Object getValue( Catch c ) { return c.getCoordinates().getVenue(); } },
             new CatchColumn( "Swim",    String.class ) { public Object getValue( Catch c ) { return c.getCoordinates().getSwim(); } },
             new CatchColumn( "When",    Date.class )   { public Object getValue( Catch c ) { return c.getCoordinates().getWhen(); } },
@@ -35,6 +35,11 @@ public class CatchTableModel extends ObservableListTableModel<Catch>
         };
 
     
+    private static Double nanToNull( double value )
+    {
+        return Double.isNaN( value ) ? null : value;
+    }
+
     private static abstract class CatchColumn extends Column<Catch>
     {
         CatchColumn( String name, Class type ) { super( name, type, false ); }

@@ -12,10 +12,10 @@ public class CheckBoxAdapter extends AbstractBooleanAdapter implements ActionLis
     private final AbstractButton m_button;
 
 
-    public <M> CheckBoxAdapter( AbstractButton cb,
+    public <M, V> CheckBoxAdapter( AbstractButton cb,
                                 ModelOwnerIF modelOwner,
-                                Function<M, ?> getter,
-                                BiConsumer<M, ?> setter,
+                                Function<M, V> getter,
+                                BiConsumer<M, V> setter,
                                 String aspectName )
     {
         super( modelOwner, getter, setter, aspectName, true, false, null, false );

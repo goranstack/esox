@@ -11,7 +11,7 @@ public class SliderAdapter extends AbstractAdapter implements ChangeListener
     private final JSlider m_slider;
 
 
-    public <M> SliderAdapter( JSlider slider, ModelOwnerIF modelOwner, Function<M, ?> getter, BiConsumer<M, ?> setter, String aspectName, int nullValue, int undefinedValue )
+    public <M, V> SliderAdapter( JSlider slider, ModelOwnerIF modelOwner, Function<M, V> getter, BiConsumer<M, V> setter, String aspectName, int nullValue, int undefinedValue )
     {
         super( modelOwner, getter, setter, aspectName, new Integer( nullValue ), new Integer( undefinedValue ) );
 

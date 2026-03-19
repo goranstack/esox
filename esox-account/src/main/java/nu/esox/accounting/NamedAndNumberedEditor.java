@@ -24,13 +24,13 @@ public class NamedAndNumberedEditor extends ModelPanel
         {
             JFormattedTextField t = new NumberTextField();
             add( new LabelPanel( t, "Nummer" ) );
-            new FormattedTextFieldAdapter( t, this, NamedAndNumbered.class, "getNumber", m_isNumberEditable ? "setNumber" : null, int.class, null, null, null );
+            new FormattedTextFieldAdapter( t, this, NamedAndNumbered::getNumber, m_isNumberEditable ? NamedAndNumbered::setNumber : null, int.class, null, null, null );
         }
 
         {
             JTextField t = new JTextField( 20 );
             add( new LabelPanel( t, "Namn" ) );
-            new TextFieldAdapter( t, this, NamedAndNumbered.class, "getName", "setName", String.class, null, "", "" );
+            new TextFieldAdapter( t, this, NamedAndNumbered::getName, NamedAndNumbered::setName, null, "", "" );
             TextFieldFocusHandler.add( t );
         }
     }

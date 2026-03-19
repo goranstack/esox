@@ -70,7 +70,7 @@ public class AccountPopulationEditor extends ModelPanel
         add( east, BorderLayout.EAST );
 
 
-        new SubModelAdapter( m_table, "setAccountPopulation", AccountPopulation.class, this, null );//, AccountPopulation.class, "getAccountPopulation" );
+        new SubModelAdapter( m_table, AccountPopulationTable::setAccountPopulation, this, null, null );
 
         ListSelectionListener l =
             new ListSelectionListener()

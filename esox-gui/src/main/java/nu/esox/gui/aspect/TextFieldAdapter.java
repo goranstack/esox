@@ -11,12 +11,12 @@ public class TextFieldAdapter extends AbstractAdapter implements ActionListener
     private final JTextField m_textField;
 
     
-    public <M> TextFieldAdapter( JTextField textField, ModelOwnerIF modelOwner, Function<M, ?> getter, BiConsumer<M, ?> setter, String aspectName )
+    public <M, V> TextFieldAdapter( JTextField textField, ModelOwnerIF modelOwner, Function<M, V> getter, BiConsumer<M, V> setter, String aspectName )
     {
         this( textField, modelOwner, getter, setter, aspectName, "", "" );
     }
 
-    public <M> TextFieldAdapter( JTextField textField, ModelOwnerIF modelOwner, Function<M, ?> getter, BiConsumer<M, ?> setter, String aspectName, String nullValue, String undefinedValue )
+    public <M, V> TextFieldAdapter( JTextField textField, ModelOwnerIF modelOwner, Function<M, V> getter, BiConsumer<M, V> setter, String aspectName, String nullValue, String undefinedValue )
     {
         super( modelOwner, getter, setter, aspectName, nullValue, undefinedValue );
 

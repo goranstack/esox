@@ -7,13 +7,13 @@ import nu.esox.gui.*;
 
 public class ModelPanelAdapter extends SubModelAdapter
 {
-    public <M> ModelPanelAdapter( ModelPanel modelPanel,
+    public <M, V> ModelPanelAdapter( ModelPanel modelPanel,
                                   ModelOwnerIF modelOwner,
-                                  Function<M, ?> getter,
+                                  Function<M, V> getter,
                                   String aspectName )
     {
         super( modelPanel,
-               (BiConsumer<ModelPanel, Object>) (p, v) -> p.setModel( (ObservableIF) v ),
+               (BiConsumer<ModelPanel, V>) (p, v) -> p.setModel( (ObservableIF) v ),
                modelOwner,
                getter,
                aspectName );

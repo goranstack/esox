@@ -10,7 +10,7 @@ public class ProgressBarAdapter extends AbstractAdapter
 {
     private final JProgressBar m_progressBar;
 
-    public <M> ProgressBarAdapter( JProgressBar progressBar, ModelOwnerIF modelOwner, Function<M, ?> getter, String aspectName )
+    public <M, V> ProgressBarAdapter( JProgressBar progressBar, ModelOwnerIF modelOwner, Function<M, V> getter, String aspectName )
     {
         super( modelOwner, getter, null, aspectName, (Integer) 0, (Integer) 0 );
 

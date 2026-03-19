@@ -12,12 +12,12 @@ public class EnableAdapter extends AbstractBooleanAdapter
     private final EnableableCollection m_enableables = new EnableableCollection();
 
 
-    public <M> EnableAdapter( JComponent trueComponent,
+    public <M, V> EnableAdapter( JComponent trueComponent,
                                JComponent falseComponent,
                                Action trueAction,
                                Action falseAction,
                                ModelOwnerIF modelOwner,
-                               Function<M, ?> getter,
+                               Function<M, V> getter,
                                String aspectName,
                                Object trueValue,
                                Object falseValue,
@@ -37,12 +37,12 @@ public class EnableAdapter extends AbstractBooleanAdapter
               undefinedValue );
     }
 
-    public <M> EnableAdapter( JComponent [] trueComponents,
+    public <M, V> EnableAdapter( JComponent [] trueComponents,
                                JComponent [] falseComponents,
                                Action [] trueActions,
                                Action [] falseActions,
                                ModelOwnerIF modelOwner,
-                               Function<M, ?> getter,
+                               Function<M, V> getter,
                                String aspectName,
                                Object trueValue,
                                Object falseValue,

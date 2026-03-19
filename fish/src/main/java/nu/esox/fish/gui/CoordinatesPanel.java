@@ -21,23 +21,23 @@ public class CoordinatesPanel extends ModelPanel
             add( new JLabel( "Venue" ) );
             JTextField tf = new JTextField( 20 );
             add( tf );
-            new TextFieldAdapter( tf, this, Coordinates.class, "getVenue", "setVenue", "venue" );
+            new TextFieldAdapter( tf, this, Coordinates::getVenue, Coordinates::setVenue, "venue" );
             TextFieldFocusHandler.add( tf );
         }
-        
+
         {
             add( new JLabel( "Swim" ) );
             JTextField tf = new JTextField( 20 );
             add( tf );
-            new TextFieldAdapter( tf, this, Coordinates.class, "getSwim", "setSwim", "swim" );
+            new TextFieldAdapter( tf, this, Coordinates::getSwim, Coordinates::setSwim, "swim" );
             TextFieldFocusHandler.add( tf );
         }
-        
+
         {
             add( new JLabel( "When" ) );
             JFormattedTextField tf = new JFormattedTextField( new SimpleDateFormat( "yyyy-MM-dd" ) );
             add( tf );
-            new FormattedTextFieldAdapter( tf, this, Coordinates.class, "getWhen", "setWhen", Date.class, "when", null, null );
+            new FormattedTextFieldAdapter( tf, this, Coordinates::getWhen, Coordinates::setWhen, Date.class, "when", null, null );
             TextFieldFocusHandler.add( tf );
         }
     }

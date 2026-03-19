@@ -24,30 +24,30 @@ public class FishPanel extends ModelPanel
             cb.addItem( "perch" );
             cb.addItem( "pike" );
             cb.addItem( "zander" );
-            new ComboBoxAdapter( cb, this, Fish.class, "getSpecies", "setSpecies", String.class, "species", null, null );
+            new ComboBoxAdapter( cb, this, Fish::getSpecies, Fish::setSpecies, "species", null, null );
         }
 
         {
             add( new JLabel( "Weight" ) );
             JFormattedTextField tf = new JFormattedTextField( new DecimalFormat( "0.000" ) );
             add( tf );
-            new FormattedTextFieldAdapter( tf, this, Fish.class, "getWeight", "setWeight", double.class, "weight", null, null );
+            new FormattedTextFieldAdapter( tf, this, Fish::getWeight, Fish::setWeight, double.class, "weight", null, null );
             TextFieldFocusHandler.add( tf );
         }
-        
+
         {
             add( new JLabel( "Length" ) );
             JFormattedTextField tf = new JFormattedTextField( new DecimalFormat( "0" ) );
             add( tf );
-            new FormattedTextFieldAdapter( tf, this, Fish.class, "getLength", "setLength", double.class, "length", null, null );
+            new FormattedTextFieldAdapter( tf, this, Fish::getLength, Fish::setLength, double.class, "length", null, null );
             TextFieldFocusHandler.add( tf );
         }
-        
+
         {
             add( new JLabel( "Girth" ) );
             JFormattedTextField tf = new JFormattedTextField( new DecimalFormat( "0" ) );
             add( tf );
-            new FormattedTextFieldAdapter( tf, this, Fish.class, "getGirth", "setGirth", double.class, "girth", null, null );
+            new FormattedTextFieldAdapter( tf, this, Fish::getGirth, Fish::setGirth, double.class, "girth", null, null );
             TextFieldFocusHandler.add( tf );
         }
     }

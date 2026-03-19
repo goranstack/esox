@@ -33,7 +33,7 @@ public class Fish extends Observable
     public void setWeight( double weight )
     {
         if
-            ( weight != m_weight )
+            ( Double.compare( weight, m_weight ) != 0 )
         {
             m_weight = weight;
             fireValueChanged( "weight", null );
@@ -43,7 +43,7 @@ public class Fish extends Observable
     public void setLength( double length )
     {
         if
-            ( length != m_length )
+            ( Double.compare( length, m_length ) != 0 )
         {
             m_length = length;
             fireValueChanged( "length", null );
@@ -53,7 +53,7 @@ public class Fish extends Observable
     public void setGirth( double girth )
     {
         if
-            ( girth != m_girth )
+            ( Double.compare( girth, m_girth ) != 0 )
         {
             m_girth = girth;
             fireValueChanged( "girth", null );

@@ -11,9 +11,9 @@ public class VisibleAdapter extends AbstractBooleanAdapter
     private final JComponent m_component;
 
 
-    public <M> VisibleAdapter( JComponent c,
+    public <M, V> VisibleAdapter( JComponent c,
                                 ModelOwnerIF modelOwner,
-                                Function<M, ?> getter,
+                                Function<M, V> getter,
                                 String aspectName,
                                 Object trueValue,
                                 Object falseValue,

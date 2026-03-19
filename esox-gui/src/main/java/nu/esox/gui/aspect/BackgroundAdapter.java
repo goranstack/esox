@@ -11,7 +11,7 @@ public class BackgroundAdapter extends AbstractAdapter
 {
     private final JComponent m_component;
 
-    public <M> BackgroundAdapter( JComponent c, ModelOwnerIF modelOwner, Function<M, ?> getter, String aspectName, Object nullValue, Object undefinedValue )
+    public <M, V> BackgroundAdapter( JComponent c, ModelOwnerIF modelOwner, Function<M, V> getter, String aspectName, Object nullValue, Object undefinedValue )
     {
         super( modelOwner, getter, null, aspectName, nullValue, undefinedValue );
 

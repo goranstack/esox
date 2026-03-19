@@ -15,12 +15,12 @@ public class TextAreaAdapter extends AbstractAdapter implements FocusListener, A
     private Timer m_timer = null;
 
 
-    public <M> TextAreaAdapter( JTextArea textArea, int commitDelay, ModelOwnerIF modelOwner, Function<M, ?> getter, BiConsumer<M, ?> setter, String aspectName )
+    public <M, V> TextAreaAdapter( JTextArea textArea, int commitDelay, ModelOwnerIF modelOwner, Function<M, V> getter, BiConsumer<M, V> setter, String aspectName )
     {
         this( textArea, commitDelay, modelOwner, getter, setter, aspectName, "", "" );
     }
 
-    public <M> TextAreaAdapter( JTextArea textArea, int commitDelay, ModelOwnerIF modelOwner, Function<M, ?> getter, BiConsumer<M, ?> setter, String aspectName, String nullValue, String undefinedValue )
+    public <M, V> TextAreaAdapter( JTextArea textArea, int commitDelay, ModelOwnerIF modelOwner, Function<M, V> getter, BiConsumer<M, V> setter, String aspectName, String nullValue, String undefinedValue )
     {
         super( modelOwner, getter, setter, aspectName, nullValue, undefinedValue );
 

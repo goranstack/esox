@@ -12,10 +12,10 @@ public class SpinnerAdapter extends AbstractAdapter implements ChangeListener
     private final JSpinner m_spinner;
 
 
-    public <M> SpinnerAdapter( JSpinner spinner,
+    public <M, V> SpinnerAdapter( JSpinner spinner,
                                 ModelOwnerIF modelOwner,
-                                Function<M, ?> getter,
-                                BiConsumer<M, ?> setter,
+                                Function<M, V> getter,
+                                BiConsumer<M, V> setter,
                                 String aspectName,
                                 Object nullValue,
                                 Object undefinedValue )

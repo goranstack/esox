@@ -20,20 +20,20 @@ public class TransactionEditor extends ModelPanel
         {
             AccountComboBox cb = new AccountComboBox();
             add( new LabelPanel( cb, "Konto" ) );
-            new ComboBoxAdapter( cb, this, Transaction.class, "getAccount", "setAccount", Account.class, null, null, null );
-            new SubModelAdapter( cb, "setTransaction", Transaction.class, this, null );
+            new ComboBoxAdapter( cb, this, Transaction::getAccount, Transaction::setAccount, null, null, null );
+            new SubModelAdapter( cb, AccountComboBox::setTransaction, this, null, null );
         }
 
         {
             JTextField t = new JTextField( 30 );
             add( new LabelPanel( t, "Text" ), RowLayout.FILL );
-            new TextFieldAdapter( t, this, Transaction.class, null, "getDescription", "setDescription" );
+            new TextFieldAdapter( t, this, Transaction::getDescription, Transaction::setDescription, null );
         }
 
         {
             JFormattedTextField t = new AmountTextField();
             add( new LabelPanel( t, "Belopp" ) );
-            new FormattedTextFieldAdapter( t, this, Transaction.class, "getAmount", "setAmount", double.class, null, null, null );
+            new FormattedTextFieldAdapter( t, this, Transaction::getAmount, Transaction::setAmount, double.class, null, null, null );
             t.addActionListener( new ActionListener() { public void actionPerformed( ActionEvent ev ) { apply(); } } );
         }
 

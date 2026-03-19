@@ -15,10 +15,10 @@ public class TableAdapter extends AbstractAdapter implements ListSelectionListen
     private transient boolean m_isUpdating = false;
 
 
-    public <M> TableAdapter( JTable table,
+    public <M, V> TableAdapter( JTable table,
                               ModelOwnerIF modelOwner,
-                              Function<M, ?> getter,
-                              BiConsumer<M, ?> setter,
+                              Function<M, V> getter,
+                              BiConsumer<M, V> setter,
                               String aspectName )
     {
         super( modelOwner, getter, setter, aspectName, null, null );

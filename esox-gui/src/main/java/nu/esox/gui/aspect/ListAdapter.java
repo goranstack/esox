@@ -15,10 +15,10 @@ public class ListAdapter extends AbstractAdapter implements ListSelectionListene
     private transient boolean m_isUpdating = false;
 
 
-    public <M> ListAdapter( JList list,
+    public <M, V> ListAdapter( JList list,
                              ModelOwnerIF modelOwner,
-                             Function<M, ?> getter,
-                             BiConsumer<M, ?> setter,
+                             Function<M, V> getter,
+                             BiConsumer<M, V> setter,
                              String aspectName )
     {
         super( modelOwner, getter, setter, aspectName, null, null );

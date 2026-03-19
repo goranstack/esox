@@ -11,11 +11,12 @@ public class FormattedTextFieldAdapter extends AbstractAdapter implements Action
 {
     private final JFormattedTextField m_textField;
     private final Converter m_converter;
+    private transient boolean m_isUpdating = false;
 
-    public <M> FormattedTextFieldAdapter( JFormattedTextField tf,
+    public <M, V> FormattedTextFieldAdapter( JFormattedTextField tf,
                                            ModelOwnerIF modelOwner,
-                                           Function<M, ?> getter,
-                                           BiConsumer<M, ?> setter,
+                                           Function<M, V> getter,
+                                           BiConsumer<M, V> setter,
                                            Class aspectClass,
                                            String aspectName,
                                            Object nullValue,
@@ -85,18 +86,37 @@ public class FormattedTextFieldAdapter extends AbstractAdapter implements Action
     
     public void propertyChange( PropertyChangeEvent ev )
     {
-        setAspectValue( m_textField.getValue() ); 
+        if ( m_isUpdating ) return;
+        setAspectValue( m_textField.getValue() );
     }
 
     protected void update( Object projectedValue )
     {
+        m_isUpdating = true;
         m_textField.setValue( projectedValue );
+        m_isUpdating = false;
     }
-    
+
+    protected Object deriveProjectedValue( Object aspectValue )
+    {
+        if ( aspectValue instanceof Number && Double.isNaN( ( (Number) aspectValue ).doubleValue() ) )
+        {
+            return super.deriveProjectedValue( null );
+        }
+        return super.deriveProjectedValue( aspectValue );
+    }
+
     protected Object deriveAspectValue( Object projectedValue )
     {
         Object aspectValue = super.deriveAspectValue( projectedValue );
-        if ( aspectValue != null ) aspectValue = m_converter.convert( aspectValue );
+        if ( aspectValue != null )
+        {
+            aspectValue = m_converter.convert( aspectValue );
+        } else if ( m_converter == FLOAT_CONVERTER ) {
+            aspectValue = Float.NaN;
+        } else if ( m_converter == DOUBLE_CONVERTER ) {
+            aspectValue = Double.NaN;
+        }
         return aspectValue;
     }
 

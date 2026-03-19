@@ -14,10 +14,10 @@ public class ComboBoxAdapter extends AbstractAdapter implements ActionListener
     private transient boolean m_isUpdating = false;
 
     
-    public <M> ComboBoxAdapter( JComboBox cb,
+    public <M, V> ComboBoxAdapter( JComboBox cb,
                                  ModelOwnerIF modelOwner,
-                                 Function<M, ?> getter,
-                                 BiConsumer<M, ?> setter,
+                                 Function<M, V> getter,
+                                 BiConsumer<M, V> setter,
                                  String aspectName,
                                  Object nullValue,
                                  Object undefinedValue )

@@ -10,9 +10,9 @@ public class ButtonIconAdapter extends AbstractAdapter
     private final AbstractButton m_button;
 
 
-    public <M> ButtonIconAdapter( AbstractButton b,
+    public <M, V> ButtonIconAdapter( AbstractButton b,
                                    ModelOwnerIF modelOwner,
-                                   Function<M, ?> getter,
+                                   Function<M, V> getter,
                                    String aspectName,
                                    String nullValue,
                                    String undefinedValue )

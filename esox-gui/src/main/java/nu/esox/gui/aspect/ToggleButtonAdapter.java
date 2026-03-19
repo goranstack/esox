@@ -12,7 +12,7 @@ public class ToggleButtonAdapter extends AbstractBooleanAdapter implements Actio
     private final JToggleButton m_button;
 
 
-    public <M> ToggleButtonAdapter( JToggleButton b, ModelOwnerIF modelOwner, Function<M, ?> getter, BiConsumer<M, ?> setter, String aspectName )
+    public <M, V> ToggleButtonAdapter( JToggleButton b, ModelOwnerIF modelOwner, Function<M, V> getter, BiConsumer<M, V> setter, String aspectName )
     {
         super( modelOwner, getter, setter, aspectName, Boolean.TRUE, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE );
 
