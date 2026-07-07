@@ -1,10 +1,10 @@
 package nu.esox.gui.aspect;
 
 
-import java.util.*;
-import java.util.function.*;
-import nu.esox.util.*;
-import javax.swing.*;
+import java.util.function.Function;
+
+import javax.swing.Action;
+import javax.swing.JComponent;
 
 
 public class EnableAdapter extends AbstractBooleanAdapter
@@ -49,8 +49,7 @@ public class EnableAdapter extends AbstractBooleanAdapter
                                Object nullValue,
                                Object undefinedValue )
     {
-        super( modelOwner, getter, aspectName );
-
+    	super( modelOwner, getter, aspectName, trueValue, falseValue, nullValue, undefinedValue );
         m_enableables.add( trueComponents, falseComponents, trueActions, falseActions );
         update();
     }
